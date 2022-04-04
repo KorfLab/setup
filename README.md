@@ -127,19 +127,21 @@ We're not talking about laptops but rather R-Studio or Jupyter. These tools are
 great for exploring data, but are not a great way of distributing software.
 
 
-
-
 ## Unix and Python ##
 
 Everyone must learn Unix and Python. Start with the MCB185 repo.
 
-## Go ##
-
-Use the learning-go repo. It assumes you know some Python.
-
 ## Conda and Snakemake ##
 
 Use the learning-snakemake repo
+
+## Cluster ##
+
+Use the spitfire repo.
+
+## Go ##
+
+Use the learning-go repo. It assumes you know some Python.
 
 ## C ##
 
