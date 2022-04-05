@@ -31,9 +31,9 @@ Let's create a directory for all of your programming.
 
 	mkdir Code
 
-The reason that `Cod`_ is capitalized is to follow the "Directories are
-capitalized" practice in your home directory. Inside your `Code` directory, we
-will follow a more standard Unix practice of using lowercase everywhere. Change
+The reason that `Code`_ is capitalized is to follow the "Directories are 
+capitalized" practice in your home directory. Inside your `Code` directory, we 
+will follow a more standard Unix practice of using lowercase everywhere. Change 
 directory to `Code` and create a couple of new directories.
 
 	chdir Code
@@ -58,6 +58,13 @@ Your directory structure should now look like this:
 	Public
 	Templates
 	Videos
+
+## Unix and Python ##
+
+We do all of our work in a Unix/Linux enviornment and Python is our default 
+language. You need to have a working knowledge of both. Ian teaches a 
+Unix/Python course every year called MCB185. Use the latest version of the 
+course. You can find it on GitHub.
 
 ## Unix Shell ##
 
@@ -93,15 +100,16 @@ the changes take effect now and the next time you log in.
 There are 3 overlapping computer activities we tend to do.
 
 1. Developing programs in Python, Go, etc
-2. Running pipelines in Snakemake, Make, etc
+2. Running pipelines in Snakemake
 3. Exploring data in R-Studio or Jupyter notebooks
 
 ### Software Development ###
 
-Some of the work we do in the lab is writing novel programs in Python or Go (and
-much less frequently in other languages such as C and Perl). For these tasks we
-usually use text editors and terminals rather than IDEs. All software
-development and testing should be done in a VM.
+Some of the work we do in the lab is writing novel programs in Python or Go 
+(and much less frequently in other languages such as C and Perl). For these 
+tasks we usually use text editors and terminals rather than IDEs. All software 
+development and testing should be done in a VM on your laptop/desktop and not 
+the cluster or spitfire.
 
 ### Running Pipelines ###
 
@@ -123,31 +131,24 @@ the test set, so some refactoring may occur.
 
 ### Notebook Computing ###
 
-We're not talking about laptops but rather R-Studio or Jupyter. These tools are
-great for exploring data, but are not a great way of distributing software.
-
-
-## Unix and Python ##
-
-Everyone must learn Unix and Python. Start with the MCB185 repo.
+We're not talking about laptops but rather R-Studio or Jupyter. These tools are 
+great for exploring data, but are not a great way of distributing software. Use 
+them where they are useful.
 
 ## Conda and Snakemake ##
 
-Use the learning-snakemake repo
+See the KorfLab/learning-snakemake repo (which doesn't exist yet)
 
 ## Cluster ##
 
-Use the spitfire repo.
+See the KorfLab/spitfire repo (which needs to be modified)
 
 ## Go ##
 
-Use the learning-go repo. It assumes you know some Python.
+See the KorfLab/learning-go repo (which needs to be developed)
 
 ## C ##
 
-Use the learning-c repo. It assumes you know some Python.
+See the KorfLab/learning-C repo.
 
-## Perl ##
-
-Use the Unix-n-Perl repo
 
