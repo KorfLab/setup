@@ -1,7 +1,8 @@
 Setup
 =====
 
-How to set up your programming environment in the Korf Lab.
+This is a best practices document to set up your programming environment in the
+Korf Lab.
 
 ## VM vs. Laptop vs. Desktop vs. Cluster ##
 
@@ -9,11 +10,13 @@ It's best to do all of your code development and testing in a Linux virtual
 machine.
 
 + If you make a mistake, you only messed up the VM
-+ By developing in a minimal environment, you decrease development time
++ By developing in a limited environment, you decrease development time
 + By developing in multiple VMs, you increase portability
 
 If you are running out of memory, or it's taking too long, it's probably because
-you didn't create a minimal test set. Always create a minimal test set.
+you didn't create an appropriate test set. Development always takes longer than
+you think it will, and creating a very small test set at the start will pay off
+10-fold in the future.
 
 ## Directory Structure ##
 
@@ -84,7 +87,6 @@ variables.
 	alias cls="clear; ls"
 	alias lst="ls -lrt"
 	PATH=$PATH:$HOME/Code/bin
-	export PYTHONPATH=$HOME/Code/lib
 
 The `PATH` environment variable already exists. The statement above tells your
 shell to include your `Code/bin` as another place to look for executables.
@@ -138,6 +140,10 @@ We're not talking about laptops but rather R-Studio or Jupyter. These tools are
 great for exploring data, but are not a great way of distributing software. Use 
 them where they are useful.
 
+## Data##
 
+Unfinished section about how to organize data.
 
+## Backup ##
 
+Unfinished section on how to backup stuff.
