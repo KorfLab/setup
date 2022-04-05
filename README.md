@@ -5,7 +5,8 @@ How to set up your programming environment in the Korf Lab.
 
 ## VM vs. Laptop vs. Desktop vs. Cluster ##
 
-Do all of your code development and testing in a Linux virtual machine.
+It's best to do all of your code development and testing in a Linux virtual
+machine.
 
 + If you make a mistake, you only messed up the VM
 + By developing in a minimal environment, you decrease development time
@@ -16,7 +17,7 @@ you didn't create a minimal test set. Always create a minimal test set.
 
 ## Directory Structure ##
 
-By default, your home directory structure looks something like this:
+By default, your Linux home directory structure looks something like this:
 
 	Desktop
 	Documents
@@ -31,7 +32,7 @@ Let's create a directory for all of your programming.
 
 	mkdir Code
 
-The reason that `Code`_ is capitalized is to follow the "Directories are 
+The reason that `Code` is capitalized is to follow the "Directories are 
 capitalized" practice in your home directory. Inside your `Code` directory, we 
 will follow a more standard Unix practice of using lowercase everywhere. Change 
 directory to `Code` and create a couple of new directories.
