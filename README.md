@@ -111,6 +111,10 @@ tasks we usually use text editors and terminals rather than IDEs. All software
 development and testing should be done in a VM on your laptop/desktop and not 
 the cluster or spitfire.
 
+To get started with go, see the https://github.com/KorfLab/learning-go
+
+To get started with C, see the https://github.com/KorfLab/learning-C
+
 ### Running Pipelines ###
 
 When analyzing large datasets, there are generally 3 tasks.
@@ -119,15 +123,13 @@ When analyzing large datasets, there are generally 3 tasks.
 2. Developing the pipeline on a test set - Snakemake
 3. Depoloying the pipeline on a large dataset - Cluster
 
-In order to ensure compatibility, all pipelines use conda to manage the
-environment.
+Pipelines are developed using Conda and Snakemake.
 
-Pipelines are developed using Conda and Snakemake inside a VM with a minimal
-testing set.
+To get started with Conda, see https://github.com/KorfLab/learning-conda
 
-Once the pipline is sufficently working on a test set, it can be deployed on the
-cluster with a real dataset. This may create problems not previously seen with
-the test set, so some refactoring may occur.
+To get started with Snakemake, see https://github.com/KorfLab/learning-snakemake
+
+If you want to run on the cluster, see https://github.com/KorfLab/spitfire
 
 ### Notebook Computing ###
 
@@ -135,20 +137,6 @@ We're not talking about laptops but rather R-Studio or Jupyter. These tools are
 great for exploring data, but are not a great way of distributing software. Use 
 them where they are useful.
 
-## Conda and Snakemake ##
 
-See the KorfLab/learning-snakemake repo (which doesn't exist yet)
-
-## Cluster ##
-
-See the KorfLab/spitfire repo (which needs to be modified)
-
-## Go ##
-
-See the KorfLab/learning-go repo (which needs to be developed)
-
-## C ##
-
-See the KorfLab/learning-C repo.
 
 
