@@ -7,7 +7,8 @@ Korf Lab.
 ## VM vs. Laptop vs. Desktop vs. Cluster ##
 
 It's best to do all of your code development and testing in a Linux virtual
-machine.
+machine. Any modern laptop or desktop is fine. You can even do work on something
+as small as a Raspberry Pi. Why VM?
 
 + If you make a mistake, you only messed up the VM
 + By developing in a limited environment, you make testing easier for others
