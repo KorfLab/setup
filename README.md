@@ -185,26 +185,26 @@ personal things.
 
 By default, your Linux home directory structure looks something like this:
 
-	Desktop
-	Documents
-	Downloads
-	Music
-	Pictures
-	Public
-	Templates
-	Videos
+	Desktop/
+	Documents/
+	Downloads/
+	Music/
+	Pictures/
+	Public/
+	Templates/
+	Videos/
 
 If you've followed the directions above, you will also have anaconda3.
 
-	Desktop
-	Documents
-	Downloads
-	Music
-	Pictures
-	Public
-	Templates
-	Videos
-	anaconda3
+	Desktop/
+	Documents/
+	Downloads/
+	Music/
+	Pictures/
+	Public/
+	Templates/
+	Videos/
+	anaconda3/
 
 Let's create a directory for all of your programming.
 
@@ -225,19 +225,19 @@ Now clone this repo.
 
 Your directory structure should now look like this:
 
-	Code
-		bin
-		lib
-		setup
-	Desktop
-	Documents
-	Downloads
-	Music
-	Pictures
-	Public
-	Templates
-	Videos
-	anaconda3
+	Code/
+		bin/
+		lib/
+		setup/
+	Desktop/
+	Documents/
+	Downloads/
+	Music/
+	Pictures/
+	Public/
+	Templates/
+	Videos/
+	anaconda3/
 
 ## Unix and Python ##
 
@@ -268,7 +268,7 @@ When analyzing large datasets, there are generally 3 tasks.
 
 1. Installing other peoples' software - Conda
 2. Developing the pipeline on a test set - Snakemake
-3. Depoloying the pipeline on a large dataset - Cluster
+3. Deploying the pipeline on a large dataset - Cluster
 
 Pipelines are developed using Conda and Snakemake.
 
