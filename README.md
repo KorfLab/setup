@@ -6,23 +6,21 @@ Korf Lab.
 
 ## VM vs. Laptop vs. Desktop vs. Cluster ##
 
-It's best to do all of your code development and testing in a Linux virtual
-machine. Any modern laptop or desktop is fine. You can even do work on something
-as small as a Raspberry Pi. Why VM?
+It's best to do all of your code development and testing in a relateively small
+Linux virtual machine. Any modern laptop or desktop is fine. Consider deleting
+and recreating your VMs on a regular basis. If you can do this with little
+interruption it means your code and data practices will be easily replicated by
+others. If you cannot do this, you probably have some dangerous practices.
 
-+ If you make a mistake, you only messed up the VM
-+ By developing in a limited environment, you make testing easier for others
-+ By developing in multiple VMs, you increase portability
-
-If you are running out of memory, or something is taking too long, it's
-probably because you didn't create an appropriate test set. Development always
-takes longer than you think it will, and creating a very small test set at the
-start will pay off 10-fold in the future.
+If you find you are running out of memory, or something is taking too long,
+it's probably because you didn't create an appropriate test set. Development
+always takes longer than you think it will, and creating a very small test set
+at the start will pay off 10-fold in the future.
 
 ## VM Installation ##
 
-These instructions assume you will installing a Lubuntu Linux distribution on a
-Windows computer using VirtualBox.
+These instructions assume you will be installing a Lubuntu Linux distribution
+on a Windows computer using VirtualBox.
 
 Stuff you will need:
 
@@ -184,18 +182,8 @@ personal things.
 
 ## Directory Structure ##
 
-By default, your Linux home directory structure looks something like this:
-
-	Desktop/
-	Documents/
-	Downloads/
-	Music/
-	Pictures/
-	Public/
-	Templates/
-	Videos/
-
-If you've followed the directions above, you will also have anaconda3.
+If you've followed the directions above, your home directory will look
+something like this:
 
 	Desktop/
 	Documents/
@@ -220,13 +208,15 @@ directory to `Code` and create a couple of new directories.
 	mkdir bin
 	mkdir lib
 
-Now clone this repo.
+Now clone some repos.
 
 	git clone https://github.com/KorfLab/setup
+	git clone https://github.com/iankorf/MCB185-2022
 
 Your directory structure should now look like this:
 
 	Code/
+		MCB185-2022/
 		bin/
 		lib/
 		setup/
@@ -240,12 +230,21 @@ Your directory structure should now look like this:
 	Videos/
 	anaconda3/
 
+Depending on your needs, you may also want the following repos. Again, `git
+clone` these into your Code directory.
+
+	git clone https://github.com/KorfLab/learning-conda
+	git clone https://github.com/KorfLab/learning-snakemake
+	git clone https://github.com/KorfLab/learning-go
+	git clone https://github.com/KorfLab/learning-C
+	git clone https://github.com/KorfLab/spitfire
+	git clone https://github.com/KorfLab/datacore
+
 ## Unix and Python ##
 
 We do all of our work in a Unix/Linux enviornment and Python is our default
 language. You need to have a working knowledge of both. Ian teaches a
-Unix/Python course every year called MCB185. Use the latest version of the
-course. You can find it on GitHub.
+Unix/Python course every year called MCB185.
 
 ## Programs vs. Pipelines vs. Notebooks ##
 
@@ -275,7 +274,8 @@ Pipelines are developed using Conda and Snakemake.
 
 To get started with Conda, see https://github.com/KorfLab/learning-conda
 
-To get started with Snakemake, see https://github.com/KorfLab/learning-snakemake
+To get started with Snakemake, see
+https://github.com/KorfLab/learning-snakemake
 
 To get started with the cluster, see https://github.com/KorfLab/spitfire
 
@@ -285,9 +285,11 @@ We're not talking about laptops but rather R-Studio or Jupyter. These tools are
 great for exploring data, but are not a great way of distributing software. Use
 them where they are useful.
 
-## Data##
+## Data ##
 
 Unfinished section about how to organize data.
+
+Something about datacore
 
 ## Backup ##
 
