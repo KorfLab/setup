@@ -36,7 +36,8 @@ Actions you will take:
 4. Install Lubuntu
 5. Install Linux additions
 6. Update
-7. Anaconda
+7. Install Anaconda
+8. Final tweaks
 
 ### 1. Download files ###
 
@@ -137,7 +138,7 @@ Now let's make sure the OS has all the latest patches. Go to Start Menu ->
 Preferences -> Apply Full Upgrade. Enter your password and wait for it to
 complete. And then reboot... again.
 
-### 7. Anaconda ###
+### 7. Install Anaconda ###
 
 Open Firefox in your VM and head to https://www.anaconda.com to download
 Anaconda. Next open your QTerminal and navigate to your Downloads folder. Run
@@ -154,10 +155,7 @@ conda init, answer yes.
 Close your terminal and open a new one. You should see `(base)` at the start of
 each prompt. This means you're in the base `conda` environment. When you
 install new bioinformatics programs or even programming languages, use `conda`
-to do that for you. In fact, even parts of `conda` can use improvement, so
-let's add `mamba` as our package resolver.
-
-	conda install -c conda-forge mamba
+to do that for you.
 
 For more information about `conda` see the KorfLab/learning-conda repo.
 
