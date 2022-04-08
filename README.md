@@ -19,8 +19,9 @@ at the start will pay off 10-fold in the future.
 
 ## VM Installation ##
 
-These instructions assume you will be installing a Lubuntu Linux distribution
-on a Windows computer using VirtualBox.
+These instructions assume you will be installing a Lubuntu Linux distribution 
+on a Windows computer using VirtualBox. It's not very different with other 
+distributions or MacOS.
 
 Stuff you will need:
 
@@ -33,7 +34,7 @@ Actions you will take:
 2. Create a virtual machine
 3. Boot into Lubuntu Desktop
 4. Install Lubuntu
-5. Install Linux additions
+5. Install Linux Guest Additions
 6. Update
 7. Install Anaconda
 8. Final tweaks
@@ -47,25 +48,26 @@ Download VirtualBox. It's much smaller. Run the installer.
 
 ### 2. Create a virtual machine ###
 
-Click the "New" button to create a new VM. You can name it anything. I use
-Lubuntu21. Choose a location (I use default). The type is Linux and the Version
-is Ubuntu (64-bit).
+Click the "New" button to create a new VM. You can name it anything. I use 
+Lubuntu-21.10 because that's what I downloaded. Choose a location. Sometimes I 
+use the default, but sometimes I choose an external drive. The type is Linux 
+and the Version is Ubuntu (64-bit).
 
 Assign the VM 2G Memory. The install might not work well with less and doesn't
 need any more. You can change the amount of memory and the number of CPUs
 later.
 
-Create a virtual hard disk using the default VDI and dynamic allocation. Set
-the size to 40G. Lubuntu will take up about 12G. Once you start adding conda
-environments and data, you will start to use more. Setting the limit at 40G
-prevents you from executing a runaway process that tries to use your whole
-disk. Using the dynamic allocation uses only the amount you need, so if you
+Create a virtual hard disk using the default VDI and dynamic allocation. Set 
+the size to 40G. Lubuntu will take up about 12G. Once you start adding conda 
+environments and data, you will start to use more. Setting the limit at 40G 
+prevents you from executing a runaway process that tries to use your whole 
+disk. Using the dynamic allocation uses only the amount you need, so if you 
 have 10G in your VM, your Windows will only be impacted by 10G.
 
 ### 3. Boot into Lubuntu Desktop ###
 
 In "Oracle VM VirtualBox Manager" scroll down until you see "Storage". Click on
-the Optical Drive, and connect it to the Lubutu iso image you downloaded
+the Optical Drive, and connect it to the Lubuntu iso image you downloaded
 earlier.
 
 Press the "Start" button. Soon you will see a typical computer desktop that
@@ -86,9 +88,9 @@ one to get the Linux running inside Windows. Click the "Install" buttons and
 wait a few minutes while Lubuntu installs.
 
 Click the Restart button when it asks you to. After a little while it will tell
-you to remove the instllation medium and the press Enter. Just press Enter.
+you to remove the instllation medium and then press Enter. Just press Enter.
 
-### 5. Install Linux additions ###
+### 5. Install Linux Guest Additions ###
 
 After you see the Lubuntu desktop again, click on the Devices menu at the top.
 Select "Insert Guest Additions CD image...". It probably wont' autorun
@@ -114,14 +116,14 @@ clicking the Start Menu and choosing Leave->Shutdown.
 
 ### 6. Update ###
 
-Back in Oracle VM VirtualBox Manger, click on the "Settings" button. Under the
-"System" tile, you can change the amount of memory and the number of
-processors. I typically set the memory to 4G and the processors to 2. Depending
-on your situation, you might allocate more or less. You can always change your
+Back in Oracle VM VirtualBox Manger, click on the "Settings" button. Under the 
+"System" tile, you can change the amount of memory and the number of 
+processors. I typically set the memory to 4G and the processors to 2. Depending 
+on your situation, you might allocate more or less. You can always change your 
 mind later. Click OK.
 
 Back at the main menu, scroll down to "Storage". Click on the Optical Drive and
-remove the remove the VBoxGuestAdditions.iso.
+remove the VBoxGuestAdditions.iso.
 
 Press the Start button again. You should now be able to click-n-drag the window
 to resize the desktop to whatever shape you want.
@@ -287,10 +289,14 @@ them where they are useful.
 
 ## Data ##
 
-Unfinished section about how to organize data.
+We have a repo for -omic data processing called datacore. If you are developing 
+a new dataset that will be useful to others, put the scripts and a small 
+selection of data in datacore. Don't fill up datacore or any repo with large 
+datafiles.
 
-Something about datacore
+https://github.com/KorfLab/datacore
 
-## Backup ##
-
-Unfinished section on how to backup stuff.
+Data is generally kept in a completely separate place from code. If you have 
+scripts in the same directory with data, you're doing it wrong. Code belongs in 
+your github repos. On the cluster, we put data in `/share/korflab/projects`. 
+See the spitfire repo for more information.
