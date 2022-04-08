@@ -141,10 +141,10 @@ the shell script there (the example shown below might not be the same).
 	cd Downloads
 	sh Anaconda3-2021.11-Linux-x86_64.sh
 
-Read the license agreement and answer yes to accept the terms. Use the default
-location for the install by pressing Enter. It will take a little time to
-install. When the installer asks if you want to initialize Anaconda3 by running
-conda init, answer "yes" (without quotes).
+Read the license agreement and answer "yes" (without quotes) to accept the 
+terms. Use the default location for the install by pressing Enter. It will take 
+a little time to install. When the installer asks if you want to initialize 
+Anaconda3 by running conda init, answer "yes".
 
 Close your terminal and open a new one. You should see `(base)` at the start of
 each prompt. This means you're in the base `conda` environment. When you
@@ -152,6 +152,8 @@ install new bioinformatics programs or even programming languages, use `conda`
 to do that for you.
 
 For more information about `conda` see the KorfLab/learning-conda repo.
+
+You can now remove the Anaconda install file from your Downloads folder.
 
 ### 5. Post-install Tweaks ###
 
