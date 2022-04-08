@@ -138,6 +138,11 @@ should always leave Windows about 4G RAM and 2 CPUs.
 Select the "Storage" tile. Click on the Optical Drive and remove the 
 VBoxGuestAdditions.iso.
 
+Select the "Shared Folders" tile...
+
+	sudo adduser $USER vboxsf
+
+
 -----------------------------------------------------------------------------
 
 Press the Start button again. Things that now work.
