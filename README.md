@@ -8,8 +8,6 @@ the Korf Lab.
 
 Some of these things sound painful. Not doing them will become more painful.
 
-![Overview](layout.png)
-
 ### Do ###
 
 + Develop and test software in a virtual machine
@@ -31,6 +29,8 @@ always takes longer than you think it will, and creating a very small test set
 at the start will pay off 10-fold in the future.
 
 ## VM Installation ##
+
+![Overview](layout.png)
 
 These instructions assume you will be installing a Lubuntu Linux distribution 
 on a Windows computer using VirtualBox. It's not very different with other 
