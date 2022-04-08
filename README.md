@@ -198,8 +198,8 @@ conda initialization.
 
 	source $HOME/Code/setup/profile
 
-At some point, Lubuntu will ask you if you want to install patches. You can if 
-you want, but it's probably not necessary.
+At some point, Lubuntu will ask you if you want to apply updates. Sure, it's
+always a good idea.
 
 ## Directory Structure ##
 
