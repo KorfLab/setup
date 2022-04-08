@@ -1,20 +1,33 @@
 Setup
 =====
 
-This is a best practices document to set up your programming environment in the
-Korf Lab.
+This is a best practices document to set up your bioinformatics environment in 
+the Korf Lab.
 
-## VM vs. Laptop vs. Desktop vs. Cluster ##
+## Overview ##
 
-It's best to do all of your code development and testing in a relateively small
-Linux virtual machine. Any modern laptop or desktop is fine. Consider deleting
-and recreating your VMs on a regular basis. If you can do this with little
-interruption it means your code and data practices will be easily replicated by
-others. If you cannot do this, you probably have some dangerous practices.
+Some of these things sound painful. Not doing them will become more painful.
 
-If you find you are running out of memory, or something is taking too long,
-it's probably because you didn't create an appropriate test set. Development
-always takes longer than you think it will, and creating a very small test set
+![Overview](layout.png)
+
+### Do ###
+
++ Develop and test software in a virtual machine
++ Manage your analyis software with conda
++ Create and perform functional tests regularly
++ Destroy and re-build your VMs from time to time
+
+### Do Not ###
+
++ Do not develop software on the cluster, use a VM
++ Do not develop software in your main OS, use a VM
++ Do not install analysis software via the operating system, use conda
+
+### Troubleshooting ###
+
+If you find you are running out of memory, or something is taking too long, 
+it's probably because you didn't create an appropriate test set. Development 
+always takes longer than you think it will, and creating a very small test set 
 at the start will pay off 10-fold in the future.
 
 ## VM Installation ##
