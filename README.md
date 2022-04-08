@@ -30,14 +30,11 @@ Stuff you will need:
 
 Actions you will take:
 
-1. Download files
-2. Create a virtual machine
-3. Boot into Lubuntu Desktop
-4. Install Lubuntu
-5. Install Linux Guest Additions
-6. Update
-7. Install Anaconda
-8. Final tweaks
+1. Download Files
+2. Create Virtual Machine
+3. Install Lubuntu
+4. Install Anaconda
+5. Post-install Tweaks
 
 ### 1. Download files ###
 
@@ -46,7 +43,7 @@ Download the latest Lubuntu distribution. The file will be named something like
 
 Download VirtualBox. It's much smaller. Run the installer.
 
-### 2. Create a virtual machine ###
+### 2. Create Virtual Machine ###
 
 Click the "New" button to create a new VM. You can name it anything. I use 
 Lubuntu-21.10 because that's what I downloaded. Choose a location. Sometimes I 
@@ -58,13 +55,14 @@ need any more. You can change the amount of memory and the number of CPUs
 later.
 
 Create a virtual hard disk using the default VDI and dynamic allocation. Set 
-the size to 40G. Lubuntu will take up about 12G. Once you start adding conda 
-environments and data, you will start to use more. Setting the limit at 40G 
-prevents you from executing a runaway process that tries to use your whole 
-disk. Using the dynamic allocation uses only the amount you need, so if you 
-have 10G in your VM, your Windows will only be impacted by 10G.
+the size to 40G. Because of the dynamic allocation, you will only use about 10G 
+in Windows. For software development and testing purposes, you will probably 
+not need more than 40G. You might think it's a good idea to set the limit 
+higher just in case, but it's easy to write a program that spams output and 
+fills up your filesystem with junk. In such cases, it's better to have 40G of 
+junk than 500G.
 
-### 3. Boot into Lubuntu Desktop ###
+### 3. Install Lubuntu ###
 
 In "Oracle VM VirtualBox Manager" scroll down until you see "Storage". Click on
 the Optical Drive, and connect it to the Lubuntu iso image you downloaded
@@ -72,8 +70,6 @@ earlier.
 
 Press the "Start" button. Soon you will see a typical computer desktop that
 looks a little like Windows.
-
-### 4. Install Lubuntu ###
 
 Double-click on the "Install Lubuntu" icon on the desktop.
 
@@ -87,10 +83,10 @@ automatically. Your Windows OS already has a password. You don't need another
 one to get the Linux running inside Windows. Click the "Install" buttons and
 wait a few minutes while Lubuntu installs.
 
-Click the Restart button when it asks you to. After a little while it will tell
+Click the Restart button when it asks you to. After a little while it will tell 
 you to remove the instllation medium and then press Enter. Just press Enter.
 
-### 5. Install Linux Guest Additions ###
+------------------------------------------------------------------------------
 
 After you see the Lubuntu desktop again, click on the Devices menu at the top.
 Select "Insert Guest Additions CD image...". It probably wont' autorun
@@ -114,32 +110,29 @@ You need to run the post-install script as the super-user.
 Enter your password and wait for the script to complete. Shutdown the VM
 clicking the Start Menu and choosing Leave->Shutdown.
 
-### 6. Update ###
+-----------------------------------------------------------------------------
 
-Back in Oracle VM VirtualBox Manger, click on the "Settings" button. Under the 
-"System" tile, you can change the amount of memory and the number of 
-processors. I typically set the memory to 4G and the processors to 2. Depending 
-on your situation, you might allocate more or less. You can always change your 
-mind later. Click OK.
+Back in Oracle VM VirtualBox Manger, Select the "Settings" button.
 
-Back at the main menu, scroll down to "Storage". Click on the Optical Drive and
-remove the VBoxGuestAdditions.iso.
+Select the "General" tile and then click on the "Advanced" tab. Set the Shared 
+Clipboard to Bidirectional.
 
-Press the Start button again. You should now be able to click-n-drag the window
-to resize the desktop to whatever shape you want.
+Select the "System" tile, you can change the amount of memory and the number of 
+processors. For software development, you can keep the 2G RAM and 1 CPU, but if 
+you're doing pipeline development, you may want more RAM and more CPUs. You 
+should always leave Windows about 4G RAM and 2 CPUs.
 
-Under the "Devices" menu at the top, click "Shared Clipboard" and then choose
-Bidirectional. This will let you copy-paste from Windows to Linux and back.
+Select the "Storage" tile. Click on the Optical Drive and remove the 
+VBoxGuestAdditions.iso.
 
-You will use the QTerminal application all the time. To make it easy to get to,
-click-n-drag its icon to the Menu Bar at the bottom of the screen (the
-application is in "System Tools").
+-----------------------------------------------------------------------------
 
-Now let's make sure the OS has all the latest patches. Go to Start Menu ->
-Preferences -> Apply Full Upgrade. Enter your password and wait for it to
-complete. And then reboot... again.
+Press the Start button again. Things that now work.
 
-### 7. Install Anaconda ###
++ Resize the screen by click-n-drag to whatever you like
++ Copy-paste from Windows to Linux and back
+
+### 4. Install Anaconda ###
 
 Open Firefox in your VM and head to https://www.anaconda.com to download
 Anaconda. Next open your QTerminal and navigate to your Downloads folder. Run
@@ -151,7 +144,7 @@ the shell script there (the example shown below might not be the same).
 Read the license agreement and answer yes to accept the terms. Use the default
 location for the install by pressing Enter. It will take a little time to
 install. When the installer asks if you want to initialize Anaconda3 by running
-conda init, answer yes.
+conda init, answer "yes" (without quotes).
 
 Close your terminal and open a new one. You should see `(base)` at the start of
 each prompt. This means you're in the base `conda` environment. When you
@@ -160,65 +153,60 @@ to do that for you.
 
 For more information about `conda` see the KorfLab/learning-conda repo.
 
-### 8. Final tweaks ###
+### 5. Post-install Tweaks ###
 
-You will probably want to put some aliases and environment variables in your
-`.bashrc`. I append the following to the file (after the conda setup).
-
-```
-alias ls="ls -F"
-alias cls="clear; ls"
-alias lst="ls -lrth
-alias ..="cd .."
-alias gs="git status"
-alias spit="ssh ikorf@spitfire.genomecenter.ucdavis.edu"
-PATH=$PATH:$HOME/Code/bin
-export PYTHONPATH=$PYTHONPATH:$HOME/Code/lib
-export PERL5LIB=$PERL5LIB:$HOME/Code/lib
-```
+You will use the QTerminal application all the time. To make it easy to get to, 
+click-n-drag its icon to the Menu Bar at the bottom of the screen (the 
+application is in "System Tools").
 
 The default text editor is called FeatherPad, which can be found in the
 Accessories menu. You can click-n-drag that to the Menu Bar if you like it.
 However, you might want to install something else, as editors can be very
 personal things.
 
-## Directory Structure ##
-
-If you've followed the directions above, your home directory will look
-something like this:
-
-	Desktop/
-	Documents/
-	Downloads/
-	Music/
-	Pictures/
-	Public/
-	Templates/
-	Videos/
-	anaconda3/
-
-Let's create a directory for all of your programming.
+Open the QTerminal application and create a new directory for your Code.
 
 	mkdir Code
 
-The reason that `Code` is capitalized is to follow the "Directories are
-capitalized" practice in your home directory. Inside your `Code` directory, we
-will follow a more standard Unix practice of using lowercase everywhere. Change
-directory to `Code` and create a couple of new directories.
+Make a couple directories there.
 
 	chdir Code
-	mkdir bin
-	mkdir lib
+	mkdir bin lib
 
-Now clone some repos.
+Grab the KorfLab setup repository.
 
 	git clone https://github.com/KorfLab/setup
-	git clone https://github.com/iankorf/MCB185-2022
 
-Your directory structure should now look like this:
+You will probably want to put some aliases and environment variables in your 
+`.bashrc`. For example, I use these conveniences.
 
+```
+alias ls="ls -F"
+alias lst="ls -lrth"
+alias cls="clear; ls"
+alias ..="cd .."
+alias gs="git status"
+
+PATH=$PATH:$HOME/Code/bin
+export PYTHONPATH=$PYTHONPATH:$HOME/Code/lib
+export PERL5LIB=$PERL5LIB:$HOME/Code/lib
+```
+
+You can copy-paste these to your login script or better yet, `source` them in 
+from the setup repo. Put a line like this at the end of `.bashrc`, after your 
+conda initialization.
+
+	source $HOME/Code/setup/profile
+
+At some point, Lubuntu will ask you if you want to install patches. You can if 
+you want, but it's probably not necessary.
+
+## Directory Structure ##
+
+Your directory structure should now look something like this:
+
+	anaconda3/
 	Code/
-		MCB185-2022/
 		bin/
 		lib/
 		setup/
@@ -230,29 +218,22 @@ Your directory structure should now look like this:
 	Public/
 	Templates/
 	Videos/
-	anaconda3/
 
-Depending on your needs, you may also want the following repos. Again, `git
-clone` these into your Code directory.
-
-	git clone https://github.com/KorfLab/learning-conda
-	git clone https://github.com/KorfLab/learning-snakemake
-	git clone https://github.com/KorfLab/learning-go
-	git clone https://github.com/KorfLab/learning-C
-	git clone https://github.com/KorfLab/spitfire
-	git clone https://github.com/KorfLab/datacore
+Do all of your software development and testing in the Code directory.
 
 ## Unix and Python ##
 
-We do all of our work in a Unix/Linux enviornment and Python is our default
-language. You need to have a working knowledge of both. Ian teaches a
-Unix/Python course every year called MCB185.
+Everyone is expected to have a working knowledge of Unix and Python. If you 
+want to learn/review, `git clone` it from inside your Code directory.
+
+	chdir ~/Code
+	git clone https://github.com/iankorf/MCB185-2022
 
 ## Programs vs. Pipelines vs. Notebooks ##
 
 There are 3 overlapping computer activities we tend to do.
 
-1. Developing programs in Python, C, Go, etc
+1. Software development in Python, C, Go, etc
 2. Running pipelines in Snakemake
 3. Exploring data in R-Studio or Jupyter notebooks
 
@@ -268,18 +249,14 @@ To get started with C, see the https://github.com/KorfLab/learning-C
 
 When analyzing large datasets, there are generally 3 tasks.
 
-1. Installing other peoples' software - Conda
-2. Developing the pipeline on a test set - Snakemake
-3. Deploying the pipeline on a large dataset - Cluster
+1. Installing other peoples' software - https://github.com/KorfLab/learning-conda
+2. Developing the pipeline on a test set - https://github.com/KorfLab/learning-snakemake
+3. Deploying the pipeline on a large dataset - https://github.com/KorfLab/spitfire
 
-Pipelines are developed using Conda and Snakemake.
-
-To get started with Conda, see https://github.com/KorfLab/learning-conda
-
-To get started with Snakemake, see
-https://github.com/KorfLab/learning-snakemake
-
-To get started with the cluster, see https://github.com/KorfLab/spitfire
+Pipelines are developed using Conda and Snakemake. Always install software with 
+Conda. Don't rely on the local environment. Develop your Snakemake pipelines on 
+a small test set in a VM, and not on the cluster. These practices ensure 
+maximum portability and reproducible data practices.
 
 ### Notebook Computing ###
 
