@@ -1,7 +1,7 @@
 Setup
 =====
 
-This is a best practices document to set up your bioinformatics environment in 
+This is a best practices document to set up your bioinformatics environment in
 the Korf Lab.
 
 ## Overview ##
@@ -23,17 +23,17 @@ Some of these things sound painful. Not doing them will become more painful.
 
 ### Troubleshooting ###
 
-If you find you are running out of memory, or something is taking too long, 
-it's probably because you didn't create an appropriate test set. Development 
-always takes longer than you think it will, and creating a very small test set 
+If you find you are running out of memory, or something is taking too long,
+it's probably because you didn't create an appropriate test set. Development
+always takes longer than you think it will, and creating a very small test set
 at the start will pay off 10-fold in the future.
 
 ## VM Installation ##
 
 ![Overview](layout.png)
 
-These instructions assume you will be installing a Lubuntu Linux distribution 
-on a Windows computer using VirtualBox. It's not very different with other 
+These instructions assume you will be installing a Lubuntu Linux distribution
+on a Windows computer using VirtualBox. It's not very different with other
 distributions or MacOS.
 
 Stuff you will need:
@@ -58,21 +58,21 @@ Download VirtualBox. It's much smaller. Run the installer.
 
 ### 2. Create Virtual Machine ###
 
-Click the "New" button to create a new VM. You can name it anything. I use 
-Lubuntu-21.10 because that's what I downloaded. Choose a location. Sometimes I 
-use the default, but sometimes I choose an external drive. The type is Linux 
+Click the "New" button to create a new VM. You can name it anything. I use
+Lubuntu-21.10 because that's what I downloaded. Choose a location. Sometimes I
+use the default, but sometimes I choose an external drive. The type is Linux
 and the Version is Ubuntu (64-bit).
 
 Assign the VM 2G Memory. The install might not work well with less and doesn't
 need any more. You can change the amount of memory and the number of CPUs
 later.
 
-Create a virtual hard disk using the default VDI and dynamic allocation. Set 
-the size to 40G. Because of the dynamic allocation, you will only use about 10G 
-in Windows. For software development and testing purposes, you will probably 
-not need more than 40G. You might think it's a good idea to set the limit 
-higher just in case, but it's easy to write a program that spams output and 
-fills up your filesystem with junk. In such cases, it's better to have 40G of 
+Create a virtual hard disk using the default VDI and dynamic allocation. Set
+the size to 40G. Because of the dynamic allocation, you will only use about 10G
+in Windows. For software development and testing purposes, you will probably
+not need more than 40G. You might think it's a good idea to set the limit
+higher just in case, but it's easy to write a program that spams output and
+fills up your filesystem with junk. In such cases, it's better to have 40G of
 junk than 500G.
 
 ### 3. Install Lubuntu ###
@@ -96,7 +96,7 @@ automatically. Your Windows OS already has a password. You don't need another
 one to get the Linux running inside Windows. Click the "Install" buttons and
 wait a few minutes while Lubuntu installs.
 
-Click the Restart button when it asks you to. After a little while it will tell 
+Click the Restart button when it asks you to. After a little while it will tell
 you to remove the instllation medium and then press Enter. Just press Enter.
 
 ------------------------------------------------------------------------------
@@ -127,21 +127,16 @@ clicking the Start Menu and choosing Leave->Shutdown.
 
 Back in Oracle VM VirtualBox Manger, Select the "Settings" button.
 
-Select the "General" tile and then click on the "Advanced" tab. Set the Shared 
+Select the "General" tile and then click on the "Advanced" tab. Set the Shared
 Clipboard to Bidirectional.
 
-Select the "System" tile, you can change the amount of memory and the number of 
-processors. For software development, you can keep the 2G RAM and 1 CPU, but if 
-you're doing pipeline development, you may want more RAM and more CPUs. You 
+Select the "System" tile, you can change the amount of memory and the number of
+processors. For software development, you can keep the 2G RAM and 1 CPU, but if
+you're doing pipeline development, you may want more RAM and more CPUs. You
 should always leave Windows about 4G RAM and 2 CPUs.
 
-Select the "Storage" tile. Click on the Optical Drive and remove the 
+Select the "Storage" tile. Click on the Optical Drive and remove the
 VBoxGuestAdditions.iso.
-
-Select the "Shared Folders" tile...
-
-	sudo adduser $USER vboxsf
-
 
 -----------------------------------------------------------------------------
 
@@ -159,9 +154,9 @@ the shell script there (the example shown below might not be the same).
 	cd Downloads
 	sh Anaconda3-2021.11-Linux-x86_64.sh
 
-Read the license agreement and answer "yes" (without quotes) to accept the 
-terms. Use the default location for the install by pressing Enter. It will take 
-a little time to install. When the installer asks if you want to initialize 
+Read the license agreement and answer "yes" (without quotes) to accept the
+terms. Use the default location for the install by pressing Enter. It will take
+a little time to install. When the installer asks if you want to initialize
 Anaconda3 by running conda init, answer "yes".
 
 Close your terminal and open a new one. You should see `(base)` at the start of
@@ -175,8 +170,8 @@ You can now remove the Anaconda install file from your Downloads folder.
 
 ### 5. Post-install Tweaks ###
 
-You will use the QTerminal application all the time. To make it easy to get to, 
-click-n-drag its icon to the Menu Bar at the bottom of the screen (the 
+You will use the QTerminal application all the time. To make it easy to get to,
+click-n-drag its icon to the Menu Bar at the bottom of the screen (the
 application is in "System Tools").
 
 The default text editor is called FeatherPad, which can be found in the
@@ -197,7 +192,7 @@ Grab the KorfLab setup repository.
 
 	git clone https://github.com/KorfLab/setup
 
-You will probably want to put some aliases and environment variables in your 
+You will probably want to put some aliases and environment variables in your
 `.bashrc`. For example, I use these conveniences.
 
 ```
@@ -212,14 +207,47 @@ export PYTHONPATH=$PYTHONPATH:$HOME/Code/lib
 export PERL5LIB=$PERL5LIB:$HOME/Code/lib
 ```
 
-You can copy-paste these to your login script or better yet, `source` them in 
-from the setup repo. Put a line like this at the end of `.bashrc`, after your 
+You can copy-paste these to your login script or better yet, `source` them in
+from the setup repo. Put a line like this at the end of `.bashrc`, after your
 conda initialization.
 
 	source $HOME/Code/setup/profile
 
+-----------------------------------------------------------------------------
+
+This part is optional. If you want to share files between your host OS and your
+VM, you need to set up a shared folder. Why would you do this?
+
++ Your favorite editor is only available on your host OS
++ You have large-ish data files you don't want to copy the VM
+
+Select the "Shared Folders" tile. Click on the folder with the + sign at the
+far right to make a new shared folder.
+
+The "Folder Path" is the folder on your host OS (Windows). Navigate to the
+folder you want to share. If it doesn't exist, create it. The Folder Name
+should auto-populate.
+
+The "Mount Point" is where you want the folder to show up in your VM. For
+example, you might use a mount point of `/home/$USER/MyStuff`, which would show
+up in your Lubuntu home, or `/shared`, which would be off the filesystem root.
+
+Check Auto-mount and Make Permanent. If the shared directory is strictly data,
+you might mount it Read-only, but if it's code, then definitely not.
+
+After clicking OK, you should be able to see the directory in your VM. However,
+you don't have permission to use it. Add yourself to the vboxsf group with the
+following command.
+
+	sudo adduser $USER vboxsf
+
+You have to restart for the changes to take effect.
+
+-----------------------------------------------------------------------------
+
 At some point, Lubuntu will ask you if you want to apply updates. Sure, it's
-always a good idea.
+always a good idea. If you don't want to wait, you can go to Start Menu ->
+Preferences -> Apply Full Upgrade.
 
 ## Directory Structure ##
 
@@ -243,7 +271,7 @@ Do all of your software development and testing in the Code directory.
 
 ## Unix and Python ##
 
-Everyone is expected to have a working knowledge of Unix and Python. If you 
+Everyone is expected to have a working knowledge of Unix and Python. If you
 want to learn/review, `git clone` it from inside your Code directory.
 
 	chdir ~/Code
@@ -273,9 +301,9 @@ When analyzing large datasets, there are generally 3 tasks.
 2. Developing the pipeline on a test set - https://github.com/KorfLab/learning-snakemake
 3. Deploying the pipeline on a large dataset - https://github.com/KorfLab/spitfire
 
-Pipelines are developed using Conda and Snakemake. Always install software with 
-Conda. Don't rely on the local environment. Develop your Snakemake pipelines on 
-a small test set in a VM, and not on the cluster. These practices ensure 
+Pipelines are developed using Conda and Snakemake. Always install software with
+Conda. Don't rely on the local environment. Develop your Snakemake pipelines on
+a small test set in a VM, and not on the cluster. These practices ensure
 maximum portability and reproducible data practices.
 
 ### Notebook Computing ###
@@ -286,14 +314,14 @@ them where they are useful.
 
 ## Data ##
 
-We have a repo for -omic data processing called datacore. If you are developing 
-a new dataset that will be useful to others, put the scripts and a small 
-selection of data in datacore. Don't fill up datacore or any repo with large 
+We have a repo for -omic data processing called datacore. If you are developing
+a new dataset that will be useful to others, put the scripts and a small
+selection of data in datacore. Don't fill up datacore or any repo with large
 datafiles.
 
 https://github.com/KorfLab/datacore
 
-Data is generally kept in a completely separate place from code. If you have 
-scripts in the same directory with data, you're doing it wrong. Code belongs in 
-your github repos. On the cluster, we put data in `/share/korflab/projects`. 
+Data is generally kept in a completely separate place from code. If you have
+scripts in the same directory with data, you're doing it wrong. Code belongs in
+your github repos. On the cluster, we put data in `/share/korflab/projects`.
 See the spitfire repo for more information.
