@@ -10,6 +10,7 @@ Some of these things sound painful. Not doing them will become more painful.
 
 ### Do ###
 
++ Keep all of your code in github
 + Develop and test software in a virtual machine
 + Manage your analyis software with conda
 + Create and perform functional tests regularly
@@ -20,8 +21,9 @@ Some of these things sound painful. Not doing them will become more painful.
 + Do not develop software on the cluster, use a VM
 + Do not develop software in your main OS, use a VM
 + Do not install analysis software via the operating system, use conda
++ Do not write save scripts near data
 
-### Troubleshooting ###
+### Test Sets ###
 
 If you find you are running out of memory, or something is taking too long,
 it's probably because you didn't create an appropriate test set. Development
@@ -325,3 +327,7 @@ Data is generally kept in a completely separate place from code. If you have
 scripts in the same directory with data, you're doing it wrong. Code belongs in
 your github repos. On the cluster, we put data in `/share/korflab/projects`.
 See the spitfire repo for more information.
+
+In the same way that you have a `README.md` in every repo, you should also put
+a `README.md` in every project directory that describes the intent and
+contents.
