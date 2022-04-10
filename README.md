@@ -8,31 +8,108 @@ the Korf Lab.
 
 Some of these things sound painful. Not doing them will become more painful.
 
-### Do ###
+### Rule #1: Create Test/Dev Data ###
+
+Before you start on a project, the most important thing to do is to build a
+minimal dataset for development and testing. We call this our "test" or "dev"
+data.
+
+Software development takes much more time than you expect. The debugging stage
+can be very long. In order to reduce the downtime between iterations, we need a
+small data set that can be processed very quickly.
+
+Software changes over time. Even if we make no changes to our code, our
+software depends on other software, which may change silently. In order to
+ensure that our software continues to produce the same output as before, we
+must perform "functional tests" that automatically compare the current output
+to the expected output.
+
+When it comes time to distribute our software, there should be a tutorial that
+shows how to use the software. The test data is useful here and also to ensure
+that the software passes the functional tests at another location.
+
+Making test data can take some time. For example, let's imagine your project
+involves RNA-seq on the human genome. What is the proper test set? Not the
+entire human genome and 10 RNA-seq libraries. The test set should fit neatly
+into the github repository where the code lives. Ideally, the entire repo is
+small. Under 100M is good. Under 10M is better. Creating the test set means
+making a miniaturized version of the human genome and curating some reads that
+align to that part of the genome. Obviously, the region of the genome matters.
+You probably want some areas with high coverage and some areas with low
+coverage. It may take a week to create a test set. And later, you may have to
+make a better one. This part of our work is sort of like making reagents and
+calibrating instruments. It's a pain but must be done to ensure
+reproducibility.
+
+### Do's ###
 
 + Keep all of your code in github
++ Put test data in your github repo
 + Develop and test software in a virtual machine
-+ Manage your analysis software with conda
++ Manage software with conda
 + Create and perform functional tests regularly
-+ Destroy and re-build your VMs from time to time
++ Destroy and re-build VMs from time to time
++ Put a README in every directory
++ Have someone else run your code/pipeline
++ Adhere to best practices as much as possible
 
-### Do Not ###
+### Don'ts ###
 
-+ Do not develop software on the cluster, use a VM
-+ Do not develop software in your main OS, use a VM
-+ Do not install analysis software via the operating system, use conda
-+ Do not write save scripts near data
++ DO NOT develop software on the cluster, use a VM
++ DO NOT develop software in your main OS, use a VM
++ DO NOT install analysis software via the operating system, use conda
++ DO NOT write/save scripts near data, use github
++ DO NOT use filenames as metadata, write documents
++ DO NOT trust anything to memory, write documents
++ DO NOT justify bad practices with, "I was just..."
 
-### Test Sets ###
+## Bioinformatics Development Environment ##
 
-If you find you are running out of memory, or something is taking too long,
-it's probably because you didn't create an appropriate test set. Development
-always takes longer than you think it will, and creating a very small test set
-at the start will pay off 10-fold in the future.
+Our development environment uses the following technologies.
 
-## VM Installation ##
++ Host OS (Windows or Mac desktop or laptop)
++ Linux Virtual Machine (Lubuntu recommended)
++ Conda (for software management)
 
 ![Overview](layout.png)
+
+### Virtual Machine ###
+
+If you are working in Windows or Mac OS, don't program there. Most professional
+bioinformatics is done in a Unix/Linux environment. While MacOS is based on
+Unix, and Windows now has built-in support for Linux, it's better to work
+inside a Linux virtual machine (VM). Why?
+
++ Your products will be more portable
++ You can protect your host OS from running out of memory
++ You can protect your host filesystem from running out of storage
++ You can't destroy your host computer from stupid things you might do
++ You can avoid overly protective host OS securities
+
+What are the downsides of running a VM?
+
++ You have to install VirtualBox or some other software
++ You have to split RAM between your host and VM
++ Programs running inside the VM may be a little slower (maybe 10%)
+
+The downsides are trivial problems. When you're developing software and
+pipelines, you don't need much RAM or space.If you find that's not true, you
+need to go back and review Rule #1.
+
+### Conda ###
+
+Within the VM, we manage our software with Conda. Does it sound wasteful that
+the host OS has Python, the VM has Python, and yet we override both of those
+and run Python from Conda? Yes, it is wasteful. However, it's also something we
+control ourselves. The host OS might update its Python and break our code. The
+VM may update its Python and break our code. Conda allows us to control all of
+our software dependencies.
+
+You don't need root/superuser access to install software with Conda. This saves
+both your time and the sysadmin's time. The extra storage space used is a small
+price to pay for reproducibility and time savings.
+
+## VM Installation ##
 
 These instructions assume you will be installing a Lubuntu Linux distribution
 on a Windows computer using VirtualBox. It's not very different with other
@@ -50,6 +127,15 @@ Actions you will take:
 3. Install Lubuntu
 4. Install Anaconda
 5. Post-install Tweaks
+
+### Troubleshooting ###
+
+If you follow the instructions below and you get stuck, ask for help.
+
+Some Windows computers are not set up for virtualization. You may need to
+change some BIOS settings.
+
+MacOS may require changing some security settings.
 
 ### 1. Download files ###
 
@@ -95,7 +181,7 @@ your Windows disk. This is erasing the virtual disk you just made. Click
 
 Enter your name and username any way you like. Click the box to log in
 automatically. Your Windows OS already has a password. You don't need another
-one to get the Linux running inside Windows. Click the "Install" buttons and
+one to get to the Linux running inside Windows. Click the "Install" buttons and
 wait a few minutes while Lubuntu installs.
 
 Click the Restart button when it asks you to. After a little while it will tell
