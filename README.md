@@ -12,7 +12,7 @@ Some of these things sound painful. Not doing them will become more painful.
 
 + Keep all of your code in github
 + Develop and test software in a virtual machine
-+ Manage your analyis software with conda
++ Manage your analysis software with conda
 + Create and perform functional tests regularly
 + Destroy and re-build your VMs from time to time
 
@@ -274,7 +274,7 @@ Do all of your software development and testing in the Code directory.
 ## Unix and Python ##
 
 Everyone is expected to have a working knowledge of Unix and Python. If you
-want to learn/review, `git clone` it from inside your Code directory.
+want to learn/review, `git clone` MCB185 to your Code directory.
 
 	chdir ~/Code
 	git clone https://github.com/iankorf/MCB185-2022
