@@ -474,4 +474,10 @@ generate. It should backed up or mirrored somewhere, and it should have
 read-only permissions to prevent it from being changed.
 
 If you're doing development and working with VMs, don't copy data to each VM. 
-Create a read-only shared folder.
+Create a read-only shared folder. In the listing above, it may look like `Data` 
+is in the directory, but it is not. It's just the mount point for a shared 
+folder.
+
+## FAQ ##
+
+Unfinished
