@@ -10,36 +10,40 @@ Some of these things sound painful. Not doing them will become more painful.
 
 ### Rule #1: Create Test/Dev Data ###
 
-Before you start on a project, the most important thing to do is to build a
-minimal dataset for development and testing. We call this our "test" or "dev"
-data.
+Before you start on a project, the most important thing to do is to build a 
+minimal dataset for development and testing. We call this our "test set" or 
+"dev set". We do this for several reasons.
 
-Software development takes much more time than you expect. The debugging stage
-can be very long. In order to reduce the downtime between iterations, we need a
-small data set that can be processed very quickly.
++ Minimize debugging time
++ Functional tests
++ Tutorials
 
-Software changes over time. Even if we make no changes to our code, our
-software depends on other software, which may change silently. In order to
-ensure that our software continues to produce the same output as before, we
-must perform "functional tests" that automatically compare the current output
-to the expected output.
+Software development takes much more time than you expect. The debugging stage 
+can be very long. In order to reduce the downtime between debugging sessions, 
+we need a small data set that can be processed very quickly.
+
+Software changes over time. Even if we make no changes to our code, our 
+software depends on other software, which may change silently. In order to 
+ensure that our software continues to produce the same output as before, we 
+must perform "functional tests" that automatically compare the current output 
+to the previous, expected output.
 
 When it comes time to distribute our software, there should be a tutorial that
 shows how to use the software. The test data is useful here and also to ensure
 that the software passes the functional tests at another location.
 
-Making test data can take some time. For example, let's imagine your project
-involves RNA-seq on the human genome. What is the proper test set? Not the
-entire human genome and 10 RNA-seq libraries. The test set should fit neatly
-into the github repository where the code lives. Ideally, the entire repo is
-small. Under 100M is good. Under 10M is better. Creating the test set means
-making a miniaturized version of the human genome and curating some reads that
-align to that part of the genome. Obviously, the region of the genome matters.
-You probably want some areas with high coverage and some areas with low
-coverage. It may take a week to create a test set. And later, you may have to
-make a better one. This part of our work is sort of like making reagents and
-calibrating instruments. It's a pain but must be done to ensure
-reproducibility.
+Making test data can take some time. For example, let's imagine your project 
+involves RNA-seq on the human genome. What is the proper test set? Not the 
+entire human genome and 10 RNA-seq libraries. The test set should fit neatly 
+into the github repository where the code lives. Ideally, the entire repo is 
+small. Under 100M is good. Under 10M is better. 1M is ideal. Creating a test 
+set for an RNA-seq project means making a miniaturized version of the human 
+genome and curating some reads that align to that part of the genome. 
+Obviously, the region of the genome matters. You probably want some areas with 
+high coverage and some areas with low coverage. It may take a week to create a 
+test set. And later, you may have to make a better one. This part of our work 
+is sort of like making reagents and calibrating instruments. It's a pain but 
+must be done to ensure reproducibility.
 
 ### Do's ###
 
@@ -58,7 +62,7 @@ reproducibility.
 + DO NOT develop software on the cluster, use a VM
 + DO NOT develop software in your main OS, use a VM
 + DO NOT install analysis software via the operating system, use conda
-+ DO NOT write/save scripts near data, use github
++ DO NOT write/save scripts near data, separate code from data
 + DO NOT use filenames as metadata, write documents
 + DO NOT trust anything to memory, write documents
 + DO NOT justify bad practices with, "I was just..."
@@ -98,11 +102,12 @@ need to go back and review Rule #1.
 
 ### Conda ###
 
-Within the VM, we manage our software with Conda. Does it sound wasteful that
-the host OS has Python, the VM has Python, and yet we override both of those
-and run Python from Conda? Yes, it is wasteful. However, it's also something we
-control ourselves. The host OS might update its Python and break our code. The
-VM may update its Python and break our code. Conda allows us to control all of
+Within the VM, we manage our software with Conda. Does it sound wasteful that 
+the host OS has Python, the VM has Python, and yet we override both of those 
+and run Python from Conda? Yes, it is wasteful. However, it's also something we 
+control ourselves. The host OS might update its Python and break our code. The 
+VM may update its Python and break our code. There are many things aside from 
+Python that may change and break our code. Conda allows us to control all of 
 our software dependencies.
 
 You don't need root/superuser access to install software with Conda. This saves
@@ -306,8 +311,8 @@ conda initialization.
 This part is optional. If you want to share files between your host OS and your
 VM, you need to set up a shared folder. Why would you do this?
 
++ You have large-ish data files you don't want to copy to the VM
 + Your favorite editor is only available on your host OS
-+ You have large-ish data files you don't want to copy the VM
 
 Select the "Shared Folders" tile. Click on the folder with the + sign at the
 far right to make a new shared folder.
@@ -316,9 +321,10 @@ The "Folder Path" is the folder on your host OS (Windows). Navigate to the
 folder you want to share. If it doesn't exist, create it. The Folder Name
 should auto-populate.
 
-The "Mount Point" is where you want the folder to show up in your VM. For
-example, you might use a mount point of `/home/$USER/MyStuff`, which would show
-up in your Lubuntu home, or `/shared`, which would be off the filesystem root.
+The "Mount Point" is where you want the folder to show up in your VM. For 
+example, if you wanted to share a data directory from your host OS, you might 
+use a mount point of `/home/$USER/Data`, which would show up in your Lubuntu 
+home, or `/data`, which would be off the filesystem root.
 
 Check Auto-mount and Make Permanent. If the shared directory is strictly data,
 you might mount it Read-only, but if it's code, then definitely not.
@@ -333,9 +339,11 @@ You have to restart for the changes to take effect.
 
 -----------------------------------------------------------------------------
 
-At some point, Lubuntu will ask you if you want to apply updates. Sure, it's
-always a good idea. If you don't want to wait, you can go to Start Menu ->
-Preferences -> Apply Full Upgrade.
+At some point, Lubuntu will ask you if you want to apply updates. Sure, it's 
+always a good idea. If you don't want to wait, you can go to Start Menu -> 
+Preferences -> Apply Full Upgrade. This may increase the amount of space you VM 
+takes up. Again, a little space is a small price to pay for robustness and 
+reproducibility.
 
 ## Directory Structure ##
 
@@ -355,12 +363,13 @@ Your directory structure should now look something like this:
 	Templates/
 	Videos/
 
-Do all of your software development and testing in the Code directory.
+Do all of your software development and testing in the Code directory. Each 
+sub-directory should be a git repo.
 
 ## Unix and Python ##
 
-Everyone is expected to have a working knowledge of Unix and Python. If you
-want to learn/review, `git clone` MCB185 to your Code directory.
+Everyone is expected to have a working knowledge of Unix and Python. If you 
+want to learn/review these, `git clone` MCB185 to your Code directory.
 
 	chdir ~/Code
 	git clone https://github.com/iankorf/MCB185-2022
@@ -377,22 +386,26 @@ There are 3 overlapping computer activities we tend to do.
 
 You should already know Python before moving on to other languages.
 
-To get started with go, see the https://github.com/KorfLab/learning-go
+To get started with Go, see the https://github.com/KorfLab/learning-go
 
 To get started with C, see the https://github.com/KorfLab/learning-C
 
 ### Running Pipelines ###
 
-When analyzing large datasets, there are generally 3 tasks.
+When analyzing large datasets, there are generally 3 tasks: installing 
+software, developing a pipeline, deploying a pipeline. Always install software 
+with Conda. Don't rely on the local environment. Pipelines are developed in 
+Snakemake on a test set in you VM, not the cluster. Once you are ready to 
+deploy a pipeline, then you can run on the cluster.
 
-1. Installing other peoples' software - https://github.com/KorfLab/learning-conda
-2. Developing the pipeline on a test set - https://github.com/KorfLab/learning-snakemake
-3. Deploying the pipeline on a large dataset - https://github.com/KorfLab/spitfire
+ Pipelines are 
+developed using Conda and Snakemake.  Develop your Snakemake pipelines on a small test 
+set in a VM, and not on the cluster. These practices ensure maximum portability 
+and reproducible data practices.
 
-Pipelines are developed using Conda and Snakemake. Always install software with
-Conda. Don't rely on the local environment. Develop your Snakemake pipelines on
-a small test set in a VM, and not on the cluster. These practices ensure
-maximum portability and reproducible data practices.
+1. Conda - https://github.com/KorfLab/learning-conda
+2. Snakemake - https://github.com/KorfLab/learning-snakemake
+3. Cluster - https://github.com/KorfLab/spitfire
 
 ### Notebook Computing ###
 
