@@ -417,3 +417,61 @@ See the spitfire repo for more information.
 In the same way that you have a `README.md` in every repo, you should also put
 a `README.md` in every project directory that describes the intent and
 contents.
+
+------------------------------------------------------------------------------
+
+Suppose I've written a new genome analysis program called `smash` that looks 
+something like this:
+
+```
+#!/usr/bin/env python3
+import argparse
+import grimoire
+# the rest of the code...
+```
+
+Suppose I want to run `smash` on some genomes. I'm no longer doing code 
+development, but analysis. Therefore, my actions don't really belong in the 
+`Code` directory. So I make a new directory for the project off the home 
+directory.
+
+```
+(base) ian@virtualbox: mkdir ~/Smashing
+(base) ian@virtualbox: cd ~/Smashing
+(base) ian@virtualbox: smash ~/Data/genomes/hg19.fa > smash.out
+```
+
+In order to get all of this to work, `smash` must be in my executable path. 
+Since `smash` depends on `grimoire`, it follows that `grimoire` must be in my 
+library path. If you followed the KorfLab/setup, you already have `Code/bin` in 
+your `PATH` and `Code/lib` in your `PYTHONPATH`. You can alias files to those 
+directories to make them visible to the shell and Python.
+
+Your directory layout should look like this:
+
+```
+anaconda3/
+Code/
+	bin/
+		smash@ -> ../smashrepo/smash
+	lib/
+		grimoire@ -> ../grimoire/grimoire
+	setup/
+	smashrepo/
+		smash*
+Data/
+	genomes/
+		hg19.fa
+Desktop/
+Documents/
+Downloads/
+Smashing/
+	smash.out
+```
+
+Managing data is different from code. Data can be large and expensive to 
+generate. It should backed up or mirrored somewhere, and it should have 
+read-only permissions to prevent it from being changed.
+
+If you're doing development and working with VMs, don't copy data to each VM. 
+Create a read-only shared folder.
