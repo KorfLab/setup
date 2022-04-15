@@ -384,7 +384,9 @@ There are 3 overlapping computer activities we tend to do.
 
 ### Software Development ###
 
-You should already know Python before moving on to other languages.
+You should already know Python before moving on to other languages. Our overall 
+philosophy is that code should be simple and beautiful. Please see the 
+algorithms repo https://github.com/KorfLab/algorithms.
 
 To get started with Go, see the https://github.com/KorfLab/learning-go
 
@@ -398,10 +400,9 @@ with Conda. Don't rely on the local environment. Pipelines are developed in
 Snakemake on a test set in you VM, not the cluster. Once you are ready to 
 deploy a pipeline, then you can run on the cluster.
 
- Pipelines are 
-developed using Conda and Snakemake.  Develop your Snakemake pipelines on a small test 
-set in a VM, and not on the cluster. These practices ensure maximum portability 
-and reproducible data practices.
+Pipelines are developed using Conda and Snakemake. Develop your Snakemake 
+pipelines on a small test set in a VM, and not on the cluster. These practices 
+ensure maximum portability and reproducible data practices.
 
 1. Conda - https://github.com/KorfLab/learning-conda
 2. Snakemake - https://github.com/KorfLab/learning-snakemake
