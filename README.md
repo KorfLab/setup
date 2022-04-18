@@ -4,11 +4,13 @@ Setup
 This is a best practices document to set up your bioinformatics environment in
 the Korf Lab.
 
-## Overview ##
+
+Overview
+--------
 
 Some of these things sound painful. Not doing them will become more painful.
 
-### Rule #1: Create Test/Dev Data ###
+### Rule #1: Create Test/Dev Data
 
 Before you start on a project, the most important thing to do is to build a 
 minimal dataset for development and testing. We call this our "test set" or 
@@ -45,7 +47,7 @@ test set. And later, you may have to make a better one. This part of our work
 is sort of like making reagents and calibrating instruments. It's a pain but 
 must be done to ensure reproducibility.
 
-### Do's ###
+### Do's
 
 + Keep all of your code in github
 + Put test data in your github repo
@@ -57,7 +59,7 @@ must be done to ensure reproducibility.
 + Have someone else run your code/pipeline
 + Adhere to best practices as much as possible
 
-### Don'ts ###
+### Don'ts
 
 + DO NOT develop software on the cluster, use a VM
 + DO NOT develop software in your main OS, use a VM
@@ -67,7 +69,9 @@ must be done to ensure reproducibility.
 + DO NOT trust anything to memory, write documents
 + DO NOT justify bad practices with, "I was just..."
 
-## Bioinformatics Development Environment ##
+
+Bioinformatics Development Environment
+--------------------------------------
 
 Our development environment uses the following technologies.
 
@@ -77,7 +81,7 @@ Our development environment uses the following technologies.
 
 ![Overview](layout.png)
 
-### Virtual Machine ###
+### Virtual Machine
 
 If you are working in Windows or Mac OS, don't program there. Most professional
 bioinformatics is done in a Unix/Linux environment. While MacOS is based on
@@ -100,7 +104,7 @@ The downsides are trivial problems. When you're developing software and
 pipelines, you don't need much RAM or space.If you find that's not true, you
 need to go back and review Rule #1.
 
-### Conda ###
+### Conda
 
 Within the VM, we manage our software with Conda. Does it sound wasteful that 
 the host OS has Python, the VM has Python, and yet we override both of those 
@@ -114,7 +118,8 @@ You don't need root/superuser access to install software with Conda. This saves
 both your time and the sysadmin's time. The extra storage space used is a small
 price to pay for reproducibility and time savings.
 
-## VM Installation ##
+VM Installation
+---------------
 
 These instructions assume you will be installing a Lubuntu Linux distribution
 on a Windows computer using VirtualBox. It's not very different with other
@@ -133,7 +138,7 @@ Actions you will take:
 4. Install Anaconda
 5. Post-install Tweaks
 
-### Troubleshooting ###
+### Troubleshooting
 
 If you follow the instructions below and you get stuck, ask for help.
 
@@ -142,14 +147,14 @@ change some BIOS settings.
 
 MacOS may require changing some security settings.
 
-### 1. Download files ###
+### 1. Download files
 
 Download the latest Lubuntu distribution. The file will be named something like
 "lubuntu-21.10-desktop-amd64.iso". It's about 2GB.
 
 Download VirtualBox. It's much smaller. Run the installer.
 
-### 2. Create Virtual Machine ###
+### 2. Create Virtual Machine
 
 Click the "New" button to create a new VM. You can name it anything. I use
 Lubuntu-21.10 because that's what I downloaded. Choose a location. Sometimes I
@@ -168,7 +173,7 @@ higher just in case, but it's easy to write a program that spams output and
 fills up your filesystem with junk. In such cases, it's better to have 40G of
 junk than 500G.
 
-### 3. Install Lubuntu ###
+### 3. Install Lubuntu
 
 In "Oracle VM VirtualBox Manager" scroll down until you see "Storage". Click on
 the Optical Drive, and connect it to the Lubuntu iso image you downloaded
@@ -238,7 +243,7 @@ Press the Start button again. Things that now work.
 + Resize the screen by click-n-drag to whatever you like
 + Copy-paste from Windows to Linux and back
 
-### 4. Install Anaconda ###
+### 4. Install Anaconda
 
 Open Firefox in your VM and head to https://www.anaconda.com to download
 Anaconda. Next open your QTerminal and navigate to your Downloads folder. Run
@@ -261,7 +266,7 @@ For more information about `conda` see the KorfLab/learning-conda repo.
 
 You can now remove the Anaconda install file from your Downloads folder.
 
-### 5. Post-install Tweaks ###
+### 5. Post-install Tweaks
 
 You will use the QTerminal application all the time. To make it easy to get to,
 click-n-drag its icon to the Menu Bar at the bottom of the screen (the
@@ -345,7 +350,9 @@ Preferences -> Apply Full Upgrade. This may increase the amount of space you VM
 takes up. Again, a little space is a small price to pay for robustness and 
 reproducibility.
 
-## Directory Structure ##
+
+Directory Structure
+-------------------
 
 Your directory structure should now look something like this:
 
@@ -366,7 +373,9 @@ Your directory structure should now look something like this:
 Do all of your software development and testing in the Code directory. Each 
 sub-directory should be a git repo.
 
-## Unix and Python ##
+
+Unix and Python
+---------------
 
 Everyone is expected to have a working knowledge of Unix and Python. If you 
 want to learn/review these, `git clone` MCB185 to your Code directory.
@@ -374,7 +383,9 @@ want to learn/review these, `git clone` MCB185 to your Code directory.
 	chdir ~/Code
 	git clone https://github.com/iankorf/MCB185-2022
 
-## Programs vs. Pipelines vs. Notebooks ##
+
+Programs vs. Pipelines vs. Notebooks
+------------------------------------
 
 There are 3 overlapping computer activities we tend to do.
 
@@ -382,7 +393,7 @@ There are 3 overlapping computer activities we tend to do.
 2. Running pipelines in Snakemake
 3. Exploring data in R-Studio or Jupyter notebooks
 
-### Software Development ###
+### Software Development
 
 You should already know Python before moving on to other languages. Our overall 
 philosophy is that code should be simple and beautiful. Please see the 
@@ -392,7 +403,7 @@ To get started with Go, see the https://github.com/KorfLab/learning-go
 
 To get started with C, see the https://github.com/KorfLab/learning-C
 
-### Running Pipelines ###
+### Running Pipelines
 
 When analyzing large datasets, there are generally 3 tasks: installing 
 software, developing a pipeline, deploying a pipeline. Always install software 
@@ -408,13 +419,15 @@ ensure maximum portability and reproducible data practices.
 2. Snakemake - https://github.com/KorfLab/learning-snakemake
 3. Cluster - https://github.com/KorfLab/spitfire
 
-### Notebook Computing ###
+### Notebook Computing
 
 We're not talking about laptops but rather R-Studio or Jupyter. These tools are
 great for exploring data, but are not a great way of distributing software. Use
 them where they are useful.
 
-## Data ##
+
+Managing Data
+-------------
 
 We have a repo for -omic data processing called datacore. If you are developing
 a new dataset that will be useful to others, put the scripts and a small
@@ -491,7 +504,3 @@ If you're doing development and working with VMs, don't copy data to each VM.
 Create a read-only shared folder. In the listing above, it may look like `Data` 
 is in the directory, but it is not. It's just the mount point for a shared 
 folder.
-
-## FAQ ##
-
-Unfinished
