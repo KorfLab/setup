@@ -1,4 +1,5 @@
 alias ls="ls -F"
+alias ll="ls -l"
 alias lst="ls -lrth"
 alias cls="clear; ls"
 alias ..="cd .."
