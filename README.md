@@ -81,12 +81,11 @@ Our development environment uses the following technologies.
 
 ![Overview](layout.png)
 
-### Virtual Machine
+### Linux Virtual Machine
 
-If you are working in Windows or Mac OS, don't program there. Most professional
-bioinformatics is done in a Unix/Linux environment. While MacOS is based on
-Unix, and Windows now has built-in support for Linux, it's better to work
-inside a Linux virtual machine (VM). Why?
+Most professional bioinformatics is done in a Unix/Linux environment. While
+MacOS is based on Unix, and Windows now has built-in support for Linux, it's
+better to work inside a Linux virtual machine (VM). Why?
 
 + Your products will be more portable
 + You can protect your host OS from running out of memory
@@ -101,8 +100,18 @@ What are the downsides of running a VM?
 + Programs running inside the VM may be a little slower (maybe 10%)
 
 The downsides are trivial problems. When you're developing software and
-pipelines, you don't need much RAM or space.If you find that's not true, you
+pipelines, you don't need much RAM or space. If you find that's not true, you
 need to go back and review Rule #1.
+
+### Darwin, WSL, Cygwin, RPi, etc
+
+Programming in multiple environments will make your code more robust. Once you
+get everything set up in a Linux VM, go ahead and also program in other
+operating systems. The built-in support for Darwin (the name of Unix on Mac) and
+WSL (Windows Subsystem for Linux) is pretty attractive. There are other
+Unix-like environments that are also useful like Cygwin and Gitbash. You may
+find it fun to program on a Raspberry Pi or in Haiku. Just don't make any of
+these alternative environments your _only_ environment.
 
 ### Conda
 
@@ -117,6 +126,7 @@ our software dependencies.
 You don't need root/superuser access to install software with Conda. This saves
 both your time and the sysadmin's time. The extra storage space used is a small
 price to pay for reproducibility and time savings.
+
 
 VM Installation
 ---------------
