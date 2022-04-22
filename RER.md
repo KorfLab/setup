@@ -1,12 +1,13 @@
 Research Effectiveness Rating (RER)
 ===================================
 
-Your RER is a rating to see how well you are playing the Bioinformatics
-Researcher Game in the Korf Lab. If you want a high RER, you should do the
-following
+Your RER is a measure of how well you are playing the Bioinformatics Researcher
+Game in the Korf Lab. If you want a high RER, you should do the following:
 
 + Be interactive and collaborative with other members of the lab
 + Follow best practices in your computer environment
++ Be more proactive than reactive or non-active
+
 
 Meetings
 --------
@@ -55,6 +56,20 @@ might be getting lost.
 + I interrupt, asking for clarification +1
 + I interrupt, offering clarification +2
 + I interrupt, asking a question I already know the answer to +2
+
+I schedule individual meetings with the Ian:
+
++ Never -2
++ Only when he asks me -1
++ Only when I'm stuck +0
++ Before I need help +1 
+
+I use Slack to chat with Ian:
+
++ Never -2
++ Only when he starts a conversation -1
++ Only when I'm stuck +0
++ Before I need help +1
 
 
 Computer
