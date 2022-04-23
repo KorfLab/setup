@@ -57,7 +57,7 @@ might be getting lost.
 + I interrupt, offering clarification +2
 + I interrupt, asking a question I already know the answer to +2
 
-I schedule individual meetings with the Ian:
+I schedule individual meetings with Ian:
 
 + Never -2
 + Only when he asks me -1

@@ -58,6 +58,7 @@ must be done to ensure reproducibility.
 + Put a README in every directory
 + Have someone else run your code/pipeline
 + Adhere to best practices as much as possible
++ Read the `RER.md` document in this repo
 
 ### Don'ts
 
@@ -68,6 +69,7 @@ must be done to ensure reproducibility.
 + DO NOT use filenames as metadata, write documents
 + DO NOT trust anything to memory, write documents
 + DO NOT justify bad practices with, "I was just..."
++ DO NOT work alone
 
 
 Bioinformatics Development Environment
@@ -387,8 +389,9 @@ sub-directory should be a git repo.
 Unix and Python
 ---------------
 
-Everyone is expected to have a working knowledge of Unix and Python. If you 
-want to learn/review these, `git clone` MCB185 to your Code directory.
+Everyone is expected to have a working knowledge of Unix and Python. If you want
+to learn/review these, `git clone` some version of the MCB185 repo to your Code
+directory.
 
 	chdir ~/Code
 	git clone https://github.com/iankorf/MCB185-2022
