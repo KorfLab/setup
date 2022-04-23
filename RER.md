@@ -12,6 +12,13 @@ Game in the Korf Lab. If you want a high RER, you should do the following:
 Meetings
 --------
 
+When there is a scheduled meeting:
+
++ I sometimes forget and don't show up -2
++ I sometimes arrrive late -1
++ I arrive on time + 0
++ I arrive ahead of time +1
+
 When in a Zoom meeting:
 
 + I usually have my camera off -1
@@ -94,7 +101,7 @@ I am comfortable with the Unix CLI
 + What's that? -1
 + Somewhat, but I still double-click +0
 + Yes +1
-+ `echo "scale=812; 4*a(1)" | bc -l | tail -1 | awk '{print substr($1, 60, 6)}' | xxd -r -p` +2
++ `echo "scale=812; 4*a(1)" | bc -l | tail -1 | awk '{print substr($1, 60, 6)}' | echo $(xxd -r -p)` +2
 
 
 Programming
