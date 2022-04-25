@@ -78,7 +78,7 @@ Bioinformatics Development Environment
 Our development environment uses the following technologies.
 
 + Host OS (Windows or Mac desktop or laptop)
-+ Linux Virtual Machine (Lubuntu recommended)
++ Linux Virtual Machine (e.g. VirtualBox running Lubuntu)
 + Conda (for software management)
 
 ![Overview](layout.png)
@@ -133,6 +133,11 @@ price to pay for reproducibility and time savings.
 VM Installation
 ---------------
 
+Q: Which Linux distribution should I use?
+
+A: It doesn't really matter. The Linux distributions designed for older hardware
+use less resources. Lubuntu and Linux Lite are two excellent choices.
+
 These instructions assume you will be installing a Lubuntu Linux distribution
 on a Windows computer using VirtualBox. It's not very different with other
 distributions or MacOS.
@@ -161,17 +166,17 @@ MacOS may require changing some security settings.
 
 ### 1. Download files
 
-Download the latest Lubuntu distribution. The file will be named something like
-"lubuntu-21.10-desktop-amd64.iso". It's about 2GB.
+Download the latest Lubuntu or equivalent distribution. The file will be named
+something like "lubuntu-21.10-desktop-amd64.iso". It's about 2GB.
 
 Download VirtualBox. It's much smaller. Run the installer.
 
 ### 2. Create Virtual Machine
 
-Click the "New" button to create a new VM. You can name it anything. I use
+Click the "New" button to create a new VM. You can name it anything. I used
 Lubuntu-21.10 because that's what I downloaded. Choose a location. Sometimes I
-use the default, but sometimes I choose an external drive. The type is Linux
-and the Version is Ubuntu (64-bit).
+use the default, but sometimes I choose an external drive. The type is Linux and
+the Version is Ubuntu (64-bit).
 
 Assign the VM 2G Memory. The install might not work well with less and doesn't
 need any more. You can change the amount of memory and the number of CPUs
@@ -230,7 +235,7 @@ You need to run the post-install script as the super-user.
 
 	sudo sh VBoxLinuxAdditions.run
 
-Enter your password and wait for the script to complete. Shutdown the VM
+Enter your password and wait for the script to complete. Shutdown the VM by
 clicking the Start Menu and choosing Leave->Shutdown.
 
 -----------------------------------------------------------------------------
@@ -295,7 +300,7 @@ Open the QTerminal application and create a new directory for your Code.
 
 Make a couple directories there.
 
-	chdir Code
+	cd Code
 	mkdir bin lib
 
 Grab the KorfLab setup repository.
