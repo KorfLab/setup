@@ -26,7 +26,7 @@ When in a Zoom meeting:
 + I usually have my camera on +1
 
 People are talking about something and the topic is so unfamiliar that they
-might as well be speaking a foreign language. 
+might as well be speaking a foreign language.
 
 + I ignore it, it's probably not important to me -2
 + I don't say anything, planning to look it up later -1
@@ -69,7 +69,7 @@ I schedule individual meetings with Ian:
 + Never -2
 + Only when he asks me -1
 + Only when I'm stuck +0
-+ Before I need help +1 
++ Before I need help +1
 
 I use Slack to chat with Ian:
 
@@ -107,14 +107,6 @@ I am comfortable with the Unix CLI
 Programming
 -----------
 
-My programming level is:
-
-+ I have no interest in programming -1
-+ Novice +0
-+ Intermediate +1
-+ Advanced +2
-+ Expert +3
-
 General practices: +1 for each of the following
 
 + I use R-Studio
@@ -136,15 +128,17 @@ General practices: +1 for each of the following
 
 My policy on unit tests:
 
-+ What's that? -1
-+ I've seen them, but never used them +0
++ What's that? -2
++ I've seen them, but never used them -1
++ I'm interested, tell me more +0
 + I have created some +1
 + I use them regularly +2
 
 My policy on functional tests:
 
-+ What's that -1
-+ I've seen them, but never used them +0
++ What's that -2
++ I've seen them, but never used them -1
++ I'm interested, tell me more +0
 + I have crated some +1
 + I use them regularly +2
 
@@ -155,4 +149,3 @@ Documentation: +1 for each
 + My programs have Unix man pages
 + I write API docs
 + I write tutorials
-
