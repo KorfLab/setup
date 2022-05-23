@@ -83,11 +83,11 @@ Our development environment uses the following technologies.
 
 ![Overview](layout.png)
 
-### Linux Virtual Machine
+### Linux Virtual Machine on Windows
 
 Most professional bioinformatics is done in a Unix/Linux environment. While
-MacOS is based on Unix, and Windows now has built-in support for Linux, it's
-better to work inside a Linux virtual machine (VM). Why?
+Windows now has built-in support for Linux, it's better to work inside a Linux
+virtual machine (VM). Why?
 
 + Your products will be more portable
 + You can protect your host OS from running out of memory
@@ -105,12 +105,18 @@ The downsides are trivial problems. When you're developing software and
 pipelines, you don't need much RAM or space. If you find that's not true, you
 need to go back and review Rule #1.
 
+### Mac Notes
+
+Newer Macs with M1 chips don't work with VirtualBox. Also, recent versios of
+VirtualBox use double the memory they should. For these reasons, if you're on a
+Mac, you should probably not run a VM.
+
 ### Darwin, WSL, Cygwin, RPi, etc
 
 Programming in multiple environments will make your code more robust. Once you
 get everything set up in a Linux VM, go ahead and also program in other
-operating systems. The built-in support for Darwin (the name of Unix on Mac) and
-WSL (Windows Subsystem for Linux) is pretty attractive. There are other
+operating systems. The built-in support for Darwin (the name of Unix on Mac)
+and WSL (Windows Subsystem for Linux) is pretty attractive. There are other
 Unix-like environments that are also useful like Cygwin and Gitbash. You may
 find it fun to program on a Raspberry Pi or in Haiku. Just don't make any of
 these alternative environments your _only_ environment.
