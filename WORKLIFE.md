@@ -1,16 +1,44 @@
-Research Effectiveness Rating (RER)
-===================================
+Work-Life Balance
+=================
+
+Work Ethic
+----------
+
+How hard does one _need_ to work? Partly, that depends on your future plans.
+
+Back when I was in graduate school, everyone had the same goal: become a
+professor. That's a little unrealistic. There aren't that many jobs for
+professors. All the professors you know right now worked really hard as graduate
+students, and even harder as post-docs. It wasn't possible to become a professor
+unless you were working evenings and weekends. Is that still true today?
+Probably. Is it unhealthy for future professors to work 60 hours per week?
+Probably. Is this a form of academic hazing? Probably. Ultimately, if you have
+designs on becoming a professor, you might need to work 60 hours per week
+because the competition is doing that. On the plus side, being a professor is a
+pretty great job most of the time and I have a hard time imagining myself doing
+something else.
+
+What if you want to be a staff scientist job in an industry setting? If the
+company is well-established, you might end up in a 40 hour work week with HR
+telling you not to work more. However, in a start-up you might be working harder
+than you would trying to become a professor.
+
+My dream is that my students work more than 40 hours per week because they can't
+help it. They just love research that much. It is a dream...
+
+
+Researcher Effectiveness Rating
+-------------------------------
 
 Your RER is a measure of how well you are playing the Bioinformatics Researcher
 Game in the Korf Lab. If you want a high RER, you should do the following:
 
++ Be more proactive than reactive or non-active
 + Be interactive and collaborative with other members of the lab
 + Follow best practices in your computer environment
-+ Be more proactive than reactive or non-active
 
 
-Meetings
---------
+### Communication
 
 When there is a scheduled meeting:
 
@@ -79,8 +107,7 @@ I use Slack to chat with Ian:
 + Before I need help +1
 
 
-Computer
---------
+### Computer
 
 I would describe my computer as:
 
@@ -102,10 +129,6 @@ I am comfortable with the Unix CLI
 + Somewhat, but I still double-click +0
 + Yes +1
 + `echo "scale=812; 4*a(1)" | bc -l | tail -1 | awk '{print substr($1, 60, 6)}' | echo $(xxd -r -p)` +2
-
-
-Programming
------------
 
 General practices: +1 for each of the following
 
