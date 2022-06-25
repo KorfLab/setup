@@ -6,31 +6,24 @@ This document is about the Korflab high performance workstation: lightning.
 ## Why ##
 
 lightning is designed to run AlphaFold and other CPU/GPU intensive tasks. There
-is another lab computer, spitfire, that you might want to use instead. Both
-machines have 256G RAM and approximately the same aggregate performance. However
-lightning has 1/4 of the CPUs and a 24GB GPU. This means that lightning is
+is another lab computer, spitfire, that you might want to use instead. spitfire
+has more RAM and more CPUs but lightning has faster CPUs. lightning is
 appropriate for single-thread tasks that can't be paralleized and GPU computing,
 such as AlphaFold.
 
 ## Lightning is ##
 
 + lightning.genomecenter.ucdavis.edu
-+ CPU:
-+ GPU:
-+ RAM: 256G
++ CPU: 2 AMD Ryzen 7 5800X 8-Core Processor
++ GPU: nVidia 3090
++ RAM: 128G
 + Storage
-	+ SSD:
-		+ 1 TB
-		+ Mount path
-		+ Operating system and home directories
-	+ HDD:
-		+ 2 TB
-		+ Mount path
-		+ Use for all projects
 	+ NVME:  
 		+ 4 TB
-		+ Mount path
-		+ For AlphaFold databases only
+		+ /dev/nvme0n1p2
+		+ For AlphaFold databases only?
+		+ Seems this is the only storage available
+	
 
 ## Lightning is NOT ##
 
@@ -43,7 +36,7 @@ such as AlphaFold.
 
 ## How To ##
 
-+ If you want an account on lightning, you must ask
++ If you want an account on lightning, you must ask Ian
 + Create project directories on _path_to_HDD_
 + Do not modify anything under _af_path_
 + Check #lightning on slack to see who is running what and when
