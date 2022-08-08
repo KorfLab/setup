@@ -85,6 +85,7 @@ You should modify your login script
 | `top`     | `top`         | display processes running on your system
 | `touch`   | `touch f`     | update file f modification time (create if needed)
 | `wc`      | `wc f`        | count the lines, words, and characters in file f
+| `screen`  | `wc -S ...`   | start a virtual terminal
 
 
 ## Cluster ##
