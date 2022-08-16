@@ -7,10 +7,11 @@ knowledge.
 
 Here are the rules:
 
-1. You have 60 minutes
-2. You may not copy-paste from any of your previous code
-3. You may not copy-paste anything from the Internet
-4. You may use any language for any task
++ You have 60 minutes
++ You may use any language for any task
++ You must write the programs in the order given
++ You may not copy-paste from any of your previous code
++ You may not copy-paste anything from the Internet
 
 ## Hello World ##
 
