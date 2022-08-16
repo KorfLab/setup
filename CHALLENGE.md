@@ -13,6 +13,7 @@ Here are the rules:
 + You may not copy-paste from any of your previous code
 + You may not copy-paste anything from the Internet
 
+
 ## Hello World ##
 
 Write a program the prints "Hello World".
@@ -25,7 +26,6 @@ Example:
 python3 hello.py
 ```
 
-
 ## FizzBuzz ##
 
 Print the numbers from 1-100 except:
@@ -34,7 +34,7 @@ Print the numbers from 1-100 except:
 + If the number is divisible by 5, print "Buzz" instead
 + If the number is divisible by 3 and 5, print "FizzBuzz" instead
 
-Intent: Demonstrate you know how to useloops and conditionals.
+Intent: Demonstrate you know how to use loops and conditionals.
 
 Example:
 
@@ -44,10 +44,11 @@ python3 fizzbuzz.py
 
 ## Factorial ##
 
-Compute the factorial of a number given on the command line.
+Compute the factorial of a number given on the command line. Your program must
+report an error if the command line parameter is illegal.
 
 Intent: Demonstrate that you can read a value from the command line and use it
-with loops and conditionals.
+with loops and conditionals. Also, that you know how to report errors.
 
 Example:
 
@@ -55,26 +56,25 @@ Example:
 python3 factorial.py 5
 ```
 
-
 ## Descriptive Statistics ##
 
 Write a program that calculates the median, mean, and standard deviation of
 values that are given on the command line. You are not allowed to import any
-statistics packages.
+statistics packages. Illegal values should be skipped but create a warning.
 
 Intent: Demonstrate you know how to use arrays along with loops and
-conditionals.
+conditionals. Also, that you know how to create a warning.
 
 Example:
 
 ```
-python3 stats.py 1 0 -1 3.14 2.718 2 7
+python3 stats.py 1 0 -1 3.14 2.718 Foo 2 7
 ```
 
 ## Sequence Coverage ##
 
-Simulate re-sequencing a genome. How much of a genome is not sequenced at 3x
-coverage? The value of 3x must be a command line parameter.
+Simulate re-sequencing a genome. How much of a genome is not sequenced at X
+coverage? The value of X must be a command line parameter.
 
 Intent: Demonstrate accessing arrays by index as well as more loops and
 conditionals.
@@ -84,6 +84,7 @@ Example:
 ```
 python3 coverage.py 3.0
 ```
+
 
 ## Hydropathy ##
 
@@ -129,6 +130,17 @@ Example:
 python3 birthday.py 23
 ```
 
+## Swap Columns ##
+
+Write a program that reads a tabular text file and swaps the first two columns.
+
+Intent: Demonstrate you can read a text file and split it into fields.
+
+Example:
+
+```
+python3 swap.py whatever
+```
 
 ## IPC ##
 
