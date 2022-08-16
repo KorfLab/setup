@@ -27,26 +27,6 @@ Print the numbers from 1-100 except:
 + If the number is divisible by 5, print "Buzz" instead
 + If the number is divisible by 3 and 5, print "FizzBuzz" instead
 
-Expected output looks like this
-
-	1
-	2
-	Fizz
-	4
-	Buzz
-	5
-	Fizz
-	7
-	8
-	Fizz
-	Buzz
-	11
-	Fizz
-	13
-	14
-	FizzBuzz
-	etc
-
 Intent: Show you can solve a problem using loops and conditionals
 
 ## Hello Again ##
@@ -118,7 +98,7 @@ Write a function to read FASTA files and put it in a library.
 ## Position Weight Matrix ##
 
 Given a FASTA file of sequences, create a representative PWM. Use your library
-file from abov.
+file from above.
 
 + Intent:
 
