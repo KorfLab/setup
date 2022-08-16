@@ -55,8 +55,10 @@ Intent:
 Simulate re-sequencing a genome. How much of a genome is not sequenced at 3x
 coverage? The value of 3x must be a command line parameter.
 
-Intent: Demonstrate the use of arrays, loops, and conditionals to solve a
-relatively simple problem
+Intent:
+
++ Show you know how to use arrays, loops, and conditionals
++ Show you know how to read data from the command line
 
 ## Hydropathy ##
 
