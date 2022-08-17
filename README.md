@@ -47,6 +47,14 @@ test set. And later, you may have to make a better one. This part of our work
 is sort of like making reagents and calibrating instruments. It's a pain but
 must be done to ensure reproducibility.
 
+### Rule #2: All code in GitHub
+
+All of the code you write should be managed in a GitHub repository. Generally,
+there is no need to make it private.
+
+Code should be documented in Markdown format. Make your Markdown files look
+like final versions of documents and not just pre-processor code for HTML.
+
 ### Do's
 
 + Keep all of your code in github
@@ -107,9 +115,12 @@ need to go back and review Rule #1.
 
 ### Mac Notes
 
-Newer Macs with M1 chips don't work with VirtualBox. Also, recent versios of
-VirtualBox use double the memory they should. For these reasons, if you're on a
-Mac, you should probably not run a VM.
+Newer Macs with M1/M2 etc. chips don't work with VirtualBox. Also, recent
+versions of VirtualBox use double the memory they should. For these reasons, if
+you're on a Mac, you might not run a VM. Unfortunately, Mac support in Conda
+isn't as good as Linux, so some versions of software may not be available. For
+this reason, a PC with a VM is the most trouble-free way to develop, test, and
+run bioinformatics software.
 
 ### Darwin, WSL, Cygwin, RPi, etc
 
