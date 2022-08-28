@@ -1,7 +1,9 @@
 Critical Unix/Linux
 ===================
 
-## Login Customization ##
+
+Login Customization
+-------------------
 
 You should modify your login script
 
@@ -13,7 +15,21 @@ You should modify your login script
 	+ Set $PYTHONLIB for your local libraries
 
 
-## Quick Reference ##
+Cluster
+-------
+
++ Use `nice` if you're using a lot of resources
++ Use `top` or `htop` to monitor resources
++ Use ^C to kill a job in the foreground
++ Use ^Z to sleep a job in the foreground
++ Use `fg` to start a sleeping job in the foreground
++ Use `bg` to start a sleeping job in the background
++ Use `ps` to show jobs here or `ps -lu <username` to show all your jobs
++ Use `kill -9 <jobid>` to kill a job
+
+
+Quick Reference
+---------------
 
 
 | Token   | Function
@@ -27,6 +43,7 @@ You should modify your login script
 | *       | wildcard - matches everything
 | \|      | pipe output from one command to another
 | >       | redirect output to file
+
 
 | Command   | Example       | Intent                        |
 |:----------|:--------------|:------------------------------|
@@ -86,17 +103,3 @@ You should modify your login script
 | `touch`   | `touch f`     | update file f modification time (create if needed)
 | `wc`      | `wc f`        | count the lines, words, and characters in file f
 | `screen`  | `screen -S ...`   | start a virtual terminal
-
-
-## Cluster ##
-
-+ Use `nice` if you're using a lot of resources
-+ Use `top` or `htop` to monitor resources
-+ Use ^C to kill a job in the foreground
-+ Use ^Z to sleep a job in the foreground
-+ Use `fg` to start a sleeping job in the foreground
-+ Use `bg` to start a sleeping job in the background
-+ Use `ps` to show jobs here or `ps -lu <username` to show all your jobs
-+ Use `kill -9 <jobid>` to kill a job
-
-

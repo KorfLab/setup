@@ -1,6 +1,9 @@
 Work-Life Balance
 =================
 
+Thoughts on the problems of being a professional scientist.
+
+
 Work Ethic
 ----------
 
@@ -8,23 +11,23 @@ How hard does one _need_ to work? Partly, that depends on your future plans.
 
 Back when I was in graduate school, everyone had the same goal: become a
 professor. That's a little unrealistic. There aren't that many jobs for
-professors. All the professors you know right now worked really hard as graduate
-students, and even harder as post-docs. It wasn't possible to become a professor
-unless you were working evenings and weekends. Is that still true today?
-Probably. Is it unhealthy for future professors to work 60 hours per week?
-Probably. Is this a form of academic hazing? Probably. Ultimately, if you have
-designs on becoming a professor, you might need to work 60 hours per week
+professors. All the professors you know right now worked really hard as
+graduate students, and even harder as post-docs. It wasn't possible to become a
+professor unless you were working evenings and weekends. Is that still true
+today? Probably. Is it unhealthy for future professors to work 60 hours per
+week? Probably. Is this a form of academic hazing? Probably. Ultimately, if you
+have designs on becoming a professor, you might need to work 60 hours per week
 because the competition is doing that. On the plus side, being a professor is a
 pretty great job most of the time and I have a hard time imagining myself doing
 something else.
 
 What if you want to be a staff scientist job in an industry setting? If the
 company is well-established, you might end up in a 40 hour work week with HR
-telling you not to work more. However, in a start-up you might be working harder
-than you would trying to become a professor.
+telling you not to work more. However, in a start-up you might be working
+harder than you would trying to become a professor.
 
-My dream is that my students work more than 40 hours per week because they can't
-help it. They just love research that much. It is a dream...
+My dream is that my students work more than 40 hours per week because they
+can't help it. They just love research that much. It is a dream...
 
 
 Researcher Effectiveness Rating
