@@ -16,14 +16,13 @@ Rules
 2. You may not get help from anyone
 
 Yes, you may look things up on the Internet, but don't copy other peoples'
-code. The point of this exam isn't to _finish_ but to assess your own
-abilities.
+code.
 
 Suggestions
 -----------
 
 1. Program in Python using a text editor and terminal
-2. After you finish each program, `git push` it to your repo.
+2. After you finish each program, `git push` it to your repo
 
 
 Tasks
@@ -44,6 +43,7 @@ These are the tasks you will be given. Each one is described below.
 + Entropy filter
 + Overlaps
 + Fork setup
++ Meet with Ian
 
 
 GitHub Repo
@@ -192,4 +192,4 @@ level of pass you achieved.
 
 + Bronze - you passed
 + Silver - you passsed and your code is efficient or elegant
-+ Gold - you passewd and your code is both efficient and elegant
++ Gold - you passed and your code is both efficient and elegant
