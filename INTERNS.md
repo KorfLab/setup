@@ -6,17 +6,11 @@ How to get started as an intern in the Korf lab.
 Programming
 -----------
 
-In order to be useful in the lab, you need a minimum level of Unix and Python
-experience. Try the `CHALLENGE.md` located in this same repository. It's not
-expected that you can complete all of the programs in 60 minutes, but you
-should be able to write all of the programs. If you're new to programming, your
-first task is to learn Unix and Python. Check out the latest version of the
-MCB185 course I teach (it's on GitHub).
-
-After completing MCB185 and the `CHALLENGE.md`, I also like students to tackle
-a more interesting program so that we can discuss development philosophy. This
-is usually the "overlap problem" and possibly some dynamic programming like
-Smith-Waterman or Viterbi.
+In order to be useful in the lab, you need a minimum level of programming
+experience. This includes a mixture of Unix, Python, and Git. You will
+eventually need to pass the `EXAM.md` located in this same repository. But if
+you're new to programming that will be impossible. Don't worry, we all start
+from zero.
 
 Meetings
 --------
