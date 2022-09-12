@@ -20,9 +20,9 @@ This repository has a number of files. Plese read them in the following order:
 
 + `README.md` this document
 + `INTERNS.md` for new members of the lab
++ `EXAM.md` assess your bioinformatics skills
 + `PROGRAMMING.md` how to set up your bioinformatics programming environment
-+ `CHALLENGE.md` test your programming skills
-+ `RULES.md` rules of the lab
++ `RULES.md` rules of a sort
 + `profile` something to `source` from your login script
 + `UNIX.md` things you absoultely must know in Unix
 + `SERVERS.md` how to use our compute servers
