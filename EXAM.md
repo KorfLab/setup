@@ -170,7 +170,7 @@ Overlaps
 --------
 
 Given two GFF files, report which features overlap each other (e.g. where do
-exons overlap ChIP-seq peaks?).
+exons overlap ChIP-seq peaks?). The CLI should use argparse.
 
 Intent: Demonstrate you can model sequence features and make comparisons among
 them.
