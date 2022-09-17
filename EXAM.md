@@ -5,8 +5,7 @@ The following document is designed to test your bioinformatics skills. It
 contains a mixture of Git, Unix, and Python.
 
 After passing the exam, you will be listed in the `DEVELOPERS.md` document and
-receive an official "KorfLab Bioinformatics Developer" certificate if you want
-one.
+receive an official "KorfLab Bioinformatics Developer Certificate".
 
 
 Rules
@@ -18,11 +17,16 @@ Rules
 Yes, you may look things up on the Internet for inspiration, but don't copy
 other peoples' code.
 
+
 Suggestions
 -----------
 
 1. Program in Python using a text editor and terminal
 2. After you finish each program, `git push` it to your repo
+3. Take the exam more than once
+	+ See how far you can get in 60 minutes
+	+ Try to improve your speed
+	+ Try to pass the exam at the Silver or Gold levels
 
 
 Tasks
@@ -103,7 +107,7 @@ Birthday Paradox
 
 Write a simulation of the birthday paradox. That is, what is the probability
 that two people share the same birthday? Your solution must use arrays only.
-Dictionaries and sets are not allowed.
+Dictionaries, sets, and other data structures are not allowed.
 
 Intent: Demonstrate your ability to use a combination of loops, conditionals,
 and arrays to perform moderately complex logic
