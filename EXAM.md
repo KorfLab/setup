@@ -15,8 +15,8 @@ Rules
 1. You may not copy-paste anything while doing the challenge
 2. You may not get help from anyone
 
-Yes, you may look things up on the Internet, but don't copy other peoples'
-code.
+Yes, you may look things up on the Internet for inspiration, but don't copy
+other peoples' code.
 
 Suggestions
 -----------
@@ -102,7 +102,8 @@ Birthday Paradox
 ----------------
 
 Write a simulation of the birthday paradox. That is, what is the probability
-that two people share the same birthday?
+that two people share the same birthday? Your solution must use arrays only.
+Dictionaries and sets are not allowed.
 
 Intent: Demonstrate your ability to use a combination of loops, conditionals,
 and arrays to perform moderately complex logic
@@ -139,11 +140,6 @@ the output, and reports the most and least common amino acids.
 
 Intent: Demonstrate you can run other programs and read their output.
 
-Example:
-```
-python3 ipc.py
-```
-
 
 FASTA File
 ----------
@@ -151,7 +147,8 @@ FASTA File
 Write a function to read FASTA files and put it in a library.
 
 Intent: Demonstrate you know how to create and use a library and also to parse
-a common file format.
+a common file format. Since FASTA files can be huge, the best solutions will
+use minimal memory.
 
 
 Entropy Filter
@@ -163,7 +160,8 @@ argument for the fasta file and named parameters for window size and entropy
 threshold. The named parameters must have default values. The program must be
 executable from anywhere on your computer.
 
-Intent: Demonstrate you know how to create a proper Unix program.
+Intent: Demonstrate you know how to create a proper Unix program. The best
+solutions will be efficient even with very large window sizes.
 
 
 Overlaps
@@ -173,7 +171,8 @@ Given two GFF files, report which features overlap each other (e.g. where do
 exons overlap ChIP-seq peaks?). The CLI should use argparse.
 
 Intent: Demonstrate you can model sequence features and make comparisons among
-them.
+them. GFF files can be huge. The best solutions will be efficient in time and
+memory.
 
 
 Fork Setup
@@ -190,6 +189,6 @@ Meet with Ian
 Schedule an appointment to meet with Ian to determine if you passed and what
 level of pass you achieved.
 
-+ Bronze - you passed
-+ Silver - you passsed and your code is efficient or elegant
-+ Gold - you passed and your code is both efficient and elegant
++ Bronze - you passed, but your code has some issues
++ Silver - you passed, and your code is pretty good
++ Gold - you passed, and your code is excellent
