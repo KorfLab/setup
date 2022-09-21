@@ -198,3 +198,10 @@ level of pass you achieved.
 + Bronze - you passed, but your code has some issues
 + Silver - you passed, and your code is pretty good
 + Gold - you passed, and your code is excellent
+
+In order to pass at the higher levels, your code must have the following
+properties.
+
++ Follows the prompt exactly
++ Consistent and standard style
++ Efficient in time and space
