@@ -162,7 +162,9 @@ Write a complexity filter for nucleotide sequences. The program must use a
 standard CLI library (e.g argparse in Python). There must be a positional
 argument for the fasta file and named parameters for window size and entropy
 threshold. The named parameters must have default values. The program must be
-executable from anywhere on your computer.
+executable from anywhere on your computer. The output should be a FASTA file
+with the low complexity regions masked with Ns or lowercase letters. There
+should be an option to specifify which.
 
 Intent: Demonstrate you know how to create a proper Unix program. The best
 solutions will be efficient even with very large window sizes.
