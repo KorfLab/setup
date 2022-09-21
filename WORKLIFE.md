@@ -3,6 +3,33 @@ Work-Life Balance
 
 Thoughts on the problems of being a professional scientist.
 
+Fast, Cheap, Reliable
+---------------------
+
+There is a saying when it comes to race cars: "fast, cheap, reliable: pick
+two". There is a recognition that you can't have everything.
+
+In Science, we don't say that. The sentiment is more like "intelligent,
+creative, self-motivated, hard-working, independent, collaborative,
+disciplined, flexible, reliable, accountable, personable: choose (all) eleven".
+
++ Intelligent - you can solve the problems that are in front of you
++ Creative - you can find new problems to solve
++ Self-motivated - nobody has to tell you to show up for work
++ Hard-working - you work many hours
++ Independent - you don't need others to succeed
++ Collaborative - you recognize success requires others, and welcome them
++ Disciplined - you can behave precisely as required
++ Flexible - you make room for difficulties
++ Reliable - people can count on you to show up or deliver on time
++ Accountable - you take credit for your failures
++ Personable - you are likable as a person and co-worker
+
+It's unfair to be expected to be good at everything, and yet many scientists
+beat themselves up because they aren't. Give yourself the breathing room you
+would give to others. You don't have to be an A+ or even A- in all of these.
+But try not to have an F in any of them.
+
 
 Work Ethic
 ----------
@@ -133,7 +160,7 @@ I am comfortable with the Unix CLI
 + Yes +1
 + `echo "scale=812; 4*a(1)" | bc -l | tail -1 | awk '{print substr($1, 60, 6)}' | echo $(xxd -r -p)` +2
 
-General practices: +1 for each of the following
+General practices: +1 for each of the following (except as noted)
 
 + I use R-Studio
 + I use Jupyter Notebook
@@ -175,3 +202,4 @@ Documentation: +1 for each
 + My programs have Unix man pages
 + I write API docs
 + I write tutorials
++ I write books
