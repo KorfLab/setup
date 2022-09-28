@@ -152,7 +152,7 @@ Write a function to read FASTA files and put it in a library.
 
 Intent: Demonstrate you know how to create and use a library and also to parse
 a common file format. Since FASTA files can be huge, the best solutions will
-use minimal memory.
+use minimal memory (read one sequence at a time).
 
 
 Entropy Filter
@@ -203,5 +203,8 @@ In order to pass at the higher levels, your code must have the following
 properties.
 
 + Follows the prompt exactly
-+ Consistent and standard style
++ Beautiful code
+	+ Consistent and standard style
+	+ Appropriate variable and function names
+	+ Useful comments
 + Efficient in time and space
