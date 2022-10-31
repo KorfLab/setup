@@ -13,15 +13,15 @@ works with scalars to store the entire file or with arrays to store
 line-by-line.
 
 ```
-my $thing = `ls`
-my @stuff = `ls`
+my $thing = `ls -a`
+my @stuff = `ls -a`
 ```
 
 It's a bit more complex to do this in Python.
 
 ```
 from subprocess import run
-stuff = run('ls', shell=True, capture_output=True).stdout.decode().split('\n')
+stuff = run('ls -a', shell=True, capture_output=True).stdout.decode().split('\n')
 ```
 
 
