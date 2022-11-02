@@ -38,16 +38,3 @@ Students should:
 	+ Proactively report on progress
 	+ Follow best practices
 	+ Write initial drafts of documents
-
-
-	
-
-
-	
-
-
-- Negatives for interns
-	- non responsive communication
-	- setting unrealistic goals or expectations
-		+ unofficial SPA could work
-
