@@ -105,9 +105,13 @@ conditionals. Also, that you know how to generate a warning.
 Birthday Paradox
 ----------------
 
-Write a simulation of the birthday paradox. That is, what is the probability
-that two people share the same birthday? Your solution must use arrays only.
-Dictionaries, sets, and other data structures are not allowed.
+Write a simulation of the birthday paradox. That is, in a classroom of size n,
+what is the probability that two people will share the same birthday? You can
+find more information here: https://en.wikipedia.org/wiki/Birthday_problem
+
+Your solution must use arrays only and must simulate the problem with randomly
+assigned birthdays. Don't solve it analytically. Dictionaries, sets, and other
+data structures are not allowed.
 
 Intent: Demonstrate your ability to use a combination of loops, conditionals,
 and arrays to perform moderately complex logic
