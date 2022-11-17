@@ -19,6 +19,7 @@ KorLab/setup
 This repository has a number of files. Plese read them in the following order:
 
 + `README.md` this document
++ `EXPECTATIONS.md` what to expect from the PI and yourself
 + `INTERNS.md` for new members of the lab
 + `EXAM.md` assess your bioinformatics skills
 + `PROGRAMMING.md` how to set up your bioinformatics programming environment
