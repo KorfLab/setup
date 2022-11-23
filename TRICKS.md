@@ -36,3 +36,26 @@ copy-paste it again and again).
 git config --global user.name "username"
 git config --global credential.helper store
 ```
+
+
+Summing Probabilities in Log-space
+----------------------------------
+
+Since multiplying probabilities over and over can lead to underflow errors, we 
+tend to do math in log-space. Summing log-probabilities can be probematic 
+because you can't simply de-log the numbers, sum them, and then return the log. 
+Here's one solution, which is to transform the log to a higher power, then do 
+the math, then transform back to a lower power. The function below also 
+short-circuits and returns the higher number if the numbers are too dissimilar.
+
+```
+def sumlogp2(a, b, mag=40):
+	assert(a <= 0)
+	assert(b <= 0)
+	if abs(a - b) > mag: return max(a, b)
+	return math.log2(1 + 2**(b - a)) + a
+```
+
+Of course, if you're working in Python, you can use `numpy.logaddexp2(a, b)` to 
+do the same calculation. But not every language has this built in. Also, the 
+numpy version is slightly slower than the pure python.
