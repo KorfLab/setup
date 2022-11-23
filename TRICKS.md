@@ -3,6 +3,22 @@ TRICKS
 
 A collection of random tricks and tips to help you.
 
++ Getting `git` to remember your password
++ Inter-process communication in Python and Perl
++ Summing probabilities in log-space
+
+
+Git password persistence
+------------------------
+
+To make your GitHub Personal Access Token persist (so you don't have to
+copy-paste it again and again).
+
+```
+git config --global user.name "username"
+git config --global credential.helper store
+```
+
 
 IPC
 ---
@@ -25,20 +41,7 @@ stuff = run('ls -a', shell=True, capture_output=True).stdout.decode().split('\n'
 ```
 
 
-
-GitHub
-------
-
-To make your GitHub Personal Access Token persist (so you don't have to
-copy-paste it again and again).
-
-```
-git config --global user.name "username"
-git config --global credential.helper store
-```
-
-
-Summing Probabilities in Log-space
+Summing probabilities in log-space
 ----------------------------------
 
 Since multiplying probabilities over and over can lead to underflow errors, we 
