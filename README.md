@@ -29,4 +29,4 @@ This repository has a number of files. Plese read them in the following order:
 + `UNIX.md` things you absoultely must know in Unix
 + `SERVERS.md` how to use our compute servers
 + `TRICKS.md` random collection of useful stuff
-+ `WORKLIFE.md` more thoughts on balancing work and life
++ `WORKLIFE.md` some personal thoughts on balancing work and life
