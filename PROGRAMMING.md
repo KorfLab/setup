@@ -27,7 +27,7 @@ What are the downsides of running a VM?
 
 + You have to install VirtualBox or some other software
 + You have to split RAM between your host and VM
-+ Programs running inside the VM may be a little slower (maybe 10%)
++ Programs running inside the VM may run a tiny bit slower
 
 The downsides are trivial problems. When you're developing software and
 pipelines, you don't need much RAM or space. If you find that's not true, you
@@ -42,9 +42,9 @@ with the x86 Linux world. Therefore, they don't (yet?) work with the usual
 virtual machines and Conda binaries. If you're on an ARM Mac, you life will be
 a little more difficult because of that.
 
-If you're on an x86 Mac, you can use VMs, but you might not have enough RAM. If
-you work in the native OS, and not a conda environment, you may find that many
-packages aren't available.
+If you're on an x86 Mac, you can use VMs, but you might not have enough RAM due
+to some bugs/features of VirtualBox. If you work in the native OS, and not a
+conda environment, you may find that many packages aren't available.
 
 
 Darwin, WSL, Cygwin, RPi, etc
@@ -65,10 +65,9 @@ Conda
 Within the VM, we manage our software with Conda. Does it sound wasteful that
 the host OS has Python, the VM has Python, and yet we override both of those
 and run Python from Conda? Yes, it is wasteful. However, it's also something we
-control ourselves. The host OS might update its Python and break our code. The
-VM may update its Python and break our code. There are many things aside from
-Python that may change and break our code. Conda allows us to control all of
-our software dependencies.
+control ourselves. The host OS might update its resources and break our code.
+The VM may update and break our code. Conda allows us to control all of our
+software dependencies.
 
 You don't need root/superuser access to install software with Conda. This saves
 both your time and the sysadmin's time. The extra storage space used is a small
