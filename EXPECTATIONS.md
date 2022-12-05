@@ -28,7 +28,7 @@ Students should:
 + Communication
 	+ Ask questions frequently
 	+ Respond quickly to requests
-	+ Go to lab meetings (if possible)
+	+ Go to lab meetings
 	+ Host subgroup meetings (graduates)
 	+ Have regular, standing meetings with the PI
 + Science
@@ -39,10 +39,10 @@ Students should:
 	+ Follow best practices
 	+ Write initial drafts of documents
 + Programming
-	+ GitHub
-	+ Unix
-	+ Python
-	+ Eventually you should be able to pass the `EXAM.md`
+	+ Use GitHub regularly
+	+ Work in a Unix command-line interface
+	+ Program in Python and possibly other languages
+	+ Eventually be able to pass the `EXAM.md`
 
 
 Work-Life Balance
