@@ -1,5 +1,5 @@
-Best Practices
-==============
+Rules
+=====
 
 Rule #1: Create Test/Dev Data
 -----------------------------
@@ -52,8 +52,11 @@ like final versions of documents and not just pre-processor code for HTML.
 You should have a small sample of data with your programs for testing purposes.
 
 
-Rule #3: Prioritize Beauty
---------------------------
+Best Practices
+==============
+
+Prioritize Beauty
+-----------------
 
 A programming project has many facets.
 
@@ -87,7 +90,126 @@ beautiful documents are clear and simple, and can easily be made correct,
 friendly, and robust.
 
 
-TRICKS
+Managing Data
+-------------
+
+We have a repo for -omic data processing called datacore. If you are developing
+a new dataset that will be useful to others, put the scripts and a small
+selection of data in datacore. Don't fill up datacore or any repo with large
+datafiles.
+
+https://github.com/KorfLab/datacore
+
+Data is generally kept in a completely separate place from code. If you have
+scripts in the same directory with data, you're doing it wrong. Code belongs in
+your github repos. On the cluster, we put data in `/share/korflab/projects`.
+See the spitfire repo for more information.
+
+In the same way that you have a `README.md` in every repo, you should also put
+a `README.md` in every project directory that describes the intent and
+contents.
+
+------------------------------------------------------------------------------
+
+Suppose I've written a new genome analysis program called `smash` that looks
+something like this:
+
+```
+#!/usr/bin/env python3
+import argparse
+import grimoire
+# the rest of the code...
+```
+
+Suppose I want to run `smash` on some genomes. I'm no longer doing code
+development, but analysis. Therefore, my actions don't really belong in the
+`Code` directory. So I make a new directory for the project off the home
+directory.
+
+```
+(base) ian@virtualbox: mkdir ~/Smashing
+(base) ian@virtualbox: cd ~/Smashing
+(base) ian@virtualbox: smash ~/Data/genomes/hg19.fa > smash.out
+```
+
+In order to get all of this to work, `smash` must be in my executable path.
+Since `smash` depends on `grimoire`, it follows that `grimoire` must be in my
+library path. If you followed the KorfLab/setup, you already have `Code/bin` in
+your `PATH` and `Code/lib` in your `PYTHONPATH`. You can alias files to those
+directories to make them visible to the shell and Python.
+
+Your directory layout should look like this:
+
+```
+anaconda3/
+Code/
+	bin/
+		smash@ -> ../smashrepo/smash
+	lib/
+		grimoire@ -> ../grimoire/grimoire
+	setup/
+	smashrepo/
+		smash*
+Data/
+	genomes/
+		hg19.fa
+Desktop/
+Documents/
+Downloads/
+Smashing/
+	smash.out
+```
+
+Managing data is different from code. Data can be large and expensive to
+generate. It should backed up or mirrored somewhere, and it should have
+read-only permissions to prevent it from being changed.
+
+If you're doing development and working with VMs, don't copy data to each VM.
+Create a read-only shared folder. In the listing above, it may look like `Data`
+is in the directory, but it is not. It's just the mount point for a shared
+folder.
+
+
+Programs vs. Pipelines vs. Notebooks
+------------------------------------
+
+There are 3 overlapping computer activities we tend to do.
+
+1. Software development in Python, C, Go, etc
+2. Running pipelines in Snakemake
+3. Exploring data in R-Studio or Jupyter notebooks
+
+### Software Development
+
+You should already know Python before moving on to other languages. Our overall
+philosophy is that code should be simple and beautiful. Please see the
+algorithms repo https://github.com/KorfLab/algorithms.
+
+### Running Pipelines
+
+When analyzing large datasets, there are generally 3 tasks: installing
+software, developing a pipeline, deploying a pipeline. Always install software
+with Conda. Don't rely on the local environment. Pipelines are developed in
+Snakemake on a test set in you VM, not the cluster. Once you are ready to
+deploy a pipeline, then you can run on the cluster.
+
+Pipelines are developed using Conda and Snakemake. Develop your Snakemake
+pipelines on a small test set in a VM, and not on the cluster. These practices
+ensure maximum portability and reproducible data practices.
+
+1. Conda - https://github.com/KorfLab/learning-conda
+2. Snakemake - https://github.com/KorfLab/learning-snakemake
+3. Cluster - https://github.com/KorfLab/spitfire
+
+### Notebook Computing
+
+We're not talking about laptops but rather R-Studio or Jupyter. These tools are
+great for exploring data, but are not a great way of distributing software. Use
+them where they are useful.
+
+
+
+Tricks
 ======
 
 A collection of random tricks and tips to help you.
