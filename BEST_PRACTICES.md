@@ -52,6 +52,42 @@ like final versions of documents and not just pre-processor code for HTML.
 You should have a small sample of data with your programs for testing purposes.
 
 
+Rule #3: Employ Standard Directory Structure
+--------------------------------------------
+
+Your directory structure should look something like this:
+
+```
+Code/
+	bin/
+		program@ -> ../something/program
+	lib/
+		library.py@ -> ../something/library.py
+	datacore/
+	setup/
+	something/
+		program*
+		library.py
+		favorite.fa@ -> ../../Data/favorite.fa
+		favorite.gff@ -> ../../Data/favorite.gff
+Data/
+	favorite.fa
+	favorite.gff
+Desktop/
+Documents/
+Downloads/
+OtherDirectories/
+```
+
++ All of your source files belong in some directory, e.g. `Code`
+	+ Programs you use frequently should be soft-linked to `Code/bin`
+	+ Libraries you use frequently should be soft-linked to `Code/lib`
+	+ Your `$PATH` and `$PYTHONPATH` should be set appropriately
++ Data should be stored somewhere
+	+ You may want to soft-link files to project directories
+	+ You should probably turn off OS-indexing in your data directory
+
+
 Best Practices
 ==============
 
@@ -147,6 +183,7 @@ Code/
 		smash@ -> ../smashrepo/smash
 	lib/
 		grimoire@ -> ../grimoire/grimoire
+	grimoire/
 	setup/
 	smashrepo/
 		smash*
