@@ -39,7 +39,7 @@ Mac Notes
 
 Newer Macs with M1/M2 etc. chips use ARM architecture and are not compatible
 with the x86 Linux world. Therefore, they don't (yet?) work with the usual
-virtual machines and Conda binaries. If you're on an ARM Mac, you life will be
+virtual machines and Conda binaries. If you're on an ARM Mac, your life will be
 a little more difficult because of that.
 
 If you're on an x86 Mac, you can use VMs, but you might not have enough RAM due
