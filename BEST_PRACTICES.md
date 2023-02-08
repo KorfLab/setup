@@ -298,7 +298,7 @@ because you can't simply de-log the numbers, sum them, and then return the log.
 Here's one solution, which is to transform the log to a higher power, then do 
 the math, then transform back to a lower power. The function below also 
 short-circuits and returns the higher number if the numbers are too dissimilar.
-The formula requires that a is the larger (less negative) of the two operands,
+The formula requires that `a` is the larger (less negative) of the two operands,
 and the operands are swapped in the formula if otherwise.
 
 ```
@@ -311,5 +311,5 @@ def sumlogp2(a, b, mag=40):
 ```
 
 Of course, if you're working in Python, you can use `numpy.logaddexp2(a, b)` to 
-do the same calculation. The numpy method is more accurate. But not every language
+do the same calculation. The numpy method is more accurate but not every language
 has this built in. Also, the numpy version is slightly slower than the pure python.
