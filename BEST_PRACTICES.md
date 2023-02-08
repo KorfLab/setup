@@ -306,10 +306,10 @@ def sumlogp2(a, b, mag=40):
 	assert(a <= 0)
 	assert(b <= 0)
 	if abs(a - b) > mag: return max(a, b)
-	if a < b: return math.log(1 + 2**(a - b)) + b
+	if a < b: return math.log2(1 + 2**(a - b)) + b
 	return math.log2(1 + 2**(b - a)) + a
 ```
 
 Of course, if you're working in Python, you can use `numpy.logaddexp2(a, b)` to 
-do the same calculation. But not every language has this built in. Also, the 
-numpy version is slightly slower than the pure python.
+do the same calculation. The numpy method is more accurate. But not every language
+has this built in. Also, the numpy version is slightly slower than the pure python.
