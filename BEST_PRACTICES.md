@@ -298,12 +298,15 @@ because you can't simply de-log the numbers, sum them, and then return the log.
 Here's one solution, which is to transform the log to a higher power, then do 
 the math, then transform back to a lower power. The function below also 
 short-circuits and returns the higher number if the numbers are too dissimilar.
+The formula requires that a is the larger (less negative) of the two operands,
+and the operands are swapped in the formula if otherwise.
 
 ```
 def sumlogp2(a, b, mag=40):
 	assert(a <= 0)
 	assert(b <= 0)
 	if abs(a - b) > mag: return max(a, b)
+	if a < b: return math.log(1 + 2**(a - b)) + b
 	return math.log2(1 + 2**(b - a)) + a
 ```
 
