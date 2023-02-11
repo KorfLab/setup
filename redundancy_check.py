@@ -19,6 +19,8 @@ def humanify(n):
 
 # Index all files by their size
 size = {}
+total_size = 0
+total_files = 0
 for path, subdirs, files in os.walk(arg.path):
 	for name in files:
 		filepath = os.path.join(path, name)
@@ -28,9 +30,12 @@ for path, subdirs, files in os.walk(arg.path):
 		if s < arg.min: continue
 		if s not in size: size[s] = []
 		size[s].append(filepath)
+		total_size += s
+		total_files += 1
 
 # Find duplicate files (1) by file size (2) by pseudo-checksum
-redundant = 0
+wasted_size = 0
+wasted_files = 0
 for s in sorted(size, reverse=True):
 	if len(size[s]) == 1: continue
 
@@ -50,6 +55,8 @@ for s in sorted(size, reverse=True):
 		if len(pseudosum[sig]) == 1: continue
 		hs = humanify(s)
 		print(hs, ' '.join(pseudosum[sig]))
-		redundant += (len(pseudosum[sig]) -1) * s
+		wasted_size += (len(pseudosum[sig]) -1) * s
+		wasted_files += len(pseudosum[sig]) -1
 
-print(humanify(redundant))
+print(f'Wasted Space: {humanify(wasted_size)} ({wasted_size/total_size:.3f})')
+print(f'Duplicate Files: {wasted_files} ({wasted_files/total_files:.3f})')
