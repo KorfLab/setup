@@ -10,6 +10,13 @@ parser.add_argument('--bytes', type=int, metavar='<bytes>', default = 128,
 	help='number of bytes to read for pseudo-checksum [%(default)s]')
 arg = parser.parse_args()
 
+def humanify(n):
+	if   n > 1e12: return f'{n/1e12:.2f}T'
+	elif n > 1e9:  return f'{n/1e9:.2f}G'
+	elif n > 1e6:  return f'{n/1e6:.2f}M'
+	elif n > 1e3:  return f'{n/1e3:.2f}K'
+	else:          return n
+
 # Index all files by their size
 size = {}
 for path, subdirs, files in os.walk(arg.path):
@@ -23,6 +30,7 @@ for path, subdirs, files in os.walk(arg.path):
 		size[s].append(filepath)
 
 # Find duplicate files (1) by file size (2) by pseudo-checksum
+redundant = 0
 for s in sorted(size, reverse=True):
 	if len(size[s]) == 1: continue
 
@@ -40,10 +48,8 @@ for s in sorted(size, reverse=True):
 	# Report duplicates
 	for sig in pseudosum:
 		if len(pseudosum[sig]) == 1: continue
-		ps = None
-		if   s > 1e12: ps = f'{s/1e12:.2f}T'
-		elif s > 1e9:  ps = f'{s/1e9:.2f}G'
-		elif s > 1e6:  ps = f'{s/1e6:.2f}M'
-		elif s > 1e3:  ps = f'{s/1e3:.2f}K'
-		else:          ps = s
-		print(ps, ' '.join(pseudosum[sig]))
+		hs = humanify(s)
+		print(hs, ' '.join(pseudosum[sig]))
+		redundant += (len(pseudosum[sig]) -1) * s
+
+print(humanify(redundant))
