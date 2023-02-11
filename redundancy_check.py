@@ -21,13 +21,18 @@ def humanify(n):
 size = {}
 total_size = 0
 total_files = 0
+skipped_size = 0
+skipped_files = 0
 for path, subdirs, files in os.walk(arg.path):
 	for name in files:
 		filepath = os.path.join(path, name)
 		mode = os.lstat(filepath).st_mode
 		if not stat.S_ISREG(mode): continue
 		s = os.path.getsize(filepath)
-		if s < arg.min: continue
+		if s < arg.min:
+			skipped_size += s
+			skipped_files += 1
+			continue
 		if s not in size: size[s] = []
 		size[s].append(filepath)
 		total_size += s
@@ -58,7 +63,9 @@ for s in sorted(size, reverse=True):
 		wasted_size += (len(pseudosum[sig]) -1) * s
 		wasted_files += len(pseudosum[sig]) -1
 
-print(f'Total Space: {humanify(total_size)}')
 print(f'Total Files: {total_files}')
+print(f'Total Space: {humanify(total_size)}')
+print(f'Wasted Files: {wasted_files} ({wasted_files/total_files:.3f})')
 print(f'Wasted Space: {humanify(wasted_size)} ({wasted_size/total_size:.3f})')
-print(f'Duplicate Files: {wasted_files} ({wasted_files/total_files:.3f})')
+print(f'Skipped Files: {skipped_files}')
+print(f'Skipped Space: {humanify(skipped_size)}')
