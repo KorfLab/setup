@@ -56,7 +56,7 @@ for path, subdirs, files in os.walk(arg.path):
 			mode = os.lstat(filepath).st_mode
 		except:
 			if path not in failed_paths: failed_paths[path] = 0
-			failed_paths += 1
+			failed_paths[path] += 1
 			continue
 		if not stat.S_ISREG(mode): continue
 		s = os.path.getsize(filepath)
