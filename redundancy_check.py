@@ -43,8 +43,6 @@ for path, subdirs, files in os.walk(arg.path):
 		if not stat.S_ISREG(mode): continue
 		s = os.path.getsize(filepath)
 
-
-
 		# check for config files and directories (leading .)
 		if '/.' in filepath and not arg.config:
 			config_space += s
@@ -63,6 +61,12 @@ for path, subdirs, files in os.walk(arg.path):
 			skip_files += 1
 			continue
 
+		# check for read permissions - need later for checksum
+		if not os.access(filepath, os.R_OK):
+			locked_space += s
+			locked_files += 1
+			continue
+
 		# check for minimum file size
 		if s < arg.min:
 			small_space += s
@@ -73,14 +77,7 @@ for path, subdirs, files in os.walk(arg.path):
 		total_space += s
 		total_files += 1
 
-		# check for read permissions - need later for checksum
-		try:
-			fp = open(filepath)
-			fp.close()
-		except:
-			locked_space += s
-			locked_files += 1
-			continue
+
 
 # Find duplicate files (1) by file size (2) by pseudo-checksum
 waste_space = 0
