@@ -135,20 +135,20 @@ print(f'Small Files: {small_files}')
 print(f'Small Space: {humanify(small_space)}')
 print(f'Checked Files: {check_files}')
 print(f'Checked Space: {humanify(check_space)}')
-
-# Duplicate report
 if check_files != 0 and check_space != 0:
 	print(f'Duplicate Files: {waste_files} ({waste_files/check_files:.3f})')
 	print(f'Duplicate Space: {humanify(waste_space)} ({waste_space/check_space:.3f})')
-	if arg.duplicates:
-		print('\nDuplicates')
-		for s, files in duplicates:
-			print(humanify(s))
-			for f in files:
-				print(f'\t{f}')
 
-# Failed paths report
+# Duplicates report
+if arg.duplicates:
+	print('\nDuplicates')
+	for s, files in duplicates:
+		print(humanify(s))
+		for f in files:
+			print(f'\t{f}')
+
+# Denied report
 if arg.denied:
-	print('\Denied')
+	print('\nDenied')
 	for path in failed_paths:
 		print(failed_paths[path], path)
