@@ -34,7 +34,7 @@ arg = parser.parse_args()
 
 
 # Global stats
-failed_paths = []
+failed_paths = {}
 config_files = 0
 config_space = 0
 skip_files = 0
@@ -55,7 +55,8 @@ for path, subdirs, files in os.walk(arg.path):
 		try:
 			mode = os.lstat(filepath).st_mode
 		except:
-			failed_paths.append(path)
+			if path not in failed_paths: failed_paths[path] = 0
+			failed_paths += 1
 			continue
 		if not stat.S_ISREG(mode): continue
 		s = os.path.getsize(filepath)
