@@ -141,6 +141,7 @@ if check_files != 0 and check_space != 0:
 	print(f'Duplicate Files: {waste_files} ({waste_files/check_files:.3f})')
 	print(f'Duplicate Space: {humanify(waste_space)} ({waste_space/check_space:.3f})')
 	if arg.duplicates:
+		print('\nDuplicates')
 		for s, files in duplicates:
 			print(humanify(s))
 			for f in files:
@@ -148,5 +149,6 @@ if check_files != 0 and check_space != 0:
 
 # Failed paths report
 if arg.denied:
+	print('\Denied')
 	for path in failed_paths:
 		print(failed_paths[path], path)
