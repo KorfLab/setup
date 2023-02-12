@@ -21,7 +21,7 @@ def dehuman(s):
 parser = argparse.ArgumentParser(description='Find duplicate files.')
 parser.add_argument('path', type=str, metavar='<path>')
 parser.add_argument('--min', type=str, metavar='<min size>', default = '10M',
-	help='minimum file size [%(default)s]')
+	help='minimum file size (may use K, M, G, T) [%(default)s]')
 parser.add_argument('--bytes', type=int, metavar='<bytes>', default = 128,
 	help='number of bytes to read for pseudo-checksum [%(default)s]')
 parser.add_argument('--skip', type=str, metavar='<tokens>', nargs='+',
