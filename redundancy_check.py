@@ -51,12 +51,12 @@ size = {}
 minsize = dehuman(arg.min)
 for path, subdirs, files in os.walk(arg.path):
 	for name in files:
+		filepath = os.path.join(path, name)
 		try:
-			filepath = os.path.join(path, name)
+			mode = os.lstat(filepath).st_mode
 		except:
-			print('failed', filepath)
+			failed_paths.append(path)
 			continue
-		mode = os.lstat(filepath).st_mode	
 		if not stat.S_ISREG(mode): continue
 		s = os.path.getsize(filepath)
 
@@ -142,3 +142,5 @@ if check_files != 0 and check_space != 0:
 			print(humanify(s))
 			for f in files:
 				print(f'\t{f}')
+
+print(failed_paths)
