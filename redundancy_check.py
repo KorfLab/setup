@@ -43,14 +43,7 @@ for path, subdirs, files in os.walk(arg.path):
 		if not stat.S_ISREG(mode): continue
 		s = os.path.getsize(filepath)
 
-		# check for read permissions - need later for checksum
-		try:
-			fp = open(filepath)
-			fp.close()
-		except:
-			locked_space += s
-			locked_files += 1
-			continue
+
 
 		# check for config files and directories (leading .)
 		if '/.' in filepath and not arg.config:
@@ -80,6 +73,15 @@ for path, subdirs, files in os.walk(arg.path):
 		total_space += s
 		total_files += 1
 
+		# check for read permissions - need later for checksum
+		try:
+			fp = open(filepath)
+			fp.close()
+		except:
+			locked_space += s
+			locked_files += 1
+			continue
+
 # Find duplicate files (1) by file size (2) by pseudo-checksum
 waste_space = 0
 waste_files = 0
@@ -107,13 +109,13 @@ for s in sorted(size, reverse=True):
 # Final report
 print(f'Total Files: {total_files}')
 print(f'Total Space: {humanify(total_space)}')
-print(f'Locked Files: {locked_files}')
-print(f'Locked Space: {humanify(locked_space)}')
 print(f'Duplicate Files: {waste_files} ({waste_files/total_files:.3f})')
 print(f'Duplicate Space: {humanify(waste_space)} ({waste_space/total_space:.3f})')
 print(f'Config Files: {config_files}')
 print(f'Config Space: {humanify(config_space)}')
 print(f'Skipped Files: {skip_files}')
 print(f'Skipped Space: {humanify(skip_space)}')
+print(f'Locked Files: {locked_files}')
+print(f'Locked Space: {humanify(locked_space)}')
 print(f'Small Files: {small_files}')
 print(f'Small Space: {humanify(small_space)}')
