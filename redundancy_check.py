@@ -72,6 +72,7 @@ for s in sorted(size, reverse=True):
 		wasted_size += (len(pseudosum[sig]) -1) * s
 		wasted_files += len(pseudosum[sig]) -1
 
+# Final report
 print(f'Total Files: {total_files}')
 print(f'Total Space: {humanify(total_size)}')
 print(f'Wasted Files: {wasted_files} ({wasted_files/total_files:.3f})')
