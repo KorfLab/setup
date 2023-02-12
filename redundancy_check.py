@@ -9,6 +9,8 @@ parser.add_argument('--min', type=int, metavar='<min size>', default = 1024,
 	help='minimum file size [%(default)s]')
 parser.add_argument('--bytes', type=int, metavar='<bytes>', default = 128,
 	help='number of bytes to read for pseudo-checksum [%(default)s]')
+parser.add_argument('--skip', type=str, metavar='<tokens>', nargs='+',
+	help='skip specific tokens, e.g. anaconda')
 parser.add_argument('--config', action='store_true',
 	help='include configuration files and directories /.*')
 arg = parser.parse_args()
@@ -20,36 +22,67 @@ def humanify(n):
 	elif n > 1e3:  return f'{n/1e3:.2f}K'
 	else:          return n
 
+# Global stats
+total_files = 0
+total_space = 0
+locked_files = 0
+locked_space = 0
+config_files = 0
+config_space = 0
+skip_files = 0
+skip_space = 0
+small_files = 0
+small_space = 0
+
 # Index all files by their size
 size = {}
-total_files = 0
-total_size = 0
-config_files = 0
-config_size = 0
-skipped_files = 0
-skipped_size = 0
 for path, subdirs, files in os.walk(arg.path):
 	for name in files:
 		filepath = os.path.join(path, name)
 		mode = os.lstat(filepath).st_mode
 		if not stat.S_ISREG(mode): continue
 		s = os.path.getsize(filepath)
+
+		# check for read permissions - need later for checksum
+		try:
+			fp = open(filepath)
+			fp.close()
+		except:
+			locked_space += s
+			locked_files += 1
+			continue
+
+		# check for config files and directories (leading .)
 		if '/.' in filepath and not arg.config:
-			config_size += s
+			config_space += s
 			config_files += 1
 			continue
+
+		# check for user-specified skip tokens
+		skip = False
+		if arg.skip:
+			for token in arg.skip:
+				if token in filepath:
+					skip = True
+					break
+		if skip:
+			skip_space += s
+			skip_files += 1
+			continue
+
+		# check for minimum file size
 		if s < arg.min:
-			skipped_size += s
-			skipped_files += 1
+			small_space += s
+			small_files += 1
 			continue
 		if s not in size: size[s] = []
 		size[s].append(filepath)
-		total_size += s
+		total_space += s
 		total_files += 1
 
 # Find duplicate files (1) by file size (2) by pseudo-checksum
-wasted_size = 0
-wasted_files = 0
+waste_space = 0
+waste_files = 0
 for s in sorted(size, reverse=True):
 	if len(size[s]) == 1: continue
 
@@ -68,15 +101,19 @@ for s in sorted(size, reverse=True):
 	for sig in pseudosum:
 		if len(pseudosum[sig]) == 1: continue
 		print(humanify(s), ' '.join(pseudosum[sig]))
-		wasted_size += (len(pseudosum[sig]) -1) * s
-		wasted_files += len(pseudosum[sig]) -1
+		waste_space += (len(pseudosum[sig]) -1) * s
+		waste_files += len(pseudosum[sig]) -1
 
 # Final report
 print(f'Total Files: {total_files}')
-print(f'Total Space: {humanify(total_size)}')
-print(f'Wasted Files: {wasted_files} ({wasted_files/total_files:.3f})')
-print(f'Wasted Space: {humanify(wasted_size)} ({wasted_size/total_size:.3f})')
+print(f'Total Space: {humanify(total_space)}')
+print(f'Locked Files: {locked_files}')
+print(f'Locked Space: {humanify(locked_space)}')
+print(f'Duplicate Files: {waste_files} ({waste_files/total_files:.3f})')
+print(f'Duplicate Space: {humanify(waste_space)} ({waste_space/total_space:.3f})')
 print(f'Config Files: {config_files}')
-print(f'Config Space: {humanify(config_size)}')
-print(f'Skipped Files: {skipped_files}')
-print(f'Skipped Space: {humanify(skipped_size)}')
+print(f'Config Space: {humanify(config_space)}')
+print(f'Skipped Files: {skip_files}')
+print(f'Skipped Space: {humanify(skip_space)}')
+print(f'Small Files: {small_files}')
+print(f'Small Space: {humanify(small_space)}')
