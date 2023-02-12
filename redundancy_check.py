@@ -55,6 +55,7 @@ for path, subdirs, files in os.walk(arg.path):
 			filepath = os.path.join(path, name)
 		except:
 			print('failed', filepath)
+			continue
 		mode = os.lstat(filepath).st_mode	
 		if not stat.S_ISREG(mode): continue
 		s = os.path.getsize(filepath)
