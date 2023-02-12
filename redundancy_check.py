@@ -1,5 +1,6 @@
 import argparse
 import os
+import re
 import stat
 
 parser = argparse.ArgumentParser(description='Find duplicate files')
@@ -8,6 +9,8 @@ parser.add_argument('--min', type=int, metavar='<min size>', default = 1024,
 	help='minimum file size [%(default)s]')
 parser.add_argument('--bytes', type=int, metavar='<bytes>', default = 128,
 	help='number of bytes to read for pseudo-checksum [%(default)s]')
+parser.add_argument('--config', action='store_true',
+	help='include configuration files and directories .*')
 arg = parser.parse_args()
 
 def humanify(n):
@@ -19,16 +22,22 @@ def humanify(n):
 
 # Index all files by their size
 size = {}
-total_size = 0
 total_files = 0
-skipped_size = 0
+total_size = 0
+config_files = 0
+config_size = 0
 skipped_files = 0
+skipped_size = 0
 for path, subdirs, files in os.walk(arg.path):
 	for name in files:
 		filepath = os.path.join(path, name)
 		mode = os.lstat(filepath).st_mode
 		if not stat.S_ISREG(mode): continue
 		s = os.path.getsize(filepath)
+		if '/.' in filepath and not arg.config:
+			config_size += s
+			config_files += 1
+			continue
 		if s < arg.min:
 			skipped_size += s
 			skipped_files += 1
@@ -67,5 +76,7 @@ print(f'Total Files: {total_files}')
 print(f'Total Space: {humanify(total_size)}')
 print(f'Wasted Files: {wasted_files} ({wasted_files/total_files:.3f})')
 print(f'Wasted Space: {humanify(wasted_size)} ({wasted_size/total_size:.3f})')
+print(f'Config Files: {config_files}')
+print(f'Config Space: {humanify(config_size)}')
 print(f'Skipped Files: {skipped_files}')
 print(f'Skipped Space: {humanify(skipped_size)}')
