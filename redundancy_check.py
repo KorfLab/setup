@@ -10,7 +10,7 @@ parser.add_argument('--min', type=int, metavar='<min size>', default = 1024,
 parser.add_argument('--bytes', type=int, metavar='<bytes>', default = 128,
 	help='number of bytes to read for pseudo-checksum [%(default)s]')
 parser.add_argument('--config', action='store_true',
-	help='include configuration files and directories .*')
+	help='include configuration files and directories /.*')
 arg = parser.parse_args()
 
 def humanify(n):
@@ -67,8 +67,7 @@ for s in sorted(size, reverse=True):
 	# Report duplicates
 	for sig in pseudosum:
 		if len(pseudosum[sig]) == 1: continue
-		hs = humanify(s)
-		print(hs, ' '.join(pseudosum[sig]))
+		print(humanify(s), ' '.join(pseudosum[sig]))
 		wasted_size += (len(pseudosum[sig]) -1) * s
 		wasted_files += len(pseudosum[sig]) -1
 
