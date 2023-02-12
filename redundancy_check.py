@@ -18,7 +18,7 @@ def dehuman(s):
 	elif s.endswith('t') or s.endswith('T'): return int(s[:-1]) * 1e12
 	else: return int(s)
 
-parser = argparse.ArgumentParser(description='Find duplicate files')
+parser = argparse.ArgumentParser(description='Find duplicate files.')
 parser.add_argument('path', type=str, metavar='<path>')
 parser.add_argument('--min', type=str, metavar='<min size>', default = '10M',
 	help='minimum file size [%(default)s]')
@@ -29,7 +29,7 @@ parser.add_argument('--skip', type=str, metavar='<tokens>', nargs='+',
 parser.add_argument('--verbose', action='store_true',
 	help='show all duplicte file paths')
 parser.add_argument('--hidden', action='store_true',
-	help='include hidden (configuration) files and directories /.*')
+	help='include hidden (configuration) files and directories')
 arg = parser.parse_args()
 
 
