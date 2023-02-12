@@ -2,10 +2,24 @@ import argparse
 import os
 import re
 import stat
+import sys
+
+def humanify(n):
+	if   n > 1e12: return f'{n/1e12:.2f}T'
+	elif n > 1e9:  return f'{n/1e9:.2f}G'
+	elif n > 1e6:  return f'{n/1e6:.2f}M'
+	elif n > 1e3:  return f'{n/1e3:.2f}K'
+	else:          return n
+
+def dehuman(s):
+	if s.endswith('k') or s.endswith('K'): return int(s[:-1]) * 1e3
+	if s.endswith('m') or s.endswith('M'): return int(s[:-1]) * 1e6
+	if s.endswith('g') or s.endswith('G'): return int(s[:-1]) * 1e9
+	if s.endswith('t') or s.endswith('T'): return int(s[:-1]) * 1e12
 
 parser = argparse.ArgumentParser(description='Find duplicate files')
 parser.add_argument('path', type=str, metavar='<path>')
-parser.add_argument('--min', type=int, metavar='<min size>', default = 1024,
+parser.add_argument('--min', type=str, metavar='<min size>', default = '10M',
 	help='minimum file size [%(default)s]')
 parser.add_argument('--bytes', type=int, metavar='<bytes>', default = 128,
 	help='number of bytes to read for pseudo-checksum [%(default)s]')
@@ -15,27 +29,22 @@ parser.add_argument('--config', action='store_true',
 	help='include configuration files and directories /.*')
 arg = parser.parse_args()
 
-def humanify(n):
-	if   n > 1e12: return f'{n/1e12:.2f}T'
-	elif n > 1e9:  return f'{n/1e9:.2f}G'
-	elif n > 1e6:  return f'{n/1e6:.2f}M'
-	elif n > 1e3:  return f'{n/1e3:.2f}K'
-	else:          return n
 
 # Global stats
 total_files = 0
 total_space = 0
-locked_files = 0
-locked_space = 0
 config_files = 0
 config_space = 0
 skip_files = 0
 skip_space = 0
+locked_files = 0
+locked_space = 0
 small_files = 0
 small_space = 0
 
 # Index all files by their size
 size = {}
+minsize = dehuman(arg.min)
 for path, subdirs, files in os.walk(arg.path):
 	for name in files:
 		filepath = os.path.join(path, name)
@@ -68,7 +77,7 @@ for path, subdirs, files in os.walk(arg.path):
 			continue
 
 		# check for minimum file size
-		if s < arg.min:
+		if s < minsize:
 			small_space += s
 			small_files += 1
 			continue
@@ -76,8 +85,6 @@ for path, subdirs, files in os.walk(arg.path):
 		size[s].append(filepath)
 		total_space += s
 		total_files += 1
-
-
 
 # Find duplicate files (1) by file size (2) by pseudo-checksum
 waste_space = 0
@@ -104,6 +111,9 @@ for s in sorted(size, reverse=True):
 		waste_files += len(pseudosum[sig]) -1
 
 # Final report
+if total_files == 0 or total_space == 0:
+	print('no files after filters')
+	sys.exit(0)
 print(f'Total Files: {total_files}')
 print(f'Total Space: {humanify(total_space)}')
 print(f'Duplicate Files: {waste_files} ({waste_files/total_files:.3f})')
