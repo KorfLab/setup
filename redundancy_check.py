@@ -26,8 +26,10 @@ parser.add_argument('--bytes', type=int, metavar='<bytes>', default = 128,
 	help='number of bytes to read for pseudo-checksum [%(default)s]')
 parser.add_argument('--skip', type=str, metavar='<tokens>', nargs='+',
 	help='skip specific tokens, e.g. anaconda')
-parser.add_argument('--verbose', action='store_true',
-	help='show all duplicte file paths')
+parser.add_argument('--duplicates', action='store_true',
+	help='show all duplicte file paths and failed paths')
+parser.add_argument('--denied', action='store_true',
+	help='show all paths that deny permission')
 parser.add_argument('--hidden', action='store_true',
 	help='include hidden (configuration) files and directories')
 arg = parser.parse_args()
@@ -138,10 +140,13 @@ print(f'Checked Space: {humanify(check_space)}')
 if check_files != 0 and check_space != 0:
 	print(f'Duplicate Files: {waste_files} ({waste_files/check_files:.3f})')
 	print(f'Duplicate Space: {humanify(waste_space)} ({waste_space/check_space:.3f})')
-	if arg.verbose:
+	if arg.duplicates:
 		for s, files in duplicates:
 			print(humanify(s))
 			for f in files:
 				print(f'\t{f}')
 
-print(failed_paths)
+# Failed paths report
+if arg.denied:
+	for path in failed_paths:
+		print(failed_paths[path], path)
