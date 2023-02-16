@@ -311,5 +311,5 @@ def sumlogp2(a, b, mag=40):
 ```
 
 Of course, if you're working in Python, you can use `numpy.logaddexp2(a, b)` to 
-do the same calculation. The numpy method is more accurate but not every language
-has this built in. Also, the numpy version is slightly slower than the pure python.
+do the same calculation. But not every language has this built in. Also, the 
+numpy version is slightly slower than the pure python.
