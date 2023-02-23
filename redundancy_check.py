@@ -32,6 +32,8 @@ parser.add_argument('--denied', action='store_true',
 	help='show all paths that deny permission')
 parser.add_argument('--hidden', action='store_true',
 	help='include hidden (configuration) files and directories')
+parser.add_argument('--progress', action='store_true',
+	help='show progress')
 arg = parser.parse_args()
 
 
@@ -48,11 +50,16 @@ small_space = 0
 check_files = 0
 check_space = 0
 
+
 # Index all files by their size
 size = {}
 minsize = dehuman(arg.min)
+filecount = 0
 for path, subdirs, files in os.walk(arg.path):
 	for name in files:
+		filecount += 1
+		if arg.progress: print(f'sizing {filecount}', end='\r', file=sys.stderr)
+		
 		filepath = os.path.join(path, name)
 		try:
 			mode = os.lstat(filepath).st_mode
@@ -96,12 +103,17 @@ for path, subdirs, files in os.walk(arg.path):
 		size[s].append(filepath)
 		check_space += s
 		check_files += 1
+if arg.progress: print(file=sys.stderr)
 
 # Find duplicate files (1) by file size (2) by pseudo-checksum
 waste_space = 0
 waste_files = 0
 duplicates = []
+filecount = 0
 for s in sorted(size, reverse=True):
+	filecount += 1
+	if arg.progress: print(f'checking {filecount}', end='\r', file=sys.stderr)
+	
 	if len(size[s]) == 1: continue
 
 	# Create a pseudo-checksum by looking at the head and tail of a file
@@ -123,6 +135,7 @@ for s in sorted(size, reverse=True):
 		duplicates.append( (s, pseudosum[sig]) )
 		waste_space += (len(pseudosum[sig]) -1) * s
 		waste_files += len(pseudosum[sig]) -1
+if arg.progress: print(file=sys.stderr)
 
 # Summary report
 print(f'Hidden Files: {config_files}')
