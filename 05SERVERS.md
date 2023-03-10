@@ -23,7 +23,7 @@ needs.
 + spitfire.genomecenter.ucdavis.edu
 + CPU: 4 AMD Opteron 6380 16-Core Processor
 + RAM: 256G
-+ Storage: LSCC0 network storage
++ Storage: LSCC0 network storage /share/korflab
 
 
 lightning

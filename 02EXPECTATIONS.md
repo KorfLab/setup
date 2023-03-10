@@ -101,13 +101,12 @@ company is well-established, you might end up in a 40 hour work week with HR
 telling you not to work more. However, in a start-up you might be working
 harder than you would trying to become a professor.
 
-My dream is that my students work at least 40 hours per week because they can't
-help it. They just love research that much. If you don't love it, it's'
-probably because you haven't tasted success enough. Part of my job is providing
-opportunities to be successful. Part of your job is taking advantage of those
-opportunities. If something isn't working out, we need to talk. If you can't
-start a conversation with me, you have a problem. If I haven't checked in with
-you in a while, I have a problem.
+My dream is that my graduate students work at least 40 hours per week because
+they can't help it. They just love research that much. If you don't love it,
+it's' probably because you haven't tasted success enough. Part of my job is
+providing opportunities to be successful. Part of your job is taking advantage
+of those opportunities. If you don't love graduate school, we need to change
+something.
 
 
 Researcher Effectiveness Rating
