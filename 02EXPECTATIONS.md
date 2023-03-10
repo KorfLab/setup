@@ -42,7 +42,7 @@ Students should:
 	+ Use GitHub regularly
 	+ Work in a Unix command-line interface
 	+ Program in Python and possibly other languages
-	+ Eventually be able to pass the `EXAM.md`
+	+ Pass the KorfLab/exam
 
 
 Work-Life Balance in Academic Science
