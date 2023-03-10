@@ -45,10 +45,10 @@ Students should:
 	+ Eventually be able to pass the `EXAM.md`
 
 
-Work-Life Balance
-=================
+Work-Life Balance in Academic Science
+=====================================
 
-Thoughts on the problems of being a professional scientist.
+Thoughts on the problems of being a scientist in academia.
 
 Fast, Cheap, Reliable
 ---------------------
@@ -105,7 +105,9 @@ My dream is that my students work at least 40 hours per week because they can't
 help it. They just love research that much. If you don't love it, it's'
 probably because you haven't tasted success enough. Part of my job is providing
 opportunities to be successful. Part of your job is taking advantage of those
-opportunities.
+opportunities. If something isn't working out, we need to talk. If you can't
+start a conversation with me, you have a problem. If I haven't checked in with
+you in a while, I have a problem.
 
 
 Researcher Effectiveness Rating

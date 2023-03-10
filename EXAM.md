@@ -1,6 +1,10 @@
 Bioinformatics Exam
 ===================
 
+This is going to be changed in the near future to a new structure.
+
+----------------
+
 The following document is designed to test your bioinformatics skills. It
 contains a mixture of Git, Unix, and Python.
 
