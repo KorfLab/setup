@@ -64,9 +64,9 @@ like final versions of documents and not just pre-processor code for HTML.
 Every project should have a small sample of data with your programs for testing
 purposes (see Rule #1).
 
-Programs belong in git repos. Experimental data should **not** be store in git
+Programs belong in git repos. Experimental data should **not** be stored in git
 repos. For this reason, your programs and data should be in very different
-places on your computer (see Rule #3).
+places on your computer.
 
 If you're a programmer of some kind, which you must be to be in the lab, your
 programming activity is part of your CV. Your GitHub profile and activity are
