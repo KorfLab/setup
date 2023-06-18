@@ -42,8 +42,8 @@ Students should:
 	+ Use GitHub regularly
 	+ Work in a Unix command-line interface
 	+ Program in Python and possibly other languages
-	+ Complete the MCB185-legacy course
-	+ Pass the KorfLab/exam
+	+ Complete the course https://github.com/iankorf/MCB185-legacy
+	+ Pass the exam https://github.com/KorfLab/exam
 
 
 Work-Life Balance in Academic Science
