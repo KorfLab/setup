@@ -36,16 +36,16 @@ def hsize(size_bytes):
 parser = argparse.ArgumentParser(description='check memory on shared machine')
 parser.add_argument('--min', required=False, default=1e6,
 	help='minimum memory per process [%(default).3g]')
-parser.add_argument('--max', required=False, default=5,
-	help='maximum number of processes to report per user [%(default)i]')
 arg = parser.parse_args()
 
+# organize process by user
 user = {}
 for prog, pid, uid, mem in processes(arg):
 	if uid not in user: user[uid] = []
 	if mem == '': mem = 0
 	user[uid].append((pid, prog, int(mem)))
 
+# display memory stats for each user
 for uid in user:
 	name = subprocess.run(f'id -nu {uid}', shell=True,\
 		capture_output=True).stdout.decode().split('\n')[0]
@@ -53,6 +53,7 @@ for uid in user:
 		shell=True, capture_output=True).stdout.decode().split('\n')[0]
 	user[uid].sort(key=lambda x: x[2], reverse=True)
 
+	# get total memory, and memory for each program (collapse pids)
 	total = 0
 	program = {}
 	for pid, prog, mem in user[uid]:
