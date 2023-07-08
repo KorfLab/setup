@@ -49,6 +49,8 @@ for prog, pid, uid, mem in processes(arg):
 for uid in user:
 	name = subprocess.run(f'id -nu {uid}', shell=True,\
 		capture_output=True).stdout.decode().split('\n')[0]
+	real = subprocess.run(f'getent passwd {name} | cut -d ":" -f 5',\
+		shell=True, capture_output=True).stdout.decode().split('\n')[0]
 	user[uid].sort(key=lambda x: x[2], reverse=True)
 
 	total = 0
@@ -58,7 +60,7 @@ for uid in user:
 		if prog not in program: program[prog] = []
 		program[prog].append((mem, pid))
 
-	print(name, hsize(total))
+	print(f'{name} ({real}): hsize(total)')
 	for pname in program:
 		program[pname].sort(key=lambda x: x[0])
 		ptotal = 0
@@ -66,4 +68,4 @@ for uid in user:
 		for mem, pid in program[pname]:
 			ptotal += mem
 			pids.append(pid)
-		print('\t', pname, hsize(ptotal), pids)
+		print(' ', pname, hsize(ptotal), pids)
