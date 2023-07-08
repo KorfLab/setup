@@ -60,7 +60,7 @@ for uid in user:
 		if prog not in program: program[prog] = []
 		program[prog].append((mem, pid))
 
-	print(f'{name} ({real}): hsize(total)')
+	print(f'{name} ({real}): {hsize(total)}')
 	for pname in program:
 		program[pname].sort(key=lambda x: x[0])
 		ptotal = 0
