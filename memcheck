@@ -25,13 +25,11 @@ def processes(arg):
 		if mem < arg.min: continue
 		yield name, pid, uid, mem
 
-def hsize(size_bytes):
-	if size_bytes == 0: return "0B"
-	size_name = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
-	i = int(math.floor(math.log(size_bytes, 1024)))
-	p = math.pow(1024, i)
-	s = round(size_bytes / p, 2)
-	return "%s %s" % (s, size_name[i])
+def hsize(size):
+	if size == 0: return "0B"
+	unit = ("B", "K", "M", "G", "T", "P")
+	i = int(math.floor(math.log(size, 1024)))
+	return f'{size/math.pow(1024,i):.2f}{unit[i]}'
 
 parser = argparse.ArgumentParser(description='check memory on shared machine')
 parser.add_argument('--min', required=False, default=1e6,
