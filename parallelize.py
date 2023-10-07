@@ -1,0 +1,22 @@
+import argparse
+import multiprocessing
+import subprocess
+
+def worker(cmd):
+	return subprocess.run(cmd, shell=True, capture_output=True).stdout.decode()
+
+parser = argparse.ArgumentParser(description='command line parallelizer')
+parser.add_argument('file', help='file of command lines')
+parser.add_argument('--cpus', required=False, type=int, default=4,
+	metavar='<int>', help='number of CPUs to use [%(default)i]')
+arg = parser.parse_args()
+
+jobs = []
+with open(arg.file) as fp:
+	for cmd in fp:
+		jobs.append(cmd.rstrip())
+
+pool = multiprocessing.Pool(arg.cpus)
+
+for result in pool.map(worker, jobs):
+	print(result, end='')
