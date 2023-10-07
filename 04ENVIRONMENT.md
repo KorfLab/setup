@@ -14,14 +14,14 @@ Cygwin, and Gitbash for Windows. They generally work most of the time.
 
 Mac users have Unix built in (Darwin), and typically don't use VMs. By default,
 MacOS does not install the developer tools, so you'll have to do that manually
-to have programs like `git`.
+to have programs like `git` by doing: `xcode-select --install`.
 
 All of the clusters on campus run Linux. At some point your computational needs
 will exceed your personal computer and you will need to use a cluster.
 
 
-VM Installation
----------------
+VM Installation for Personal Computer
+-------------------------------------
 
 Q: Which Linux distribution should I use?
 
@@ -189,10 +189,9 @@ build software with out-dated libraries that are known to work. The software
 that manages these kinds of dependancies is Conda (which is distributed either
 as Anaconda or Miniconda).
 
-Open Firefox (in your VM if you are using one) and head to
-https://www.anaconda.com to download Anaconda. Next open your terminal and
-navigate to your Downloads folder. Run the shell script there (the example
-shown below might not be the same).
+Point your browser to https://www.anaconda.com to download Anaconda. Next open
+your terminal and navigate to your Downloads folder. Run the shell script there
+(the example shown below might not be the same).
 
 	cd Downloads
 	sh Anaconda3-2021.11-Linux-x86_64.sh
@@ -207,6 +206,149 @@ each prompt. This means you're in the base `conda` environment. When you
 install new bioinformatics programs or even programming languages, use `conda`
 to do that for you.
 
-For more information about `conda` see the KorfLab/learning-conda repo.
+### Mamba
 
-You can now remove the Anaconda install file from your Downloads folder.
+The default package resolver sucks. Whenver you do a `conda install`, you
+should instead do a `mamba install`. Install `mamba` with the following
+command.
+
+```
+conda install mamba -n base -c conda-forge
+```
+
+For more info, see the repo `KorfLab/learning-conda`.
+
+
+Spitfire
+--------
+
+Our "head node" for the cluster is `spitfire`. This is where we do large jobs
+and submit jobs to the cluster. In order to get an account, you must first
+request one by pointing your web browser to
+`computing.genomecenter.ucdavis.edu`.
+
+In the directions that follow, the value of `username` will be whatever your
+actual user name is.
+
+Once you have an account, you can `ssh` to log into `spitfire` or `scp` if
+you want to copy files there.
+
+```
+ssh username@spitfire.genomecenter.ucdavis.edu
+scp yourfile username@spitfire.genomecenter.ucdavis.edu:
+```
+
+The connection to your default home directory `/home/username` is designed to
+time-out after a while. This means that any long jobs may fail. For this
+reason, it is essential to move your `$HOME` to another mount point that is
+stable.
+
+In your given home directory, create a new `.profile` that contains the
+following information. The first line sets your home directory to a new
+location, which we'll make below. The second line makes sure you get out of
+your current location and into your lab home. The third line activates your
+login script, which we'll modify in a sec.
+
+```
+HOME=/share/korflab/home/username
+cd
+source .bashrc
+```
+
+As a member of the lab, you have access to `/share/korflab`. Create a new
+directory in `/share/korflab/home/username` for yourself. This is your lab home
+directory. Create a `.bashrc` in your home directory.
+
+Now install Anaconda or Miniconda as you did on your personal computer, and
+also install `mamba`.
+
+If you examine your `.bashrc` file, you will notice that the conda installation
+modified it. It will look something like this (except with your username and
+not `ikorf`). Don't modify this part ever.
+
+```
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/share/korflab/home/ikorf/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/share/korflab/home/ikorf/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/share/korflab/home/ikorf/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/share/korflab/home/ikorf/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+```
+
+Put your own login items **after** the conda setup. For example, you might find
+the following modifications useful.
+
+```
+alias ls="ls -F"
+alias rm="rm -i"
+alias cp="cp -i"
+alias mv="mv -i"
+alias cls="clear; ls"
+
+PATH=$PATH:$HOME/bin
+export PYTHONPATH=$HOME/lib
+```
+
+Log out and back in again. Your prompt should have `(base)` at the front, which
+indicates you're in the base conda environment.
+
+
+Verifiy Setup
+-------------
+
+Let's make sure your computing environment works properly. Do these procedures
+on your personal computer as well as your cluster home.
+
+### home
+
+Run the following command. If this doesn't report
+`/share/korflab/home/username`, get help now.
+
+```
+echo $HOME
+```
+
+### git
+
+Run the following command. If this doesn't work, get help now.
+
+```
+git clone https://github.com/KorfLab/datacore
+```
+
+### python
+
+Run the following command. If this doesn't report `Python 3.10.10` or something
+like that, get help now.
+
+```
+python3 --version
+```
+
+### conda/mamba
+
+If your prompt doesn't start with `(base)`, get help now.
+
+Create a new environment. This will be used for BLAST.
+
+```
+conda create --name blast
+conda activate blast
+```
+
+You should now see `(blast)` instead of `(base)`. To install BLAST programs in
+this environment, do the following command.
+
+```
+mamba install -c bioconda blast-legacy
+```
+
+Try running `blastall`. You should see a long usage statement.

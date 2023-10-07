@@ -42,7 +42,8 @@ Students should:
 	+ Use GitHub regularly
 	+ Work in a Unix command-line interface
 	+ Program in Python and possibly other languages
-	+ Pass the KorfLab/exam
+	+ Complete the course https://github.com/iankorf/MCB185-legacy
+	+ Pass the exam https://github.com/KorfLab/exam
 
 
 Work-Life Balance in Academic Science
@@ -77,7 +78,6 @@ beat themselves up because they aren't. Give yourself the breathing room you
 would give to others. You don't have to be an A+ or even A- in all of these.
 But try not to have an F in any of them.
 
-
 Work Ethic
 ----------
 
@@ -85,28 +85,22 @@ How hard does one _need_ to work? Partly, that depends on your future plans.
 
 Back when I was in graduate school, everyone had the same goal: become a
 professor. That's a little unrealistic. There aren't that many jobs for
-professors. All the professors you know right now worked really hard as
-graduate students, and even harder as post-docs because they had to. It wasn't
-possible to become a professor unless you were working some evenings and
-weekends because that's what everyone else on your path was doing. Is that
-still true today? Probably. Is it unhealthy for future professors to work 60
-hours per week? Probably. Is this a form of academic hazing? Probably.
-Ultimately, if you have designs on becoming a professor, you might need to work
-60 hours per week because your competition is doing just that. On the plus
-side, being a professor is a pretty great job most of the time and I have a
-hard time imagining myself doing something else.
+professors. The probability of becoming a professor at a Tier 1 research
+university is less than playing in the NBA. All the professors you know right
+now worked really hard as graduate students, and even harder as post-docs
+because they had to. It wasn't possible to become a professor unless you were
+working some evenings and weekends because that's what everyone else on your
+path was doing. Is that still true today? Probably. Is it unhealthy for future
+professors to work 50-60 hours per week? Probably. Is this a form of academic
+hazing? Probably. Ultimately, if you have designs on becoming a professor, you
+might need to work 50-60 hours per week because your competition is doing just
+that. On the plus side, being a professor is a pretty great job most of the
+time and I have a hard time imagining myself doing something else.
 
 What if you want to be a staff scientist job in an industry setting? If the
 company is well-established, you might end up in a 40 hour work week with HR
-telling you not to work more. However, in a start-up you might be working
-harder than you would trying to become a professor.
-
-My dream is that my graduate students work at least 40 hours per week because
-they can't help it. They just love research that much. If you don't love it,
-it's' probably because you haven't tasted success enough. Part of my job is
-providing opportunities to be successful. Part of your job is taking advantage
-of those opportunities. If you don't love graduate school, we need to change
-something.
+telling you not allowed to work more. However, in a start-up you might be
+working harder than you would trying to become a professor.
 
 
 Researcher Effectiveness Rating

@@ -64,9 +64,9 @@ like final versions of documents and not just pre-processor code for HTML.
 Every project should have a small sample of data with your programs for testing
 purposes (see Rule #1).
 
-Programs belong in git repos. Experimental data should **not** be store in git
+Programs belong in git repos. Experimental data should **not** be stored in git
 repos. For this reason, your programs and data should be in very different
-places on your computer (see Rule #3).
+places on your computer.
 
 If you're a programmer of some kind, which you must be to be in the lab, your
 programming activity is part of your CV. Your GitHub profile and activity are
@@ -106,3 +106,62 @@ developers can deploy and extend the project. Beautiful code is simple, clear,
 robust, and extensible. Because beautiful code is easy to understand, it can be
 made correct, friendly, and robust, and derivative works can be made efficient,
 fast, novel, and clever.
+
+
+The 10 Commandments of KorfLab Bioinformatics
+=============================================
+
+1. Thou shalt openly share your data (444) and code (644)
+2. Thou shalt not duplicate data files on a storage device
+3. Thou shalt create synthetic and subsetted test data
+4. Thou shalt manage all source code via GitHub
+5. Thou shalt not hard-code paths
+6. Thou shalt follow the style guide
+7. Thou shalt perform automated testing
+8. Thou shalt install external software via conda
+9. Thou shalt estimate memory and cpu requirements before running large jobs
+10. Thou shalt not copy-paste
+
+----
+
+(1) We believe in making both data and source code as free and open as
+possible. Sometimes you may have to hold back before publication, but in
+general, be open. This lets others learn from us and makes our efforts more
+transparent and more robust. On the filesystem, data should not have write
+permissions (444) because it might accidentally be edited or deleted. You don't
+need to let other people write your files (644) because they already have
+access to your code via GitHub.
+
+(2) Duplicated data is a waste of space and creates an opportunity to become
+edited, and out of sync with the original data. Data should exist in one shared
+location and symbolically linked elsewhere when convenience is desired.
+
+(3) All projects begin with test/dev data. This is data that is just large
+enough to test the software under development. Some test data should be
+synthetic (made up by you) and some should be subsets of real data (e.g. 1
+percent of a genome). Test data is used for development, automated testing, and
+tutorials.
+
+(4) All source code should be regularly backed up and managed by revision
+control software. GitHub makes this very simple and free.
+
+(5) Hard-coding directory paths makes software non-portable. Try not to
+hard-code anything, but especially directory paths.
+
+(6) Every language has an official style guide. Follow it as much as you can so
+that other people can easily follow your code.
+
+(7) Unit tests and functional tests are an essential part of robust software
+engineering. It's like putting latex gloves on in the lab.
+
+(8) Installing software with complex dependancies is a difficult task that
+conda manages pretty well. Not all software is available via conda, though, so
+when you run into those packages, make very careful notes in your README.
+
+(9) Use test data of various sizes to determine the memory footprint and run
+time of your job. This will help you understand how your job scales with size
+and helps you estimate when it will complete.
+
+(10) Typing code helps you understand what code does. Copy-paste robs you of
+that learning experience and is one of the greatest sources of major bugs.
+Resist.

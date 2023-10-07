@@ -1,0 +1,70 @@
+#!/usr/bin/env python3
+
+import argparse
+import math
+import os
+import subprocess
+import sys
+
+def processes(arg):
+	for d in os.scandir('/proc'):
+		if not d.is_dir(): continue
+		if not d.name.isnumeric(): continue
+		name = None
+		pid = None
+		uid = None
+		mem = 0 # sometimes not stated
+		with open(f'{d.path}/status') as fp:
+			for line in fp:
+				f = line.split()
+				if len(f) < 2: continue
+				if   f[0] == 'Name:':   name = f[1]
+				elif f[0] == 'Pid:':    pid  = int(f[1])
+				elif f[0] == 'Uid:':    uid  = int(f[1])
+				elif f[0] == 'VmSize:': mem  = int(f[1])
+		if mem < arg.min: continue
+		yield name, pid, uid, mem
+
+def hsize(size):
+	if size == 0: return "0B"
+	unit = ("B", "K", "M", "G", "T", "P")
+	i = int(math.floor(math.log(size, 1024)))
+	return f'{size/math.pow(1024,i):.2f}{unit[i]}'
+
+parser = argparse.ArgumentParser(description='check memory on shared machine')
+parser.add_argument('--min', required=False, default=1e6,
+	help='minimum memory per process [%(default).3g]')
+arg = parser.parse_args()
+
+# organize process by user
+user = {}
+for prog, pid, uid, mem in processes(arg):
+	if uid not in user: user[uid] = []
+	if mem == '': mem = 0
+	user[uid].append((pid, prog, int(mem)))
+
+# display memory stats for each user
+for uid in user:
+	name = subprocess.run(f'id -nu {uid}', shell=True,\
+		capture_output=True).stdout.decode().split('\n')[0]
+	real = subprocess.run(f'getent passwd {name} | cut -d ":" -f 5',\
+		shell=True, capture_output=True).stdout.decode().split('\n')[0]
+	user[uid].sort(key=lambda x: x[2], reverse=True)
+
+	# get total memory, and memory for each program (collapse pids)
+	total = 0
+	program = {}
+	for pid, prog, mem in user[uid]:
+		total += mem
+		if prog not in program: program[prog] = []
+		program[prog].append((mem, pid))
+
+	print(f'{name} ({real}): {hsize(total)}')
+	for pname in program:
+		program[pname].sort(key=lambda x: x[0])
+		ptotal = 0
+		pids = []
+		for mem, pid in program[pname]:
+			ptotal += mem
+			pids.append(pid)
+		print(' ', pname, hsize(ptotal), pids)
