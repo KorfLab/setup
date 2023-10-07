@@ -144,11 +144,11 @@ stuff = run('ls -a', shell=True, capture_output=True).stdout.decode().split('\n'
 Summing probabilities in log-space
 ----------------------------------
 
-Since multiplying probabilities over and over can lead to underflow errors, we 
-tend to do math in log-space. Summing log-probabilities can be probematic 
-because you can't simply de-log the numbers, sum them, and then return the log. 
-Here's one solution, which is to transform the log to a higher power, then do 
-the math, then transform back to a lower power. The function below also 
+Since multiplying probabilities over and over can lead to underflow errors, we
+tend to do math in log-space. Summing log-probabilities can be probematic
+because you can't simply de-log the numbers, sum them, and then return the log.
+Here's one solution, which is to transform the log to a higher power, then do
+the math, then transform back to a lower power. The function below also
 short-circuits and returns the higher number if the numbers are too dissimilar.
 The formula requires that `a` is the larger (less negative) of the two operands,
 and the operands are swapped in the formula if otherwise.
@@ -162,9 +162,20 @@ def sumlogp2(a, b, mag=40):
 	return math.log2(1 + 2**(b - a)) + a
 ```
 
-Of course, if you're working in Python, you can use `numpy.logaddexp2(a, b)` to 
-do the same calculation. But not every language has this built in. Also, the 
+Of course, if you're working in Python, you can use `numpy.logaddexp2(a, b)` to
+do the same calculation. But not every language has this built in. Also, the
 numpy version is slightly slower than the pure python.
+
+
+Some useful scripts
+-------------------
+
+The `bin` directory contains a couple of useful scripts (maybe more useful to
+modify than to use as is).
+
++ `memcheck` looks through the `proc` filesystem to examine memory
++ `parallelize` runs a file of command lines in parallel on multiple CPUs
++ `redundancey_check` looks for identical files in the filesystem
 
 
 Unix Quick Reference
