@@ -28,7 +28,9 @@ sycnrhonized to the cloud.
 ### Portable
 
 USB sticks and external drives are for convenience, backup, or temporary
-builds. Everything on removable storage should pre-exist somewhere elsewhere.
+builds. Everything on removable storage should pre-exist elsewhere. If your
+only copy of something is on portable media, you might as well throw it away
+now and avoid the pain of when you lose it later.
 
 ### Online
 
