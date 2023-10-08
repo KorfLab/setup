@@ -1,6 +1,75 @@
 Miscellaneous Stuff
 ===================
 
+Files & Backup
+--------------
+
+A combination of "kids these days" and abstract storage models mean that many
+people today have no idea where or how their files are managed.
+
++ Local
++ Portable
++ Online
++ Auto-sync
++ Manual-sync
++ Backed up
++ Photos
+
+### Local
+
+Files that you download on a desktop, laptop, tablet, or phone are physically
+located on your device. They might be in your Downloads directory, but maybe
+not.
+
+Files you create and save locally are at risk if your computer breaks down or
+is stolen. Never create important files locally unless they are also being
+sycnrhonized to the cloud.
+
+### Portable
+
+USB sticks and external drives are for convenience, backup, or temporary
+builds. Everything on removable storage should pre-exist somewhere elsewhere.
+
+### Online
+
+Some files are **only** available online: you can't get to them unless your
+computer is connected to a network. By default, Google Docs files are only
+available when you're connected to the Internet. Files such as these are
+generally automatically backed up and archived. Even if you accidentally delete
+the files, you can usually get them back.
+
+Online files are great for you personal documents, but not for code or data.
+Meaning, you _should_ write papers in Google Docs, but it's not the place to
+store the human genome.
+
+### Auto-sync
+
+Some files exist **both** locally and in the cloud. If you use Box, Dropbox,
+Google Drive, Mega, and other similar services, your files are periodically
+synchronized with the cloud. You can work on your files offline, and when you
+return to the network, they will sync. When there are multiple computers
+working offline, the synchronization may result in lost data.
+
+### Manual-sync
+
+We use GitHub for all of our source code. This is synchronized manually when
+you `git pull` and `git push`. When there are conflicts among various repos,
+you have to resolve them manually. This is much better than lost or overwritten
+data.
+
+### Backed Up
+
+Back up data, not code or documents. Documents should by synchronized with the
+cloud. That's your backup. Data is often too large for cloud services. Back up
+large data with university services.
+
+### Photos
+
+Photos can take up an enormous amount of space. If you take a lot of pictures,
+get some kind of photo storage service, possibly independent of your code and
+documents.
+
+
 Directory Structure
 -------------------
 
@@ -37,6 +106,12 @@ OtherDirectories/
 	+ Data files are not writable
 	+ Data files are frequently soft-linked to code directories
 	+ Data directories have OS-indexing turned off
++ Desktop
+	+ Do whatever you like here, but my advice would be not to be messy
+	+ Don't store code or data on your Desktop
++ Downloads
+	+ This is for **temporary** files
+	+ If what you downloaded was important, move it from here!
 
 
 Login Customization

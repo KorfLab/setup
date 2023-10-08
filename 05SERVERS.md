@@ -39,7 +39,7 @@ faster. It is therefore useful for single-CPU-intensive tasks.
 + RAM: 128G
 + Storage: 4TB NVME (most used for AlphaFold)
 
-## Lightning is NOT ##
+### Lightning is NOT
 
 + NOT part of the campus HPC (don't ask them for help)
 + NOT connected to shared file systesms

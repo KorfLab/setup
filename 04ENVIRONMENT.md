@@ -20,8 +20,8 @@ All of the clusters on campus run Linux. At some point your computational needs
 will exceed your personal computer and you will need to use a cluster.
 
 
-VM Installation for Personal Computer
--------------------------------------
+VM Installation for Windows Computer
+------------------------------------
 
 Q: Which Linux distribution should I use?
 
@@ -49,8 +49,6 @@ If you follow the instructions below and you get stuck, ask for help.
 
 Some Windows computers are not set up for virtualization. You may need to
 change some BIOS settings.
-
-MacOS may require changing some security settings.
 
 ### 1. Download files
 
@@ -208,9 +206,8 @@ to do that for you.
 
 ### Mamba
 
-The default package resolver sucks. Whenver you do a `conda install`, you
-should instead do a `mamba install`. Install `mamba` with the following
-command.
+The default package resolver sucks. Whenver you do a `conda install`, you may
+instead do a `mamba install`. Install `mamba` with the following command.
 
 ```
 conda install mamba -n base -c conda-forge
@@ -260,7 +257,7 @@ directory in `/share/korflab/home/username` for yourself. This is your lab home
 directory. Create a `.bashrc` in your home directory.
 
 Now install Anaconda or Miniconda as you did on your personal computer, and
-also install `mamba`.
+also install `mamba` if you like.
 
 If you examine your `.bashrc` file, you will notice that the conda installation
 modified it. It will look something like this (except with your username and
