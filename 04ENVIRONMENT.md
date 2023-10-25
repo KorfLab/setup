@@ -183,9 +183,79 @@ Conda
 
 Bioinformatics software is frequently not well-maintained. For this reason, it
 may not compile with the latest compilers and libraries. As a result, we must
-build software with out-dated libraries that are known to work. The software
-that manages these kinds of dependancies is Conda (which is distributed either
-as Anaconda or Miniconda).
+build software with out-dated libraries that are known to work. The software we
+use that manages these kinds of dependancies is Conda (which is distributed
+either as Anaconda or Miniconda). Package management is a complex topic, so it
+will be explained using a couple analogies.
+
+### Computer Instructions Analogy
+
+Have you ever been given instructions for your computer on how to connect to a
+VPN, install a printer, or update a driver? Have you noticed that half the time
+the instructions are out of date? It could happen that your computer is older
+than the instructions or that your computer is newer. Either way, the buttons,
+windows, etc might look different or even be incompatible. Wouldn't it be
+better if the directions "knew" which version of computer you had so that you
+they actually applied to your computer? Of course that would be better, but it
+would mean you would need multiple sets of instructions, each tailored to every
+specific situation. Believe it or not, this is what Conda offers.
+
+### Cooking Analogy
+
+Programs depend on libraries. It's sort of like saying that pizza depends on
+ingredients. In order to make pizza, you need ingredients like flour, salt,
+olive oil, cheese, etc. Computer programs, like some recipies, can be very
+picky. If the recipe calls for OO flour, can you substitute AP flour or bread
+flour? If the recipe calls for 68 degree water, can you substitute boiling
+water? It's hard to know until the recipe fails. Programs are the same way.
+Sometimes they fail to work properly because the "chef" didn't specify the
+ingredients exactly.
+
+A "package manager" is software that ensures that your ingredients are exactly
+as you specify. Suppose you have an awesome recipe for orange muffins that you
+got from your grandmother. It calls for the artificial orange drink "Tang".
+However, when you make the recipe it doesn't taste quite the same as you
+remember. That's because the recipe was developed a long time ago, and Tang
+today isn't the same as it used to be. If you want to make the original recipe,
+you have to specify that "Tang" is actually "tang-1.0" and not the current
+"tang-2.25". Thankfully, you can still import 1.0 from Mexico.
+
+The recipe also calls for all-purpose flour. Your grandmother used to use Gold
+Medal but you happen to have King Arthur. Do you need to try to replicate the
+exact flour used at the time or will it work just fine with what you have? You
+can imagine that specififying every single ingredient would be a pain. And it
+is. So you just need to specify the things that have changed enough to break
+the recipe.
+
+A "package manager" specifies a "base" set of ingredients for you to cook with.
+It provides you with sugar, salt, flour etc. If you need something very
+specific, it will get that for you.
+
+### Genomic Analysis Analogy
+
+Imagine you're performing an RNA-seq analysis. There are 2 major steps in the
+process:
+
+1. Aligning the reads to the genome
+2. Performing differential expression analysis
+
+You last ran the pipeline 2 years ago and got a bunch of cool figures. However,
+your PI lost some of the figures and wants you to regenerate them. So you run
+the pipeline again and find that it doesn't work the same as it did. Why?
+
+* The genome you aligned to may have been updated
+* The alignment software may have been updated
+* The pipeline software may have been updated
+* The analysis software may have been updated
+
+Updates are necessary to fix bugs. But those bugs may change the behavior of
+the software in ways you didn't predict. It's easy to specify exactly which
+genome sequence you were using as you probably saved it. But exactly what
+version of Python, bowtie, Snakemake, etc? You probably didn't write those
+down. Even if you did, each of those programs relies on 10-20 libraries that
+you don't even know the names of.
+
+### Installation
 
 Point your browser to https://www.anaconda.com to download Anaconda. Next open
 your terminal and navigate to your Downloads folder. Run the shell script there
@@ -200,20 +270,26 @@ a little time to install. When the installer asks if you want to initialize
 Anaconda3 by running conda init, answer "yes".
 
 Close your terminal and open a new one. You should see `(base)` at the start of
-each prompt. This means you're in the base `conda` environment. When you
-install new bioinformatics programs or even programming languages, use `conda`
-to do that for you.
+the prompt. This means you're in the base `conda` environment. If you don't see
+`(base)`, you're not using `conda`. Stop whatever you're doing and fix that
+before moving on.
 
-### Mamba
+### Cheat Sheat
 
-The default package resolver sucks. Whenver you do a `conda install`, you may
-instead do a `mamba install`. Install `mamba` with the following command.
+| Task                    | Command
+|:------------------------|:------------------------------------------
+| create new env          | `conda create --name {env name}`
+| list envs               | `conda env list`
+| activate base env       | `conda activate`
+| activate named env      | `conda activate {env name}`
+| return to vanilla shell | `conda deactivate`
+| save env as yaml        | `conda env export > env.yml`
+| create env from yaml    | `conda env create -f env.yml`
+| remove env              | `conda remove --name whatever`
 
-```
-conda install mamba -n base -c conda-forge
-```
+### Learning Conda
 
-For more info, see the repo `KorfLab/learning-conda`.
+For more information, see https://github.com/KorfLab/learning-conda
 
 
 Spitfire
