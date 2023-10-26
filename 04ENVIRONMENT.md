@@ -257,9 +257,11 @@ you don't even know the names of.
 
 ### Installation
 
-Point your browser to https://www.anaconda.com to download Anaconda. Next open
-your terminal and navigate to your Downloads folder. Run the shell script there
-(the example shown below might not be the same).
+Point your browser to https://www.anaconda.com to download Anaconda or
+Miniconda (I prefer Miniconda because I only want the packages I need and I
+never use the graphical interface). Next open your terminal and navigate to
+your Downloads folder. Run the shell script there (the example shown below
+might not be the same).
 
 	cd Downloads
 	sh Anaconda3-2021.11-Linux-x86_64.sh
