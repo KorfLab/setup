@@ -257,11 +257,11 @@ you don't even know the names of.
 
 ### Installation
 
-Point your browser to https://www.anaconda.com to download Anaconda or
-Miniconda (I prefer Miniconda because I only want the packages I need and I
-never use the graphical interface). Next open your terminal and navigate to
-your Downloads folder. Run the shell script there (the example shown below
-might not be the same).
+Point your browser to https://www.anaconda.com to download Anaconda or to
+https://docs.conda.io/projects/miniconda/en/latest for Miniconda (I prefer
+Miniconda because I only want the packages I need and I never use the graphical
+interface). Next open your terminal and navigate to your Downloads folder. Run
+the shell script there (the example shown below might not be the same).
 
 	cd Downloads
 	sh Anaconda3-2021.11-Linux-x86_64.sh
@@ -276,20 +276,12 @@ the prompt. This means you're in the base `conda` environment. If you don't see
 `(base)`, you're not using `conda`. Stop whatever you're doing and fix that
 before moving on.
 
-### Cheat Sheat
+### Usage
 
-| Task                    | Command
-|:------------------------|:------------------------------------------
-| create new env          | `conda create --name {env name}`
-| list envs               | `conda env list`
-| activate base env       | `conda activate`
-| activate named env      | `conda activate {env name}`
-| return to vanilla shell | `conda deactivate`
-| save env as yaml        | `conda env export > env.yml`
-| create env from yaml    | `conda env create -f env.yml`
-| remove env              | `conda remove --name whatever`
-
-### Learning Conda
+OK, now that base is working, you're never going to use it. Instead, you'll
+create a new environment to do you work. You might not need more than one
+working environment. You only need separate environments when there are
+conflicting packages.
 
 For more information, see https://github.com/KorfLab/learning-conda
 
