@@ -257,33 +257,26 @@ you don't even know the names of.
 
 ### Installation
 
-Point your browser to https://www.anaconda.com to download Anaconda or to
-https://docs.conda.io/projects/miniconda/en/latest for Miniconda (I prefer
-Miniconda because I only want the packages I need and I never use the graphical
-interface). Next open your terminal and navigate to your Downloads folder. Run
-the shell script there (the example shown below might not be the same).
+Download and install Miniconda or Anaconda. Anaconda comes pre-configured with
+a bunch of analysis software built-in. Miniconda is a stripped down version
+with the bare necessities. I prefer to start with Miniconda and add packages
+when I need them. Follow the directions on the website.
 
-	cd Downloads
-	sh Anaconda3-2021.11-Linux-x86_64.sh
++ Miniconda - https://docs.conda.io/projects/miniconda/en/latest
++ Anaconda - https://www.anaconda.com
 
 Read the license agreement and answer "yes" (without quotes) to accept the
 terms. Use the default location for the install by pressing Enter. It will take
-a little time to install. When the installer asks if you want to initialize
-Anaconda3 by running conda init, answer "yes".
+a little time to install. When the installer asks if you want to initialize by
+running conda init, answer "yes".
 
 Close your terminal and open a new one. You should see `(base)` at the start of
 the prompt. This means you're in the base `conda` environment. If you don't see
-`(base)`, you're not using `conda`. Stop whatever you're doing and fix that
-before moving on.
+`(base)`, you're not using `conda`. Stop whatever you're doing, get help, and
+fix the problem before moving on.
 
-### Usage
-
-OK, now that base is working, you're never going to use it. Instead, you'll
-create a new environment to do you work. You might not need more than one
-working environment. You only need separate environments when there are
-conflicting packages.
-
-For more information, see https://github.com/KorfLab/learning-conda
+For more information on using conda, see
+https://github.com/KorfLab/learning-conda
 
 
 Spitfire
@@ -326,8 +319,8 @@ As a member of the lab, you have access to `/share/korflab`. Create a new
 directory in `/share/korflab/home/username` for yourself. This is your lab home
 directory. Create a `.bashrc` in your home directory.
 
-Now install Anaconda or Miniconda as you did on your personal computer, and
-also install `mamba` if you like.
+Now install Miniconda as you did on your personal computer, and also install
+`mamba` if you like.
 
 If you examine your `.bashrc` file, you will notice that the conda installation
 modified it. It will look something like this (except with your username and
@@ -404,7 +397,7 @@ python3 --version
 
 If your prompt doesn't start with `(base)`, get help now.
 
-Create a new environment. This will be used for BLAST.
+Create a new environment and install some software to make sure it works.
 
 ```
 conda create --name blast
