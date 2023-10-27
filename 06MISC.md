@@ -330,12 +330,3 @@ Unix Quick Reference
 | `touch`   | `touch f`     | update file f modification time (create if needed)
 | `wc`      | `wc f`        | count the lines, words, and characters in file f
 | `screen`  | `screen -S ...`   | start a virtual terminal
-
-
-Please Don't
-------------
-
-+ Attach uncompressed genome data to emails
-+ Send hires photos of your computer screen when asking for help
-+ Copy-paste code from program to program
-
