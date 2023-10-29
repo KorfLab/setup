@@ -25,4 +25,11 @@ documents for the lab. Please read them in the following order:
 + `04ENVIRONMENT.md` set up your bioinformatics programming environment
 + `05SERVERS.md` our compute servers
 + `06MISC.md` random useful information
++ `07DONT.md` stuff you shouldn't do
 + `profile` something to `source` from your login script
++ `bin` some useful scripts if not to use, to think about
+	+ `memcheck` examine memory
+	+ `redundancy_check` look for duplicate files
+	+ `parallelize` run a job list in parallel
++ `lib` some useful libraries
+	+ `korflab.py` a few common operations, like reading fasta file
