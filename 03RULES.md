@@ -118,7 +118,7 @@ The 10 Commandments of KorfLab Bioinformatics
 5. Thou shalt not hard-code paths
 6. Thou shalt follow the style guide
 7. Thou shalt perform automated testing
-8. Thou shalt install external software via conda
+8. Thou shalt use conda for virtual environments and software installation
 9. Thou shalt estimate memory and cpu requirements before running large jobs
 10. Thou shalt not copy-paste
 
@@ -154,9 +154,10 @@ that other people can easily follow your code.
 (7) Unit tests and functional tests are an essential part of robust software
 engineering. It's like putting latex gloves on in the lab.
 
-(8) Installing software with complex dependancies is a difficult task that
-conda manages pretty well. Not all software is available via conda, though, so
-when you run into those packages, make very careful notes in your README.
+(8) The main reason we use Conda is for reproducibility. Also, installing
+software with complex dependancies is a difficult task that conda manages
+pretty well. Not all software is available via conda, though, so when you run
+into those packages, make very careful notes in your README.
 
 (9) Use test data of various sizes to determine the memory footprint and run
 time of your job. This will help you understand how your job scales with size

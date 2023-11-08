@@ -42,8 +42,20 @@ Students should:
 	+ Use GitHub regularly
 	+ Work in a Unix command-line interface
 	+ Program in Python and possibly other languages
-	+ Complete the course https://github.com/iankorf/MCB185-legacy
-	+ Pass the exam https://github.com/KorfLab/exam
+
+
+Programming Required
+====================
+
+Most scientists are do-gooders who want to be useful. In a molecular biology
+lab, you can be useful immediately: there are dishes to wash, solutions to
+prepare, and instrumments you can use with a couple hours of training. There
+are no such tasks in this lab. In order to be useful in this lab, you need to
+be at least an intermediate level programmer. If you joined the lab with little
+programming experience, your first priority is to become a decent programmer.
+How do you know when your skills are advanced enough? 
+
+Pass the exam https://github.com/KorfLab/exam
 
 
 Work-Life Balance in Academic Science
