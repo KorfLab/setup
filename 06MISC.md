@@ -330,3 +330,54 @@ Unix Quick Reference
 | `touch`   | `touch f`     | update file f modification time (create if needed)
 | `wc`      | `wc f`        | count the lines, words, and characters in file f
 | `screen`  | `screen -S ...`   | start a virtual terminal
+
+CPUs, Cores, and Threads
+------------------------
+
+A **CPU** is a physical unit that does work on your computer. It's sort of like
+an **engine** in a plane. In the old days, planes had a single engine. Later,
+more engines were added to improve performance. Similarly, a computer with
+multiple CPUs can perform more work than one with a single CPU.
+
+Most CPUs have multiple **cores**. Cores are like **cylinders** in piston-based
+engines in cars. Most car engines have 4 cylinders, but may have as few as 2 or
+as many as 12. Similarly, CPUs have varying numbers of cylinders.
+
+The overall performance of a computer depends on the number of cores and how
+fast each core is. A computer with 4 CPUs, each with a single core may be very
+similar to a computer with a single CPU and 4 cores. Also, they could be very
+different. To determine the overall performance of a computer, you must
+benchmark it using various standard tasks.
+
+### Multi-processing and Multi-threading
+
+There are three very different kinds of computer tasks:
+
+1. single-process - work solo
+2. multi-process - work as a team
+3. multi-threaded - work as a hive mind
+
+A single process tasks only uses one core at a time. Most of the programs you
+write in python are single process tasks. It doesn't matter if you have 2 cores
+or 256, your program runs only as fast as a single core. If your computer is
+doing other things at the same time, like checking email, downloading data,
+etc. your overall performance will benefit from extra cores. But the
+performance gain is tiny.
+
+A multi-process task teams up multiple cores to solve a single problem. For
+example, if we went grocery shopping, we could get it done faster if we agree
+that you get the milk and cheese, and I get the bread. Note that while we are
+in separate parts of the store, we might pass a few text messages to each other
+to add new items to the list or update each other on our progress.
+
+A multi-threaded task is like a multi-process task except that the people doing
+the grocery shopping share a hive mind. Communication is nearly instanteous and
+they even have access to each others' shared memories.
+
+### Benchmarking
+
+The overall performance of a computer depends on its single-cpu perfomance and
+multi-core performance. Some tasks run on a single thread (most of your python
+code), while other (e.g. BLAST) run on multiple threads.
+
+Passmark is a good place to go to examine the performance of your CPU.
