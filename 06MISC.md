@@ -341,13 +341,13 @@ multiple CPUs can perform more work than one with a single CPU.
 
 Most CPUs have multiple **cores**. Cores are like **cylinders** in piston-based
 engines in cars. Most car engines have 4 cylinders, but may have as few as 2 or
-as many as 12. Similarly, CPUs have varying numbers of cylinders.
+as many as 12. Similarly, CPUs have varying numbers of cores.
 
 The overall performance of a computer depends on the number of cores and how
 fast each core is. A computer with 4 CPUs, each with a single core may be very
 similar to a computer with a single CPU and 4 cores. Also, they could be very
 different. To determine the overall performance of a computer, you must
-benchmark it using various standard tasks.
+benchmark it using various standardized tasks.
 
 ### Multi-processing and Multi-threading
 
@@ -373,6 +373,23 @@ to add new items to the list or update each other on our progress.
 A multi-threaded task is like a multi-process task except that the people doing
 the grocery shopping share a hive mind. Communication is nearly instanteous and
 they even have access to each others' shared memories.
+
+### Processes vs. Threads
+
+Unfinished section
+
+It's a little confusing that the word _processor_ and _process_ mean very
+different things.
+
+A processor is a CPU
+A process is a job, which may have multiple threads
+A thread is part of a process assigned to a specific core
+
+Need analogies for this section
+
+Python isn't truly a multi-threaded language. While it does have the concept of
+threads (shared memory among workers), the threads don't act independently of
+each other.
 
 ### Benchmarking
 
