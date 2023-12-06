@@ -334,67 +334,105 @@ Unix Quick Reference
 CPUs, Cores, and Threads
 ------------------------
 
-A **CPU** is a physical unit that does work on your computer. It's sort of like
-an **engine** in a plane. In the old days, planes had a single engine. Later,
+A _CPU_ is a physical unit that does work on your computer. It's sort of like
+an _engine_ in a plane. In the old days, planes had a single engine. Later,
 more engines were added to improve performance. Similarly, a computer with
 multiple CPUs can perform more work than one with a single CPU.
 
-Most CPUs have multiple **cores**. Cores are like **cylinders** in piston-based
-engines in cars. Most car engines have 4 cylinders, but may have as few as 2 or
-as many as 12. Similarly, CPUs have varying numbers of cores.
+Most CPUs have multiple _cores_. Cores are like the _cylinders_ in internal
+combustion engines. Most car engines have 4 cylinders, but there might be as
+few as 1 or as many as 16. Similarly, CPUs have varying numbers of cores. Older
+CPUs typically have 1 core, but modern CPUs may have 128.
 
-The overall performance of a computer depends on the number of cores and how
-fast each core is. A computer with 4 CPUs, each with a single core may be very
-similar to a computer with a single CPU and 4 cores. Also, they could be very
-different. To determine the overall performance of a computer, you must
+The overall performance of a computer depends on the total number of cores and
+how fast each core is. A computer with 4 CPUs, each with a single core may be
+very similar to a computer with a single CPU and 4 cores. Also, they could be
+very different. To determine the overall performance of a computer, you must
 benchmark it using various standardized tasks.
 
 ### Multi-processing and Multi-threading
 
 There are three very different kinds of computer tasks:
 
-1. single-process - work solo
-2. multi-process - work as a team
-3. multi-threaded - work as a hive mind
+1. single-process - solo worker
+2. multi-process - team of workers
+3. multi-threaded - workers in a hive mind
 
-A single process tasks only uses one core at a time. Most of the programs you
-write in python are single process tasks. It doesn't matter if you have 2 cores
+A single-process task only uses one core at a time. Most of the programs you
+write in Python are single-process tasks. It doesn't matter if you have 2 cores
 or 256, your program runs only as fast as a single core. If your computer is
-doing other things at the same time, like checking email, downloading data,
-etc. your overall performance will benefit from extra cores. But the
-performance gain is tiny.
+doing other things at the same time as running your program, like checking
+email, downloading data, etc. your program could slow down. Having extra cores
+allows your program to monopolize a single core and run at full speed.
 
 A multi-process task teams up multiple cores to solve a single problem. For
-example, if we went grocery shopping, we could get it done faster if we agree
-that you get the milk and cheese, and I get the bread. Note that while we are
-in separate parts of the store, we might pass a few text messages to each other
-to add new items to the list or update each other on our progress.
+example, if we went grocery shopping together, we could get it done faster if
+we agreed that you get the milk and cheese, and I get the bread. Note that
+while we are in separate parts of the store, we might pass a few text messages
+to each other to add new items to the list or update each other on our
+progress. Some multi-process jobs pass messages, while others just make an
+initial agreement.
 
 A multi-threaded task is like a multi-process task except that the people doing
 the grocery shopping share a hive mind. Communication is nearly instanteous and
-they even have access to each others' shared memories.
+thew people have access to each others' shared memories and experiences.
 
 ### Processes vs. Threads
 
-Unfinished section
-
 It's a little confusing that the word _processor_ and _process_ mean very
-different things.
+different things. Processor used to mean CPU, but it now usually means core. A
+process is a program that is currently running (taking up memory and using CPU
+cycles to do work).
 
-A processor is a CPU
-A process is a job, which may have multiple threads
-A thread is part of a process assigned to a specific core
+Every process on your computer has a unique process id (PID). You can see this
+in the first column when you run `top`. Every process starts out as a single
+thread, meaning it interacts with a single core. A process can use multiple
+cores by creating additional worker threads. Each worker is part of a hive mind
+with a connection back to the original thread.
 
-Need analogies for this section
+A process can also create child processes, which is known as forking. The
+parent and children each have their own memory, and must communicate with each
+other by passing messages. Many bioinformatics tasks involve a single parent
+that spawns multiple children who never communicate to each other. The
+technical term for this is "embarrassingly parallel".
+
+There are times when workers end up arguing over the same resource. For
+example, two children might fight over access to a single network connection.
+Two workers in a hive mind have the exact same problem. When this happens, they
+must somehow agree to who goes first and how long you can monopolize the
+resource. A worker that is waiting for access to a resource is _blocked_. A
+computer with 256 cores may be doing nothing if all of the cores are waiting
+for the network to unblock.
+
+### Python Notes
 
 Python isn't truly a multi-threaded language. While it does have the concept of
 threads (shared memory among workers), the threads don't act independently of
-each other.
+each other. If you want Python to go faster, you must use multi-processing, not
+multi-threading. That said, if Python is too slow, you might be better off
+using a faster language.
 
-### Benchmarking
+### Benchmarking Notes
 
 The overall performance of a computer depends on its single-cpu perfomance and
-multi-core performance. Some tasks run on a single thread (most of your python
-code), while other (e.g. BLAST) run on multiple threads.
+multi-core performance. Some programs run on a single thread (most of your
+Python code), while other programs run on multiple threads  (e.g. BLAST). In
+order to compare two computers, you must measure (1) single thread performance
+(2) multi-thread performance and (3) count the number of CPUs. The Passmark
+website is a good place to go to examine the performance of various parts of
+your computer.
 
-Passmark is a good place to go to examine the performance of your CPU.
+As you can see below, the highest single thread performance (STR) in the lab is
+lightning (but oddly not as fast as my Apple laptop). In total performance, the
+new spitfire is far ahead of anything else because it has 2 128-core CPUs.
+While the Chromebook is embarrassingly slow, it's fine for simple programming.
+
+| Machine           | CPU           |  STR |  CPU  | N | Total |  RAM |
+|:------------------|:--------------|:----:|:-----:|:-:|:-----:|:----:|
+| spitfire (new)    | EPYC 7763     | 2571 | 86143 | 2 |  172K |  1T  |
+| lightning         | Ryzen 7 5800X | 3448 | 27975 | 1 |   28K | 128G |
+| spitfire (old)    | Opteron 6380  | 1091 |  6738 | 4 |   27K | 256G |
+| Ian's Mac Mini    | i5-8500B      | 2555 |  8994 | 1 |    9K |  40G |
+| Ian's MacGook Pro | Apple M2      | 3999 | 15328 | 1 |   15K |  16G |
+| Ian's IdeaPad 3   | Ryzen 5 3500U | 1934 |  6987 | 1 |    7K |  12G |
+| Ian's Chromebook  | mt8173        |  597 |   804 | 1 |    1K |   4G |
