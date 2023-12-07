@@ -53,7 +53,7 @@ prepare, and instrumments you can use with a couple hours of training. There
 are no such tasks in this lab. In order to be useful in this lab, you need to
 be at least an intermediate level programmer. If you joined the lab with little
 programming experience, your first priority is to become a decent programmer.
-How do you know when your skills are advanced enough? 
+How do you know when your skills are advanced enough?
 
 Pass the exam https://github.com/KorfLab/exam
 
@@ -262,4 +262,3 @@ Documentation: +1 for each
 + I write API docs
 + I write tutorials
 + I write books
-

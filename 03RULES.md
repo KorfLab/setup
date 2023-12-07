@@ -7,7 +7,6 @@ These might be called "best practices" except they are too important for that.
 + Rule #2: All code in GitHub
 + Rule #3: Prioritize beauty
 
-
 Rule #1: Create Dev Data
 ------------------------
 
@@ -70,7 +69,7 @@ places on your computer.
 
 If you're a programmer of some kind, which you must be to be in the lab, your
 programming activity is part of your CV. Your GitHub profile and activity are
-therefore part of your CV. 
+therefore part of your CV.
 
 
 Rule #3: Prioritize Beauty
@@ -108,61 +107,54 @@ made correct, friendly, and robust, and derivative works can be made efficient,
 fast, novel, and clever.
 
 
-The 10 Commandments of KorfLab Bioinformatics
+The 10 Commandmants of KorfLab Bioinformatics
 =============================================
 
-1. Thou shalt openly share your data (444) and code (644)
-2. Thou shalt not duplicate data files on a storage device
-3. Thou shalt create synthetic and subsetted test data
-4. Thou shalt manage all source code via GitHub
-5. Thou shalt not hard-code paths
-6. Thou shalt follow the style guide
-7. Thou shalt perform automated testing
-8. Thou shalt use conda for virtual environments and software installation
-9. Thou shalt estimate memory and cpu requirements before running large jobs
-10. Thou shalt not copy-paste
+0. Thou shalt not suck at Unix
+1. Thou shalt create dev data
+2. Thou shalt manage code via GitHub
+3. Thou shalt prioritize beauty
+4. Thou shalt openly share your code and data
+5. Thou shalt not duplicate data files on a storage device
+6. Thou shalt not hard-code paths
+7. Thou shalt follow the style guide
+8. Thou shalt estimate resources before running large jobs
+9. Thou shalt not copy-paste
 
 ----
 
-(1) We believe in making both data and source code as free and open as
-possible. Sometimes you may have to hold back before publication, but in
-general, be open. This lets others learn from us and makes our efforts more
-transparent and more robust. On the filesystem, data should not have write
-permissions (444) because it might accidentally be edited or deleted. You don't
-need to let other people write your files (644) because they already have
-access to your code via GitHub.
+(0) Unix is our lab bench. Use the command line wherever possible, especially
+if you're new to Unix/Linux.
 
-(2) Duplicated data is a waste of space and creates an opportunity to become
+(1) Before you start a project, create the datasets that will let you debug and
+test your procedures. Some data may be synthetic while others may be subsets of
+real data.
+
+(2) Use GitHub to manage your code and track your activity. Your GitHub repos
+are part of your CV.
+
+(3) Beautiful code is easy to read, maintain, and improve. Attempts to be
+clever often end in inefficient, buggy, and ultimately abandoned code.
+
+(4) We support free open-source software and open data. On the filesystem, your
+code should have 644 permissions while data should be 444.
+
+(5) Duplicated data is a waste of space and creates an opportunity to be
 edited, and out of sync with the original data. Data should exist in one shared
 location and symbolically linked elsewhere when convenience is desired.
 
-(3) All projects begin with test/dev data. This is data that is just large
-enough to test the software under development. Some test data should be
-synthetic (made up by you) and some should be subsets of real data (e.g. 1
-percent of a genome). Test data is used for development, automated testing, and
-tutorials.
-
-(4) All source code should be regularly backed up and managed by revision
-control software. GitHub makes this very simple and free.
-
-(5) Hard-coding directory paths makes software non-portable. Try not to
+(6) Hard-coding directory paths makes software non-portable. Try not to
 hard-code anything, but especially directory paths.
 
-(6) Every language has an official style guide. Follow it as much as you can so
-that other people can easily follow your code.
+(7) Every language has an official style guide. Follow it as much as you can so
+that other people can easily follow your code. No, you're not allowed to
+completely make up your own style.
 
-(7) Unit tests and functional tests are an essential part of robust software
-engineering. It's like putting latex gloves on in the lab.
-
-(8) The main reason we use Conda is for reproducibility. Also, installing
-software with complex dependancies is a difficult task that conda manages
-pretty well. Not all software is available via conda, though, so when you run
-into those packages, make very careful notes in your README.
-
-(9) Use test data of various sizes to determine the memory footprint and run
+(8) Use test data of various sizes to determine the memory footprint and run
 time of your job. This will help you understand how your job scales with size
-and helps you estimate when it will complete.
+and helps you estimate when it will complete. If you can't estimate how much
+resources your job will take, you have no business running it.
 
-(10) Typing code helps you understand what code does. Copy-paste robs you of
+(9) Typing code helps you understand what code does. Copy-paste robs you of
 that learning experience and is one of the greatest sources of major bugs.
 Resist.

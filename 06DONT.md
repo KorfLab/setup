@@ -24,14 +24,14 @@ to a file or directory in the cloud (Google Drive, Dropbox, Box, Mega, etc).
 Image formats like GIF, HEIC, JPG, PNG, and TIFF store graphics as pixels. They
 don't scale well and can take up enormous amounts of storage. It's much better
 to make graphics in vector format (e.g. SVG, Illustrator). PDF can be a mixture
-of formats, so don't be fooled into thinking that PDF is vector.
+of formats, so don't be fooled into thinking that PDF is all vector.
 
 ## Screenshots ##
 
 Screenshots are rarely necessary. If you're working in a terminal and get an
 error message, you can copy-paste the error message into Slack or whatever
 (it's okay to copy-paste error messages, but not code). Screenshots use a lot
-more storage. If you take a picture with you phone, the file may be really
+more storage. If you take a picture with your phone, the file may be really
 large. Even though computers today have lots of storage, it's always a good
 idea to be mindful of how much space things take.
 
@@ -60,3 +60,6 @@ for all users.
 
 Network usually isn't a problem, but if you set up hundreds of jobs with high
 I/O needs, you can saturate a network and everyone will hate you.
+
+One of the reasons to use a VM is that it can limit the amount of memory and
+disk are in use. Over-taxing a VM is much better than a whole machine.
