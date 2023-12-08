@@ -6,6 +6,8 @@ Plase Don't
 + Don't use pixel graphics
 + Don't take screenshots with your phone
 + Don't run a job without estimating resources
++ Don't justify poor practices with "just"
++ Don't suffer in silence
 
 ## Copy-Paste ##
 
@@ -17,7 +19,8 @@ typing, brain cells die.
 
 Please don't send large email attachments. If you must send someone data via
 email, always compress it first. The better way to share data is to send a URL
-to a file or directory in the cloud (Google Drive, Dropbox, Box, Mega, etc).
+to a file or directory in the cloud (Google Drive, Dropbox, Box, Mega, etc). A
+common source of large files is PowerPoint presentations with pixel graphics.
 
 ## Pixel Graphics ##
 
@@ -63,3 +66,17 @@ I/O needs, you can saturate a network and everyone will hate you.
 
 One of the reasons to use a VM is that it can limit the amount of memory and
 disk are in use. Over-taxing a VM is much better than a whole machine.
+
+## Just ##
+
+When someone says "I'm not a racist, but..." you know the next thing out of
+their mouth will expose their racism. Similarly, when a programmer says "I was
+just...", you know they are about to make an excuse for some programming
+transgressions like hard-coding paths. Laziness leads to poor programming
+practices. Try to code the right way 99% of the time.
+
+## Silence ##
+
+Whether you can't figure out how to debug a random error or anxiety prevents
+you from leaving the house, don't suffer alone. Ask for help. Your lab is part
+of your family and wants to help you if you give them half a chance.
