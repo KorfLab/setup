@@ -3,19 +3,20 @@ Rules
 
 These might be called "best practices" except they are too important for that.
 
-+ Rule #1: Create dev data
++ Rule #1: Create development data
 + Rule #2: All code in GitHub
 + Rule #3: Prioritize beauty
 
-Rule #1: Create Dev Data
-------------------------
+
+Rule #1: Create Development Data
+--------------------------------
 
 Before you start on a project, the most important thing to do is to build a
-minimal dataset for development and testing. We call this our "dev set", "test
-set", or "debug set". A dev set is probably not a single file. You should have
-data that represents positive and negative controls. Dev sets are sometimes
+minimal dataset for development and testing. We call this our "dev data", "test
+set", or "debug set". Dev data is probably not a single file. You should have
+data that represents positive and negative controls. Dev data is sometimes
 created by hand, sometimes created synthetically, and sometimes sampled from
-real data. We use dev sets for multiple purposes:
+real data. We use dev data for multiple purposes:
 
 + Minimize debugging time
 + Functional tests
@@ -30,25 +31,24 @@ Software changes over time. Even if we make no changes to our code, our
 software depends on other software, which may change silently. In order to
 ensure that our software continues to produce the same output as before, we
 must perform "functional tests" that automatically compare the current output
-to the previous, expected output.
+to the previous, expected output. Dev data is used during automated testing.
 
 When it comes time to distribute our software, there should be a tutorial that
-shows how to use the software. The test data is useful here and also to ensure
-that the software passes the functional tests at another location.
+shows how to use the software. The dev data is useful again here.
 
-Making test data can take some time. For example, let's imagine your project
+Making dev data can take some time. For example, let's imagine your project
 involves RNA-seq on the human genome. What is the proper test set? Not the
 entire human genome and 10 RNA-seq libraries. The test set should fit neatly
 into the git repository where the code lives. Ideally, the entire repo is
-small. Under 100M is good. Under 10M is better. 1M is ideal. Creating a test
-set for an RNA-seq project means making a miniaturized version of the human
-genome and curating some reads that align to that part of the genome.
-Obviously, the region of the genome matters. You probably want some areas with
-high coverage and some areas with low coverage. It may take a week or more to
-create a test set. And later, you may have to make a better one. It will be
-worth it in the long run. This part of our work is sort of like making reagents
-and calibrating instruments. It's a pain but must be done to ensure
-reproducibility.
+small. Under 100M is good. Under 10M is better. Creating a test set for an
+RNA-seq project means making a miniaturized version of the human genome and
+curating some reads that align to that part of the genome. Obviously, the
+region of the genome matters. You probably want some areas with high coverage
+and some areas with low coverage. It may take a week or more to create a proper
+set of files. And later, you may have to make a better one. It will be worth it
+in the long run. This part of our work is sort of like making reagents and
+calibrating instruments. It's a pain but must be done to speed up debugging
+time and improve reproducibility.
 
 
 Rule #2: All Code in GitHub
