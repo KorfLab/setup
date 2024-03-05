@@ -81,19 +81,19 @@ A programming project has many facets.
 + Clear - it is easy to explain to others
 + Clever - it is intellectually appealing
 + Correct - it solves the problem as intended
-+ Documented - it has documents for users and/or developers
++ Documented - it has documents for developers
 + Efficient - it doesn't use much memory
 + Extensible - it can be used for other projects
 + Fast - it doesn't take long to run
-+ Friendly - it is bundled with a tutorial
++ Friendly - it has documents for users, including a tutorial
 + Novel - it is the first of its kind
 + Robust - it has unit and/or functional tests
-+ Simple - it is easy to understand
++ Simple - it is not complex
 
 Biologists focus on their program being correct. They have a specific problem
-to solve and want a solution to that problem. Being so focused on their problem
-they tend to lose sight of the bigger picture that involves other users and
-other developers.
+to solve and want a solution to that problem. Being so focused on their
+problem, they tend to lose sight of the bigger picture that involves other
+users and other developers.
 
 Computer scientists focus their efforts on being clever, efficient, and novel.
 Their goal is to prove how smart they are. They might not care about users or
