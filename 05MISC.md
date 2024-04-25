@@ -322,9 +322,43 @@ Servers
 
 ### Spitfire
 
-Spitfire is the main lab server. It is connected to the LSCC0 cluster and
+spitfire is the main lab server. It is connected to the LSCC0 cluster and
 managed by the campus HPC Facility.
 
+![Servers](servers.png)
+
+In the diagram above, you will note that spitfire doesn't have any special
+connection to `/share/korflab`. All of your files are stored on a file server
+that you can't even log into. You could be logged into epigenerate and you
+would have the same access to /share/korflab as you would from spitfire.
+
+Note that many other machines are attached to the network (m1..m#). Each of
+these machines may have multiple people logged in. You have no idea how many
+people are accessing the fileserver hosting /share/korflab. Some of those users
+may be doing a lot of file read/write. When this happens, /share/korflab will
+become incredibly slow. Again, it doesn't matter what machine you're logged
+into (spitfire or epigenerate), your access to the file server is limited by
+other people using the same shared resource.
+
+Does this mean that a bad user could theoretically monopolize all of the
+machine I/O and slow down filesystem access for everyone? Yes.
+
+How does one prevent themselves from becoming the bad user? And how does one
+protect themselves from bad users? Simple, don't write to the shared fileserver
+until you absolutely need to.
+
+Every machine has an operating system with a filesystem root `/`. Operating
+system files are stored in places like `/etc` and `/sbin`. In addition to these
+places you don't have write access, every machine has a `/tmp` directory that
+you do have access to. Anything that writes to `/tmp` is writing to the local
+storage, not the networked file system. It is therefore very fast, and not
+impacted by the hundreds of other users connected to the cluster.
+
+Unfortunately, `/tmp` is not very large. This is why some machines may have
+other local storage. spitfire has `/scratch`. Stage whatever files you need
+before running your jobs. Then do all of your I/O here. When you're done, copy
+your results back to main fileserver and then clean up after yourself if you're
+not going to using the staged files again.
 
 ### Lightning
 
