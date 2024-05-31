@@ -22,6 +22,7 @@ The PI should:
 	+ Interpret experiments with students
 	+ Critique the science when appropriate
 	+ Write papers with students
+	+ Help students with posters and slides
 
 Students should:
 
@@ -38,6 +39,7 @@ Students should:
 	+ Proactively report on progress
 	+ Follow best practices
 	+ Write initial drafts of documents
+	+ Make posters and slide decks for presentation
 + Programming
 	+ Use GitHub regularly
 	+ Work in a Unix command-line interface
