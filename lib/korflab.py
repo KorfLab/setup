@@ -4,8 +4,10 @@ Miscellaneous functions for typical bioinformatics tasks.
 
 import gzip
 import itertools
+import json
 import math
 import random
+import re
 
 ## Math Functions ##
 
@@ -127,3 +129,30 @@ def readfasta(filename):
 			seqs.append(line)
 	yield(name, ''.join(seqs))
 	fp.close()
+
+## Data Functions ##
+
+import xml.etree.ElementTree as ET
+
+def descend_tree(node, prev, level):
+	if len(node) == 0: return prev
+	level += 1
+	objects = []
+	for item in node:
+		obj = {'tag': item.tag}
+		if item.text and re.match('\S',  item.text): obj['text'] = item.text
+		if item.attrib: obj['att'] = item.attrib
+		contents = descend_tree(item, [], level)
+		if len(contents) > 0: obj['contains'] = contents
+		objects.append(obj)
+	return objects
+
+def read_xml(fp):
+	tree = ET.parse(fp)
+	root = tree.getroot()
+	data = {'tag': root.tag}
+	if re.search('\S', root.text): data['text'] = root.text
+	if root.attrib: data['att'] = root.attrib
+	contents = descend_tree(root, [], 0)
+	if contents: data['contains'] = contents
+	return data
