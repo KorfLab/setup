@@ -147,6 +147,7 @@ def descend_tree(node, prev):
 	return objects
 
 def read_xml(fp):
+	"""Reads an XML file into a Python data structure."""
 	tree = ET.parse(fp)
 	root = tree.getroot()
 	data = {'tag': root.tag}
