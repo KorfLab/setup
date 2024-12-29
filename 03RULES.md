@@ -3,13 +3,14 @@ Rules
 
 These might be called "best practices" except they are too important for that.
 
-+ Rule #1: Create development data
-+ Rule #2: All code in GitHub
-+ Rule #3: Prioritize beauty
++ Rule #1: Create Dev Data
++ Rule #2: All Code in GitHub
++ Rule #3: Everything is Portable
++ Rule #4: Prioritize Beauty
 
 
-Rule #1: Create Development Data
---------------------------------
+Rule #1: Create Dev Data
+------------------------
 
 Before you start on a project, the most important thing to do is to build a
 minimal dataset for development and testing. We call this our "dev data", "test
@@ -65,14 +66,30 @@ purposes (see Rule #1).
 
 Programs belong in git repos. Experimental data should **not** be stored in git
 repos. For this reason, your programs and data should be in very different
-places on your computer.
+places on whatever computer you're using.
 
 If you're a programmer of some kind, which you must be to be in the lab, your
 programming activity is part of your CV. Your GitHub profile and activity are
 therefore part of your CV.
 
 
-Rule #3: Prioritize Beauty
+Rule #3: Everything Is Portable
+-------------------------------
+
+Always develop your software and analysis pipelines so that they can be run on
+multiple computers. One way to ensure this is to work on several computers in
+parallel. This might be a laptop, desktop, cluster, cloud service, or a VM. If
+you're wondering how you can you run an analysis inside the minimal VM on your
+laptop when it lacks the 5 TB of free space needed... see Rule #1. If you are
+using only one computer, you are probably guaranteeing that whatever you're
+doing is not reproducible. As scientists, that's sort of unforgivable.
+Personally, I bounce between different operating systems on a daily basis.
+
+- Use Miniforge (conda) to manage your software environment (where possible)
+- Never hard-code paths
+
+
+Rule #4: Prioritize Beauty
 --------------------------
 
 A programming project has many facets.
@@ -87,7 +104,7 @@ A programming project has many facets.
 + Fast - it doesn't take long to run
 + Friendly - it has documents for users, including a tutorial
 + Novel - it is the first of its kind
-+ Robust - it has unit and/or functional tests
++ Robust - it has unit, functional, and integration tests
 + Simple - it is not complex
 
 Biologists focus on their program being correct. They have a specific problem
@@ -105,56 +122,3 @@ developers can deploy and extend the project. Beautiful code is simple, clear,
 robust, and extensible. Because beautiful code is easy to understand, it can be
 made correct, friendly, and robust, and derivative works can be made efficient,
 fast, novel, and clever.
-
-
-The 10 Commandmants of KorfLab Bioinformatics
-=============================================
-
-0. Thou shalt not suck at Unix
-1. Thou shalt create dev data
-2. Thou shalt manage code via GitHub
-3. Thou shalt prioritize beauty
-4. Thou shalt openly share your code and data
-5. Thou shalt not duplicate data files on a storage device
-6. Thou shalt not hard-code paths
-7. Thou shalt follow the style guide
-8. Thou shalt estimate resources before running large jobs
-9. Thou shalt not copy-paste
-
-----
-
-(0) Unix is our lab bench. Use the command line wherever possible, especially
-if you're new to Unix/Linux.
-
-(1) Before you start a project, create the datasets that will let you debug and
-test your procedures. Some data may be synthetic while others may be subsets of
-real data.
-
-(2) Use GitHub to manage your code and track your activity. Your GitHub repos
-are part of your CV.
-
-(3) Beautiful code is easy to read, maintain, and improve. Attempts to be
-clever often end in inefficient, buggy, and ultimately abandoned code.
-
-(4) We support free open-source software and open data. On the filesystem, your
-code should have 644 permissions while data should be 444.
-
-(5) Duplicated data is a waste of space and creates an opportunity to be
-edited, and out of sync with the original data. Data should exist in one shared
-location and symbolically linked elsewhere when convenience is desired.
-
-(6) Hard-coding directory paths makes software non-portable. Try not to
-hard-code anything, but especially directory paths.
-
-(7) Every language has an official style guide. Follow it as much as you can so
-that other people can easily follow your code. No, you're not allowed to
-completely make up your own style.
-
-(8) Use test data of various sizes to determine the memory footprint and run
-time of your job. This will help you understand how your job scales with size
-and helps you estimate when it will complete. If you can't estimate how much
-resources your job will take, you have no business running it.
-
-(9) Typing code helps you understand what code does. Copy-paste robs you of
-that learning experience and is one of the greatest sources of major bugs.
-Resist.
