@@ -3,10 +3,11 @@ Setup
 
 How to get started in the Korf Lab
 
-Slack
+Discord
 -----
 
 We communicate mostly by Discord. See the announcements channel.
+
 KorLab/setup
 ------------
 
