@@ -22,6 +22,7 @@ The PI should:
 	+ Interpret experiments with students
 	+ Critique the science when appropriate
 	+ Write papers with students
+	+ Help students with posters and slides
 
 Students should:
 
@@ -38,6 +39,7 @@ Students should:
 	+ Proactively report on progress
 	+ Follow best practices
 	+ Write initial drafts of documents
+	+ Make posters and slide decks for presentation
 + Programming
 	+ Use GitHub regularly
 	+ Work in a Unix command-line interface
@@ -53,9 +55,8 @@ prepare, and instrumments you can use with a couple hours of training. There
 are no such tasks in this lab. In order to be useful in this lab, you need to
 be at least an intermediate level programmer. If you joined the lab with little
 programming experience, your first priority is to become a decent programmer.
-How do you know when your skills are advanced enough? 
-
-Pass the exam https://github.com/KorfLab/exam
+Start with MCB185. How do you know when your skills are advanced enough? Pass
+the exam https://github.com/KorfLab/exam
 
 
 Work-Life Balance in Academic Science
@@ -262,4 +263,3 @@ Documentation: +1 for each
 + I write API docs
 + I write tutorials
 + I write books
-

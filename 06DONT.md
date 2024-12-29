@@ -6,6 +6,8 @@ Plase Don't
 + Don't use pixel graphics
 + Don't take screenshots with your phone
 + Don't run a job without estimating resources
++ Don't justify poor practices with "just"
++ Don't suffer in silence
 
 ## Copy-Paste ##
 
@@ -17,21 +19,22 @@ typing, brain cells die.
 
 Please don't send large email attachments. If you must send someone data via
 email, always compress it first. The better way to share data is to send a URL
-to a file or directory in the cloud (Google Drive, Dropbox, Box, Mega, etc).
+to a file or directory in the cloud (Google Drive, Dropbox, Box, Mega, etc). A
+common source of large files is PowerPoint presentations with pixel graphics.
 
 ## Pixel Graphics ##
 
 Image formats like GIF, HEIC, JPG, PNG, and TIFF store graphics as pixels. They
 don't scale well and can take up enormous amounts of storage. It's much better
 to make graphics in vector format (e.g. SVG, Illustrator). PDF can be a mixture
-of formats, so don't be fooled into thinking that PDF is vector.
+of formats, so don't be fooled into thinking that PDF is all vector.
 
 ## Screenshots ##
 
 Screenshots are rarely necessary. If you're working in a terminal and get an
 error message, you can copy-paste the error message into Slack or whatever
 (it's okay to copy-paste error messages, but not code). Screenshots use a lot
-more storage. If you take a picture with you phone, the file may be really
+more storage. If you take a picture with your phone, the file may be really
 large. Even though computers today have lots of storage, it's always a good
 idea to be mindful of how much space things take.
 
@@ -60,3 +63,20 @@ for all users.
 
 Network usually isn't a problem, but if you set up hundreds of jobs with high
 I/O needs, you can saturate a network and everyone will hate you.
+
+One of the reasons to use a VM is that it can limit the amount of memory and
+disk are in use. Over-taxing a VM is much better than a whole machine.
+
+## Just ##
+
+When someone says "I'm not a racist, but..." you know the next thing out of
+their mouth will expose their racism. Similarly, when a programmer says "I was
+just...", you know they are about to make an excuse for some programming
+transgressions like hard-coding paths. Laziness leads to poor programming
+practices. Try to code the right way 99% of the time.
+
+## Silence ##
+
+Whether you can't figure out how to debug a random error or anxiety prevents
+you from leaving the house, don't suffer alone. Ask for help. Your lab is part
+of your family and wants to help you if you give them half a chance.

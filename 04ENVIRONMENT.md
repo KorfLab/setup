@@ -19,164 +19,7 @@ to have programs like `git` by doing: `xcode-select --install`.
 All of the clusters on campus run Linux. At some point your computational needs
 will exceed your personal computer and you will need to use a cluster.
 
-
-VM Installation for Windows Computer
-------------------------------------
-
-Q: Which Linux distribution should I use?
-
-A: It doesn't really matter. The Linux distributions designed for older
-hardware use less resources. Lubuntu and Linux Lite are two excellent choices.
-
-These instructions assume you will be installing a Lubuntu Linux distribution
-on a Windows computer using VirtualBox. It's not very different with other
-distributions.
-
-Stuff you will need:
-
-+ Lubuntu https://lubuntu.me
-+ VirtualBox https://www.virtualbox.org
-
-Actions you will take:
-
-1. Download Files
-2. Create Virtual Machine
-3. Install Lubuntu
-
-### Troubleshooting
-
-If you follow the instructions below and you get stuck, ask for help.
-
-Some Windows computers are not set up for virtualization. You may need to
-change some BIOS settings.
-
-### 1. Download files
-
-Download the latest Lubuntu or equivalent distribution. The file will be named
-something like "lubuntu-21.10-desktop-amd64.iso". It's about 2GB.
-
-Download VirtualBox. It's much smaller. Run the installer.
-
-### 2. Create Virtual Machine
-
-Click the "New" button to create a new VM. You can name it anything. I used
-Lubuntu-21.10 because that's what I downloaded. Choose a location. Sometimes I
-use the default, but sometimes I choose an external drive. The type is Linux and
-the Version is Ubuntu (64-bit).
-
-Assign the VM 2G Memory. The install might not work well with less and doesn't
-need any more. You can change the amount of memory and the number of CPUs
-later.
-
-Create a virtual hard disk using the default VDI and dynamic allocation. Set
-the size to 40G. Because of the dynamic allocation, you will only use about 10G
-in Windows. For software development and testing purposes, you will probably
-not need more than 40G. You might think it's a good idea to set the limit
-higher just in case, but it's easy to write a program that spams output and
-fills up your filesystem with junk. In such cases, it's better to have 40G of
-junk than 500G.
-
-### 3. Install Lubuntu
-
-In "Oracle VM VirtualBox Manager" scroll down until you see "Storage". Click on
-the Optical Drive, and connect it to the Lubuntu iso image you downloaded
-earlier.
-
-Press the "Start" button. Soon you will see a typical computer desktop that
-looks a little like Windows.
-
-Double-click on the "Install Lubuntu" icon on the desktop.
-
-Click "Next" a couple times. When in doubt use the default parameters. When it
-shows you the option to Erase disk, click the radio button. You cannot erase
-your Windows disk. This is erasing the virtual disk you just made. Click
-"Next".
-
-Enter your name and username any way you like. Click the box to log in
-automatically. Your Windows OS already has a password. You don't need another
-one to get to the Linux running inside Windows. Click the "Install" buttons and
-wait a few minutes while Lubuntu installs.
-
-Click the Restart button when it asks you to. After a little while it will tell
-you to remove the instllation medium and then press Enter. Just press Enter.
-
-------------------------------------------------------------------------------
-
-After you see the Lubuntu desktop again, click on the Devices menu at the top.
-Select "Insert Guest Additions CD image...". It probably wont' autorun
-properly, so we have to do this the manual way.
-
-Click on the bird icon in the lower left of the screen. This is the Start Menu.
-Under "System Tools" you will find "QTerminal". Run that. Right now, the
-Lunbuntu desktop may be really small. We'll fix that later. To make sure you
-can see all the terminal output, click the QTerminal's maximizing icon (looks
-like 2 triangles).
-
-Change directory to the location of your optical drive. For me, it looks
-something like this.
-
-	cd /media/ian/VBox_GAs_6.1.30
-
-You need to run the post-install script as the super-user.
-
-	sudo sh VBoxLinuxAdditions.run
-
-Enter your password and wait for the script to complete. Shutdown the VM by
-clicking the Start Menu and choosing Leave->Shutdown.
-
------------------------------------------------------------------------------
-
-Back in Oracle VM VirtualBox Manger, Select the "Settings" button.
-
-Select the "General" tile and then click on the "Advanced" tab. Set the Shared
-Clipboard to Bidirectional.
-
-Select the "System" tile, you can change the amount of memory and the number of
-processors. For software development, you can keep the 2G RAM and 1 CPU, but if
-you're doing pipeline development, you may want more RAM and more CPUs. You
-should always leave Windows about 4G RAM and 2 CPUs.
-
-Select the "Storage" tile. Click on the Optical Drive and remove the
-VBoxGuestAdditions.iso.
-
------------------------------------------------------------------------------
-
-Press the Start button again. Things that now work.
-
-+ Resize the screen by click-n-drag to whatever you like
-+ Copy-paste from Windows to Linux and back
-
------------------------------------------------------------------------------
-
-This part is optional. If you want to share files between your host OS and your
-VM, you need to set up a shared folder. Why would you do this?
-
-+ You have large-ish data files you don't want to copy to the VM
-+ Your favorite editor is only available on your host OS
-
-Select the "Shared Folders" tile. Click on the folder with the + sign at the
-far right to make a new shared folder.
-
-The "Folder Path" is the folder on your host OS (Windows). Navigate to the
-folder you want to share. If it doesn't exist, create it. The Folder Name
-should auto-populate.
-
-The "Mount Point" is where you want the folder to show up in your VM. For
-example, if you wanted to share a data directory from your host OS, you might
-use a mount point of `/home/$USER/Data`, which would show up in your Lubuntu
-home, or `/data`, which would be off the filesystem root.
-
-Check Auto-mount and Make Permanent. If the shared directory is strictly data,
-you might mount it Read-only, but if it's code, then definitely not.
-
-After clicking OK, you should be able to see the directory in your VM. However,
-you don't have permission to use it. Add yourself to the vboxsf group with the
-following command.
-
-	sudo adduser $USER vboxsf
-
-You have to restart for the changes to take effect.
-
+To install your CLI environment, see the latest MCB185 course materials.
 
 Conda
 -----
@@ -184,9 +27,10 @@ Conda
 Bioinformatics software is frequently not well-maintained. For this reason, it
 may not compile with the latest compilers and libraries. As a result, we must
 build software with out-dated libraries that are known to work. The software we
-use that manages these kinds of dependancies is Conda (which is distributed
-either as Anaconda or Miniconda). Package management is a complex topic, so it
-will be explained using a couple analogies.
+use that manages these kinds of dependancies is `conda`. There are a confusing
+number of things in the conda ecosystem like Anaconda, miniconda, microconda,
+mamba, Mambaforge, and Miniforge. The current recommended distribution is
+Miniforge3.
 
 ### Computer Instructions Analogy
 
@@ -257,13 +101,9 @@ you don't even know the names of.
 
 ### Installation
 
-Download and install Miniconda or Anaconda. Anaconda comes pre-configured with
-a bunch of analysis software built-in. Miniconda is a stripped down version
-with the bare necessities. I prefer to start with Miniconda and add packages
-when I need them. Follow the directions on the website.
+https://conda-forge.org/miniforge
 
-+ Miniconda - https://docs.conda.io/projects/miniconda/en/latest
-+ Anaconda - https://www.anaconda.com
+Download the Miniforge3 installer for your OS and then run the installer.
 
 Read the license agreement and answer "yes" (without quotes) to accept the
 terms. Use the default location for the install by pressing Enter. It will take
@@ -272,12 +112,7 @@ running conda init, answer "yes".
 
 Close your terminal and open a new one. You should see `(base)` at the start of
 the prompt. This means you're in the base `conda` environment. If you don't see
-`(base)`, you're not using `conda`. Stop whatever you're doing, get help, and
-fix the problem before moving on.
-
-For more information on using conda, see
-https://github.com/KorfLab/learning-conda
-
+`(base)`, try `conda activate base`.
 
 Spitfire
 --------
@@ -319,12 +154,11 @@ As a member of the lab, you have access to `/share/korflab`. Create a new
 directory in `/share/korflab/home/username` for yourself. This is your lab home
 directory. Create a `.bashrc` in your home directory.
 
-Now install Miniconda as you did on your personal computer, and also install
-`mamba` if you like.
+Now install conda as you did on your personal computer.
 
-If you examine your `.bashrc` file, you will notice that the conda installation
-modified it. It will look something like this (except with your username and
-not `ikorf`). Don't modify this part ever.
+If you examine your `.bashrc` or `.zshrc` file, you will notice that the conda
+installation modified it. It will look something like this (except with your
+username and not `ikorf`). Don't modify this part ever.
 
 ```
 # >>> conda initialize >>>
@@ -393,22 +227,3 @@ like that, get help now.
 python3 --version
 ```
 
-### conda/mamba
-
-If your prompt doesn't start with `(base)`, get help now.
-
-Create a new environment and install some software to make sure it works.
-
-```
-conda create --name blast
-conda activate blast
-```
-
-You should now see `(blast)` instead of `(base)`. To install BLAST programs in
-this environment, do the following command.
-
-```
-mamba install -c bioconda blast-legacy
-```
-
-Try running `blastall`. You should see a long usage statement.
