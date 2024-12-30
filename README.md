@@ -3,14 +3,10 @@ Setup
 
 How to get started in the Korf Lab
 
-Slack
+Discord
 -----
 
-We communicate mostly by Slack. Meetings, requests for help, Zoom links etc.
-are shared in Slack.
-
-There is only 1 pinned message in the `#general` channel. Read it.
-
+We communicate mostly by Discord. See the announcements channel.
 
 KorLab/setup
 ------------
@@ -27,8 +23,4 @@ documents for the lab. Please read them in the following order:
 + `06DONT.md` stuff you shouldn't do
 + `profile` something to `source` from your login script
 + `bin` some useful scripts if not to use, to think about
-	+ `memcheck` examine memory
-	+ `redundancy_check` look for duplicate files
-	+ `parallelize` run a job list in parallel
 + `lib` some useful libraries
-	+ `korflab.py` a few common operations, like reading fasta file

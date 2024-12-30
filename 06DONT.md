@@ -32,11 +32,11 @@ of formats, so don't be fooled into thinking that PDF is all vector.
 ## Screenshots ##
 
 Screenshots are rarely necessary. If you're working in a terminal and get an
-error message, you can copy-paste the error message into Slack or whatever
-(it's okay to copy-paste error messages, but not code). Screenshots use a lot
-more storage. If you take a picture with your phone, the file may be really
-large. Even though computers today have lots of storage, it's always a good
-idea to be mindful of how much space things take.
+error message, you can copy-paste the text of the error message (it's okay to
+copy-paste error messages, but not code). Screenshots use a lot more storage.
+If you take a picture with your phone, the file may be really large. Even
+though computers today have lots of storage, it's always a good idea to be
+mindful of how much space things take.
 
 ## Resources ##
 
