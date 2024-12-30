@@ -172,7 +172,7 @@ initial agreement.
 
 A multi-threaded task is like a multi-process task except that the people doing
 the grocery shopping share a hive mind. Communication is nearly instanteous and
-thew people have access to each others' shared memories and experiences.
+everyone has access to each others' shared memories and experiences.
 
 ### Processes vs. Threads
 
@@ -230,7 +230,7 @@ While the Chromebook is embarrassingly slow, it's fine for simple programming.
 | lightning         | Ryzen 7 5800X | 3448 | 27975 | 1 |   28K | 128G |
 | spitfire (old)    | Opteron 6380  | 1091 |  6738 | 4 |   27K | 256G |
 | Ian's Mac Mini    | i5-8500B      | 2555 |  8994 | 1 |    9K |  40G |
-| Ian's MacGook Pro | Apple M2      | 3999 | 15328 | 1 |   15K |  16G |
+| Ian's MacBook Pro | Apple M2      | 3999 | 15328 | 1 |   15K |  16G |
 | Ian's IdeaPad 3   | Ryzen 5 3500U | 1934 |  6987 | 1 |    7K |  12G |
 | Ian's Chromebook  | mt8173        |  597 |   804 | 1 |    1K |   4G |
 
