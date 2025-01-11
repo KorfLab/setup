@@ -139,7 +139,7 @@ def descend_tree(node, prev):
 	objects = []
 	for item in node:
 		obj = {'tag': item.tag}
-		if item.text and re.match('\S',  item.text): obj['txt'] = item.text
+		if item.text and re.match(r'\S',  item.text): obj['txt'] = item.text
 		if item.attrib: obj['att'] = item.attrib
 		contents = descend_tree(item, [])
 		if len(contents) > 0: obj['has'] = contents
@@ -151,7 +151,7 @@ def read_xml(fp):
 	tree = ET.parse(fp)
 	root = tree.getroot()
 	data = {'tag': root.tag}
-	if re.search('\S', root.text): data['txt'] = root.text
+	if re.search(r'\S', root.text): data['txt'] = root.text
 	if root.attrib: data['att'] = root.attrib
 	contents = descend_tree(root, [])
 	if contents: data['has'] = contents
