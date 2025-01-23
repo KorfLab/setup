@@ -55,9 +55,23 @@ prepare, and instrumments you can use with a couple hours of training. There
 are no such tasks in this lab. In order to be useful in this lab, you need to
 be at least an intermediate level programmer. If you joined the lab with little
 programming experience, your first priority is to become a decent programmer.
-Start with MCB185. How do you know when your skills are advanced enough? Pass
-the exam https://github.com/KorfLab/exam
+Start with MCB185. How do you know when your skills are good enough? Pass the
+exam https://github.com/KorfLab/exam
 
+MCB185 is a base level of skills and the exam is a base level assessment. Many
+projects require a more advanced level of programming. Here are some ideas to
+further your education.
+
+- Algorithm exercises
+	- Program Smith-Waterman from scratch
+	- Program Viterbi from scratch
+	- Program a depth-first search (e.g. YAML parser)
+- Learn more than Python
+	- Higher performance languages: C, Go, Rust, Zig
+	- SQL (e.g. sqlite3)
+	- Cluster tools: slurm, tmux, screen
+	- Statistical languages: Python with dataframes, R, Matlab
+	- Hacking languages: Perl, awk, sed
 
 Work-Life Balance in Academic Science
 =====================================
