@@ -400,6 +400,13 @@ git config --global user.name "username"
 git config --global credential.helper store
 ```
 
+Another way to make your repo more convient to access is to bind your PAT
+directly to your repo.
+
+```
+git clone https://{username}:{pat}@github.com/{organization}/{repo}.git 
+```
+
 ### datacore
 
 We have a repo for -omic data processing called datacore. This is a good place
