@@ -390,6 +390,27 @@ You should modify your login script. See the `profile` for inspiration.
 + Use `ps` to show jobs here or `ps -lu <username` to show all your jobs
 + Use `kill -9 <jobid>` to kill a job
 
+### Batch Jobs
+
+Use `xargs` to parallelize running a bunch of simple jobs. If you're making
+some kind of pipeline, use Snakemake or the equivalent. Here's an example
+`xargs` command line with an explanation.
+
+```
+find smallgenes/ -name "*.fa" -type f -printf "%f\n" | xargs -P 5 -I {} ./geniso2 smallgenes/{} models/worm.splicemodel --out temp/{}.gff
+```
+
+The first part of this command sends all of the filenames in the `smallgenes`
+directory to stdout.
+
+`find smallgenes -name "*.fa" -type f -printf "%f\n"`
+
+`xargs` reads the filenames and creates command lines with the contents. The
+`-I {}` is used to set up a default placeholder `{}` for the incoming filename.
+This is used both for the name of the input file and the output file. Jobs can
+be parallelized with `-P` (the example has 5 processes).
+
+
 ### Git Password Persistence
 
 To make your GitHub Personal Access Token persist (so you don't have to
@@ -404,7 +425,7 @@ Another way to make your repo more convient to access is to bind your PAT
 directly to your repo.
 
 ```
-git clone https://{username}:{pat}@github.com/{organization}/{repo}.git 
+git clone https://{username}:{pat}@github.com/{organization}/{repo}.git
 ```
 
 ### datacore
@@ -414,7 +435,7 @@ to go for some of your dev data. If you are developing a new dataset that will
 be useful to others, put the scripts and a small selection of data in datacore.
 Don't fill up datacore or any repo with large datafiles.
 
-https://github.com/KorfLab/datacore2024
+https://github.com/KorfLab/datacore2024 (or whatever the year is)
 
 ### IPC
 
@@ -490,7 +511,7 @@ algorithms repo https://github.com/KorfLab/algorithms.
 When analyzing large datasets, there are generally 3 tasks: installing
 software, developing a pipeline, deploying a pipeline. Always install software
 with Conda. Don't rely on the local environment. Pipelines are developed in
-Snakemake on a test set in you VM, not the cluster. Once you are ready to
+Snakemake on a test set in your VM, not the cluster. Once you are ready to
 deploy a pipeline, then you can run on the cluster.
 
 Pipelines are developed using Conda and Snakemake. Develop your Snakemake
