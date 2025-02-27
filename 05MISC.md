@@ -414,7 +414,7 @@ to go for some of your dev data. If you are developing a new dataset that will
 be useful to others, put the scripts and a small selection of data in datacore.
 Don't fill up datacore or any repo with large datafiles.
 
-https://github.com/KorfLab/datacore
+https://github.com/KorfLab/datacore2024
 
 ### IPC
 

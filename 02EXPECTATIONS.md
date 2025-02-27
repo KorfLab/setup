@@ -1,7 +1,8 @@
 Expectations
 ============
 
-The PI should:
+PI Expectations
+---------------
 
 + Enviroment
 	+ Provide a safe, supportive, congenial environment
@@ -14,7 +15,7 @@ The PI should:
 	+ Have regular, standing meetings with graduates (undergrads maybe too)
 	+ Be available to students for additional one-on-one meetings
 	+ Be as open and transparent as possible in all forms of communication
-	+ Praise the student when appropriate
+	+ Praise/critique the student when appropriate
 	+ Promote/defend the student in public settings
 + Science
 	+ Create the study
@@ -24,7 +25,8 @@ The PI should:
 	+ Write papers with students
 	+ Help students with posters and slides
 
-Students should:
+Mentee Expectations
+-------------------
 
 + Communication
 	+ Ask questions frequently
@@ -55,8 +57,8 @@ prepare, and instrumments you can use with a couple hours of training. There
 are no such tasks in this lab. In order to be useful in this lab, you need to
 be at least an intermediate level programmer. If you joined the lab with little
 programming experience, your first priority is to become a decent programmer.
-Start with MCB185. How do you know when your skills are good enough? Pass the
-exam https://github.com/KorfLab/exam
+Start with MCB185 (https://github.com/iankorf/MCB185). How do you know when your
+skills are good enough? Pass the exam (https://github.com/KorfLab/exam).
 
 MCB185 is a base level of skills and the exam is a base level assessment. Many
 projects require a more advanced level of programming. Here are some ideas to
@@ -72,6 +74,7 @@ further your education.
 	- Cluster tools: slurm, tmux, screen
 	- Statistical languages: Python with dataframes, R, Matlab
 	- Hacking languages: Perl, awk, sed
+
 
 Work-Life Balance in Academic Science
 =====================================
@@ -147,6 +150,7 @@ RER, you should do the following:
 When there is a scheduled meeting:
 
 + I sometimes forget and don't show up -2
++ I habitually arrive late -2
 + I sometimes arrrive late -1
 + I arrive on time +0
 + I arrive ahead of time +1
@@ -203,7 +207,7 @@ I schedule individual meetings with Ian:
 + Only when I'm stuck +0
 + Before I need help +1
 
-I use Slack to chat with Ian:
+I use Discord to chat with Ian:
 
 + Never -2
 + Only when he starts a conversation -1
@@ -261,19 +265,18 @@ My policy on unit tests:
 + I have created some +1
 + I use them regularly +2
 
-My policy on functional tests:
+My policy on containers:
 
 + What's that -2
 + I've seen them, but never used them -1
 + I'm interested, tell me more +0
-+ I have crated some +1
++ I have cerated some +1
 + I use them regularly +2
 
 Documentation: +1 for each
 
-+ The beauty of my code is somewhat self-documenting
++ The beauty of my code is actually self-documenting
 + My programs have Unix-standard usage statements
-+ My programs have Unix man pages
 + I write API docs
 + I write tutorials
 + I write books
