@@ -29,6 +29,10 @@ Hive
 To use the UCD cluster, get an account on Hive. Go to https://hippo.ucdavis.edu
 and select the Hive cluster. Your sponsor is ikorfgrp.
 
+Each user has a home directory with enough space for their git repos and conda
+environments. Don't use your home directory for large data files. We have
+shared storage at `/quobyte/ikorfgrp`. 
+
 
 Conda
 -----
