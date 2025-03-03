@@ -15,6 +15,9 @@ supporter. As the mentee, your role is to be curious, open-minded, studious,
 and committed. We won't always play our roles perfectly. That's okay. Like
 science, we will always be a work in progress.
 
+Mentorship is not free. You "pay" with your attention, effort, communication,
+collaboration, and interest.
+
 I prefer to be honest and open as much as possible. So let's start off with the
 harsh realitites: science is filled with difficulties. Projects will fail.
 Great ideas will be abandoned. You will get scooped. Your paper/application
