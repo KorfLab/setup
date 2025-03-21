@@ -5,9 +5,9 @@ Miscellaneous Stuff
 + Directory Structure
 + CPUs, Cores, and Threads
 + Unix Quick Reference
-+ Servers
 + Good Practices
 + Programs vs. Pipelines vs. Notebooks
++ Cluster Computing
 
 
 Files & Backup
@@ -458,3 +458,31 @@ We're not talking about laptops but rather R-Studio or Jupyter. These tools are
 great for exploring data, but are not a great way of distributing software. Use
 them where they are useful, but most of the time, we write software designed
 for the CLI.
+
+
+Cluster Computing
+-----------------
+
+Before you run a big job on a cluster, you should estimate how much of each
+resource will be required. `top` and `/usr/bin/time` (which is not always
+installed) can help you monitor resources. If you don't know how much of each
+resource you are using, **you shouldn't run the job**.
+
+CPUs: Many jobs can run faster if you give them multiple CPUs to work with. But
+not all jobs have this feature. Scaling is never quite linear. Using 8 CPUs
+doesn't equate to 8x faster.
+
+RAM: A computer that runs low on RAM will start using swap space and become
+laggy. Once swap is used up, the computer will crash.
+
+Using up all of a disk space will lock up a computer, preventing anything from
+getting done.
+
+Network usually isn't a problem. The main problem is hitting a site so many
+times in short succession that you are effectively making a denial of service
+attack.
+
+Time is precious. Your time particularly. But the way to save time isn't to do
+something as quickly as possible. If the goal is to cut down a tree, you must
+first spend a lot of time sharpening the blade. The person who starts chopping
+right away because they "just want to get started" is wasting time in the end.
