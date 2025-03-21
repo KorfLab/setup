@@ -89,8 +89,8 @@ Personally, I bounce between different operating systems on a daily basis.
 - Never hard-code paths
 
 
-Rule #4: Prioritize Beauty
---------------------------
+Rule #4: Beautifully Simple
+---------------------------
 
 A programming project has many facets.
 
@@ -118,7 +118,9 @@ other developers.
 
 Scientific programming exists in an environment with transient users and
 developers. Code must be developed in such a way that new users and new
-developers can deploy and extend the project. Beautiful code is simple, clear,
-robust, and extensible. Because beautiful code is easy to understand, it can be
-made correct, friendly, and robust, and derivative works can be made efficient,
-fast, novel, and clever.
+developers can deploy and extend the project. If you can describe your software
+as "beautifully simple" then you will have solved most of the difficult
+problems. Beautifully simple code is clear, robust, and extensible. Because
+beautifully simple code is easy to understand, it can be made correct,
+friendly, and robust, and derivative works can be made efficient, fast, novel,
+and clever.

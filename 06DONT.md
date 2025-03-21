@@ -40,32 +40,17 @@ mindful of how much space things take.
 
 ## Resources ##
 
-There are 4 resources on a computer.
+There are 5 resources for every job.
 
 + CPUs
-+ Memory
-+ Disk
++ RAM
++ Storage
 + Network
++ Time
 
-Before you run a big job, you should be able to estimate how much of each
-resource will be required. If you don't know how much, you shouldn't run the
-job. To gain appreciation for each resource, use `top` to monitor smaller jobs.
-
-CPUs are the easiest resource to share. Even a single CPU can run multiple
-jobs. In general, don't worry about CPU usage.
-
-Memory isn't easily shared. If you use all the memory, the machine will become
-sluggish or unusable for all users.
-
-Using up all of a disk will prevent anyone on the same filesystem from writing
-their files. If you fill up the space on the OS disk, you can kill the machine
-for all users.
-
-Network usually isn't a problem, but if you set up hundreds of jobs with high
-I/O needs, you can saturate a network and everyone will hate you.
-
-One of the reasons to use a VM is that it can limit the amount of memory and
-disk are in use. Over-taxing a VM is much better than a whole machine.
+If you don't have an accurate estimate of how much each resource your job will
+take, you don't have any buisness running the job. How do you estimate these?
+Using `top` or `/usr/bin/time`.
 
 ## Just ##
 

@@ -72,7 +72,7 @@ data.
 
 Back up data, not code or documents. Documents should by synchronized with the
 cloud. That's your backup. Data is often too large for cloud services. Back up
-large data with university services.
+large data with some kind of backup service.
 
 ### Photos
 
@@ -84,7 +84,8 @@ documents.
 Directory Structure
 -------------------
 
-Your PI organizes his files as shown below. You should probably do the same.
+Your PI organizes his files as shown below. You should probably do something
+similar.
 
 ```
 Code/
@@ -105,7 +106,6 @@ Data/
 Desktop/
 Documents/
 Downloads/
-miniconda3/
 ```
 
 + All repos are in the `Code` directory
@@ -117,15 +117,13 @@ miniconda3/
 	+ Data files are not writable
 	+ Data files are frequently soft-linked to code directories
 	+ Data directories have OS-indexing turned off
+	+ Your PI stores data on an external SSD
 + Desktop
 	+ Do whatever you like here, but my advice would be not to be messy
 	+ Don't store code or data on your Desktop
 + Downloads
 	+ This is for **temporary** files
 	+ If what you downloaded was important, move it from here!
-+ miniconda3
-	+ This is where conda packages are stored
-	+ Don't mess with this directory
 
 
 CPUs, Cores, and Threads
@@ -219,21 +217,6 @@ order to compare two computers, you must measure (1) single thread performance
 website is a good place to go to examine the performance of various parts of
 your computer.
 
-As you can see below, the highest single thread performance (STR) in the lab is
-lightning (but oddly not as fast as my Apple laptop). In total performance, the
-new spitfire is far ahead of anything else because it has 2 128-core CPUs.
-While the Chromebook is embarrassingly slow, it's fine for simple programming.
-
-| Machine           | CPU           |  STR |  CPU  | N | Total |  RAM |
-|:------------------|:--------------|:----:|:-----:|:-:|:-----:|:----:|
-| spitfire (new)    | EPYC 7763     | 2571 | 86143 | 2 |  172K |  1T  |
-| lightning         | Ryzen 7 5800X | 3448 | 27975 | 1 |   28K | 128G |
-| spitfire (old)    | Opteron 6380  | 1091 |  6738 | 4 |   27K | 256G |
-| Ian's Mac Mini    | i5-8500B      | 2555 |  8994 | 1 |    9K |  40G |
-| Ian's MacBook Pro | Apple M2      | 3999 | 15328 | 1 |   15K |  16G |
-| Ian's IdeaPad 3   | Ryzen 5 3500U | 1934 |  6987 | 1 |    7K |  12G |
-| Ian's Chromebook  | mt8173        |  597 |   804 | 1 |    1K |   4G |
-
 
 Unix Quick Reference
 --------------------
@@ -311,65 +294,6 @@ Unix Quick Reference
 | `screen`  | `screen -S ...`   | start a virtual terminal
 
 
-Servers
--------
-
-| Computer  | RAM  | Cores | Notes
-|:----------|:----:|:-----:|:-------------------
-| spitfire  | 1TB  |  256  | shared general use
-| lightning | 128G |   16  | private, AlphaFold
-
-
-### Spitfire
-
-spitfire is the main lab server. It is connected to the LSCC0 cluster and
-managed by the campus HPC Facility.
-
-![Servers](servers.png)
-
-In the diagram above, you will note that spitfire doesn't have any special
-connection to `/share/korflab`. All of your files are stored on a file server
-that you can't even log into. You could be logged into epigenerate and you
-would have the same access to /share/korflab as you would from spitfire.
-
-Note that many other machines are attached to the network (m1..m#). Each of
-these machines may have multiple people logged in. You have no idea how many
-people are accessing the fileserver hosting /share/korflab. Some of those users
-may be doing a lot of file read/write. When this happens, /share/korflab will
-become incredibly slow. Again, it doesn't matter what machine you're logged
-into (spitfire or epigenerate), your access to the file server is limited by
-other people using the same shared resource.
-
-Does this mean that a bad user could theoretically monopolize all of the
-machine I/O and slow down filesystem access for everyone? Yes.
-
-How does one prevent themselves from becoming the bad user? And how does one
-protect themselves from bad users? Simple, don't write to the shared fileserver
-until you absolutely need to.
-
-Every machine has an operating system with a filesystem root `/`. Operating
-system files are stored in places like `/etc` and `/sbin`. In addition to these
-places you don't have write access, every machine has a `/tmp` directory that
-you do have access to. Anything that writes to `/tmp` is writing to the local
-storage, not the networked file system. It is therefore very fast, and not
-impacted by the hundreds of other users connected to the cluster.
-
-Unfortunately, `/tmp` is not very large. This is why some machines may have
-other local storage. spitfire has `/scratch`. Stage whatever files you need
-before running your jobs. Then do all of your I/O here. When you're done, copy
-your results back to main fileserver and then clean up after yourself if you're
-not going to using the staged files again.
-
-### Lightning
-
-Lightning is a workstation in the lab. It can be used for AlphaFold and other
-tasks.
-
-+ NOT part of the campus HPC (don't ask them for help)
-+ NOT connected to shared file systems
-+ NOT backed up
-+ NOT running slurm
-+ NOT for novice users
 
 
 Good Practices
@@ -383,6 +307,7 @@ You should modify your login script. See the `profile` for inspiration.
 
 + Use `nice` if you're using a lot of resources
 + Use `top` or `htop` to monitor resources
++ Use `/usr/bin/time` to examine resources after a job is done
 + Use ^C to kill a job in the foreground
 + Use ^Z to sleep a job in the foreground
 + Use `fg` to start a sleeping job in the foreground
@@ -483,12 +408,17 @@ numpy version is slightly slower than the pure python.
 
 ### Some useful scripts
 
-The `bin` directory contains a couple of useful scripts (maybe more useful to
-modify than to use as is).
+The `bin` directory contains a couple of demonstration scripts for
+inspirtation.
 
++ `benchmark` is a python-based benchmarking program
 + `memcheck` looks through the `proc` filesystem to examine memory
 + `parallelize` runs a file of command lines in parallel on multiple CPUs
-+ `redundancey_check` looks for identical files in the filesystem
++ `redundancy_check` looks for identical files in the filesystem
+
+The `lib` directory contains libraries that may be generally useful.
+
++ `korflab.py` has some sequence operations
 
 
 Programs vs. Pipelines vs. Notebooks
@@ -526,4 +456,5 @@ ensure maximum portability and reproducible data practices.
 
 We're not talking about laptops but rather R-Studio or Jupyter. These tools are
 great for exploring data, but are not a great way of distributing software. Use
-them where they are useful.
+them where they are useful, but most of the time, we write software designed
+for the CLI.

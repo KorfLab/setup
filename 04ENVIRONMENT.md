@@ -31,7 +31,7 @@ and select the Hive cluster. Your sponsor is ikorfgrp.
 
 Each user has a home directory with enough space for their git repos and conda
 environments. Don't use your home directory for large data files. We have
-shared storage at `/quobyte/ikorfgrp`. 
+shared storage at `/quobyte/ikorfgrp`.
 
 
 Conda
@@ -42,5 +42,5 @@ computers and your Hive account.
 
 To install Conda on your personal computer: https://conda-forge.org/miniforge
 
-Conda is already provided on Hive. More info to follow.
+Conda is already provided on Hive via `module load conda`.
 

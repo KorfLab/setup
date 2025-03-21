@@ -1,5 +1,7 @@
-Mentoring Philosophy
-====================
+Mentoring
+=========
+
+## Philosophy ##
 
 > Helping you become the person you want to be
 
@@ -48,3 +50,84 @@ athletes of the intellecutal world. To be successful, we need support too.
 
 As your mentor, I will be an important part of your support team. And believe
 it or not, you will also be part of mine. We're in this together.
+
+## What do you want to be? ##
+
+As a mentee in my lab, you have an interest in science. You might imagine
+several career paths ahead. Each role has different expectations.
+
+- PI: Principle Investigator, Group Leader, Independent Investigator
+	- You have lots of ideas
+	- You like designing experiments
+	- You are self-motivated
+	- You are obsessive about probably everything
+	- You take pride in your imagination
+	- You are energized by novelty
+	- You are drained by routine
+- Scientist: Lab Tech, Staff Scientist, Researcher, Expert
+	- You like solving problems
+	- You like conducting experiments
+	- You respond quickly to requests
+	- You like troubleshooting
+	- You take pride in a job well done
+	- You are energized by success
+	- You are drained by indecision
+- Educator: Teaching Professor, Science Communicator
+	- You enjoy interacting with students
+	- You like documentaries
+	- Your class notes are like artwork
+	- You like writing
+	- You take pride when the lights go in students' faces
+	- You are energized by collaboration
+	- You are drained by isolation
+
+As a mentee, you may not know which role fits you best. You might think of
+yourself in one role, but you're actually best in another role.
+
+Nature shows us that two reproductive strategies work: you can be k-selected or
+r-selected. In other words, you can have lots of babies and not really take
+care of them, or you can have few babies and take very good care of them. The
+other situations don't work.
+
+```
+                 high care | low care
+                -----------|-----------
+many offspring | mom dies  | works     |
+               |-----------|-----------|
+few offspring  | works     | babes die |
+                -----------|-----------
+```
+
+Let's try a 2x2 matrix of inventiveness vs. getting things done (gtd).
+
+```
+                 high gtd | low gtd
+                ----------|---------
+high inventive | madness  | scout   |
+               |----------|---------|
+low inventive  | worker   | idle    |
+                ----------|---------
+```
+
+A scout is a high risk, high reward occupation. We need scouts to explore the
+unknown. Many will not succeeed, but the few who do are worth the expense.
+Scouts are not good at menial labor or routine tasks. They need novelty and
+ownership.
+
+A worker is a low risk, low reward occupation. Someone has to stay at home and
+do the daily chores be they farming, cooking, raising the next generation, or
+defending against enemies. A worker takes comfort in routine and a job well
+done.
+
+The person who has lots of ideas and works to get them all done is insane. One
+cannot simultaneously be a scout and a worker, and the attempt will end in
+madness. Hence, the "mad scientist".
+
+A person who doesn't have ideas and doesn't get many things done is currently
+idle. There are many flavors of idle.
+
+- Novice: insufficient skill to be useful, requires training
+- Recovering: too busy healing to be of any use right now
+- Hedonist: too busy enjoying life to be useful
+- Overwhelmed: too stressed by life to be useful
+- Laggard: too slow to be useful

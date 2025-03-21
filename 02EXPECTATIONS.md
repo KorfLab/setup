@@ -33,7 +33,7 @@ Mentee Expectations
 	+ Respond quickly to requests
 	+ Go to lab meetings
 	+ Host subgroup meetings (graduates)
-	+ Have regular, standing meetings with the PI
+	+ Meet with the PI regularly (standing or on request)
 + Science
 	+ Choose a project that interests them (when possible)
 	+ Take part in designing experiments
@@ -68,10 +68,11 @@ further your education.
 	- Program Smith-Waterman from scratch
 	- Program Viterbi from scratch
 	- Program a depth-first search (e.g. YAML parser)
+	- Try the problems at rosalind.io
 - Learn more than Python
 	- Higher performance languages: C, Go, Rust, Zig
 	- SQL (e.g. sqlite3)
-	- Cluster tools: slurm, tmux, screen
+	- Cluster computing: slurm, singularity
 	- Statistical languages: Python with dataframes, R, Matlab
 	- Hacking languages: Perl, awk, sed
 
@@ -248,6 +249,8 @@ General practices: +1 for each of the following (except as noted)
 + I have installed software with conda
 + I have run jobs on the cluster
 + I have run slurm jobs on the cluster
++ I have used singularity to run jobs in containers
++ I have created containers for others to use
 + I commit to GitHub X days per week (+1 for each day)
 + I have reported a bug to a developer
 + I have fixed a bug reported by a user
@@ -279,4 +282,5 @@ Documentation: +1 for each
 + My programs have Unix-standard usage statements
 + I write API docs
 + I write tutorials
++ I write workshops
 + I write books
