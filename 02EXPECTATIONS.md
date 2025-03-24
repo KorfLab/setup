@@ -284,3 +284,53 @@ Documentation: +1 for each
 + I write tutorials
 + I write workshops
 + I write books
+
+
+## Tasks ##
+
+When given a task to complete, I start by:
+
++ Writing code -1
++ Writing an outline or documentation +0
++ Making an appointment +1
+
+I usually complete tasks:
+
++ I don't -2
++ Late -1
++ On time +0
++ Ahead of time +1
+
+I report my progress:
+
++ When the PI asks me to -1
++ When the project is in a presentable state +0
++ Regularly, regardless of progress +1
+
+When stuck on a task:
+
++ I wait until the task is no longer relevent -2
++ I keep trying because I'll figure it out eventually -1
++ I do research to figure out what I don't know +0
++ I ask other people in the lab for help +1
++ I schedule a meeting with the PI +2
+
+My main project is stuck and I'm not meeting with the Pi for a couple days:
+
++ I consume media to pass the time -2
++ I play video games to pass the time -1
++ I start a new side project +0
++ I read papers to improve my knowledge +1
++ I read other peoples' code to improve skills +1
++ I read lab code to improve skills and understand what we do +2
++ I ask if anyone in the lab needs help because I'm kind +2
++ I work on side projects because I have several +2
+
+My work schedule:
+
++ I wait until the deadline to gain energy: -2
++ I work when I feel like it, but usually <40 hours per week: -1
++ I work M-F 9-5 like I'm supposed to: +0
++ I schedule my work around my play +0
++ I schedule my play around my work +1
++ I am a work-a-holic, sadly +2

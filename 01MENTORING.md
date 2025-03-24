@@ -74,7 +74,7 @@ strategies are less successful.
                 ----------|---------
 high inventive | madness  | scout   |
                |----------|---------|
-low inventive  | worker   | problem |
+low inventive  | worker   | idle    |
                 ----------|---------
 ```
 
@@ -91,12 +91,14 @@ The person who has lots of ideas and works to get them all done is insane. One
 cannot simultaneously be a scout and a worker, and the attempt will end in
 madness.
 
-A person who doesn't have ideas and doesn't get anything done is experiencing
-some kind of problem.
+A person who doesn't have ideas and doesn't get anything done is idle. There
+are several flavors of idle.
 
 - Novice: insufficient skill to be useful, requires training
-- Overwhelmed: too stressed by life to be useful, requires healing
-- Hedonist: too busy enjoying life to be useful, requires motivation
+- Recuperating: healing from injuries, requires time
+- Overwhelmed: too stressed by life to be useful, requires patience
+- Infirm: unable to work, requires assistance
+- Hedonist: too busy enjoying life to be useful, requires motivating
 
 Most trainees are novices. They need training before they can be useful. But
 one day, they may have science careers as Principle Investigators, Lab Techs,
@@ -104,33 +106,31 @@ or Educators. What kinds of properties do these positions typically have?
 
 - PI: Principle Investigator, Group Leader, Independent Investigator
 	- You take pride in: your ideas
-	- You are energized by: novelty
+	- You are energized by: novelty, puzzles
 	- You are drained by: routine
-	- People are amazed by your: creativity
+	- People are amazed by your: creativity, intelligence
 	- Some people call you: crazy
 	- You go to work because: it's play
+	- You will get out of this mess by: invention
 - Lab Tech: Staff Scientist, Researcher, Expert
 	- You take pride in: a job well done
-	- You are energized by: fixing things, routine success
+	- You are energized by: fixing things, success
 	- You are drained by: indecision, failure
-	- People are amazed by your: skills, punctuality, attention to detail
+	- People are amazed by your: skills, attention to detail
 	- Some people call you: obsessive
 	- You go to work because: it's your job
+	- You will get out of this mess by: working harder
 - Educator: Teaching Professor, Science Communicator
 	- You take pride in: helping others
-	- You are energized by: collaboration
+	- You are energized by: collaboration, success of others
 	- You are drained by: isolation
 	- People are amazed by your: thoughfulness, organization, writing
 	- Some people call you: weird
 	- You go to work because: people need you
-
+	- You will get out of this mess by: helping others
 
 As a mentee, you may not know which role fits you best. You might think of
 yourself in one role, but you're actually best in another role. It's often
 useful to break the mold and do something different from expected. A PI with
 Lab Tech or Educator tendencies might make an unusually great PI.
 
-The most important thing to be successful is to be active. If you wait long
-enough, everything will have passed you by. If you don't know what you're
-supposed to be doing, schedule a meeting with the me. If you can't do that,
-talk to someone else. 
