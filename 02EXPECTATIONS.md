@@ -321,7 +321,7 @@ My main project is stuck and I'm not meeting with the Pi for a couple days:
 + I play video games to pass the time -1
 + I start a new side project +0
 + I read papers to improve my knowledge +1
-+ I read other peoples' code to improve skills +1
++ I read other people's code to improve skills +1
 + I read lab code to improve skills and understand what we do +2
 + I ask if anyone in the lab needs help because I'm kind +2
 + I work on side projects because I have several +2
