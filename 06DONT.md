@@ -2,7 +2,7 @@ Plase Don't
 ===========
 
 + Don't copy-paste code
-+ Don't attach large files to emails
++ Don't attach large files
 + Don't use pixel graphics
 + Don't take screenshots with your phone
 + Don't run a job without estimating resources
@@ -15,12 +15,13 @@ If you want to improve your coding skills, write code. If you want to improve
 your copy-paste skills, copy-paste. Every time you copy-paste code instead of
 typing, brain cells die.
 
-## Email Attachments ##
+## Attachments ##
 
-Please don't send large email attachments. If you must send someone data via
-email, always compress it first. The better way to share data is to send a URL
-to a file or directory in the cloud (Google Drive, Dropbox, Box, Mega, etc). A
-common source of large files is PowerPoint presentations with pixel graphics.
+Please don't send large attachments in email or team messaging. If you must
+send someone data files, always compress it first. The better way to share data
+is to send a URL to a file or directory in the cloud (Google Drive, Dropbox,
+Box, Mega, etc). A common source of large files is PowerPoint presentations
+with pixel graphics.
 
 ## Pixel Graphics ##
 
@@ -57,7 +58,7 @@ Using `top` or `/usr/bin/time`.
 When someone says "I'm not a racist, but..." you know the next thing out of
 their mouth will expose their racism. Similarly, when a programmer says "I was
 just...", you know they are about to make an excuse for some programming
-transgressions like hard-coding paths. Laziness leads to poor programming
+transgressions like hard-coded paths. Laziness leads to poor programming
 practices. Try to code the right way 99% of the time.
 
 ## Silence ##

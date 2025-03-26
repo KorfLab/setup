@@ -120,7 +120,6 @@ Scientific programming exists in an environment with transient users and
 developers. Code must be developed in such a way that new users and new
 developers can deploy and extend the project. If you can describe your software
 as "beautifully simple" then you will have solved most of the difficult
-problems. Beautifully simple code is clear, robust, and extensible. Because
-beautifully simple code is easy to understand, it can be made correct,
-friendly, and robust, and derivative works can be made efficient, fast, novel,
-and clever.
+problems. Beautifully simple code is easy to understand. This makes it easy to
+debug and extend. When making programming choices, don't program for yourself,
+but rather the less experienced person who comes after.
