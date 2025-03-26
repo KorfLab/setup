@@ -100,9 +100,12 @@ are several flavors of idle.
 - Infirm: unable to work, requires assistance
 - Hedonist: too busy enjoying life to be useful, requires motivating
 
-Most trainees are novices. They need training before they can be useful. But
-one day, they may have science careers as Principle Investigators, Lab Techs,
-or Educators. What kinds of properties do these positions typically have?
+Most trainees are novices. They need training before they can be useful. There
+is nothing wrong with being a trainee. But as a trainee, you aren't going to
+contribute meaningfully to the work we do. Your job is to gain skills first.
+
+One day, you may have a science career as a Principle Investigator, Lab Tech,
+or Educator. What kinds of properties do these positions typically have?
 
 - PI: Principle Investigator, Group Leader, Independent Investigator
 	- You take pride in: your ideas
@@ -130,7 +133,9 @@ or Educators. What kinds of properties do these positions typically have?
 	- You will get out of this mess by: helping others
 
 As a mentee, you may not know which role fits you best. You might think of
-yourself in one role, but you're actually best in another role. It's often
+yourself in one role, but you're actually best in another role. It's sometimes
 useful to break the mold and do something different from expected. A PI with
-Lab Tech or Educator tendencies might make an unusually great PI.
-
+Lab Tech or Educator tendencies might make an unusually great PI. However, a
+Lab Tech with PI tendencies probablly doesn't work. It could take a lifetime
+figuring out where you belong. I hope your time in my lab helps you find
+yourself.
