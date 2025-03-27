@@ -60,7 +60,7 @@ and found by python via `PYTHONPATH`.
 
 ### Classes ###
 
-We don't tend to do a lot of OOP, and when we do it doesn' involve a lot of
+We don't tend to do a lot of OOP, and when we do it doesn't involve a lot of
 vertical inheritence.
 
 ### Testing ###
