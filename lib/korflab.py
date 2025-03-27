@@ -102,17 +102,19 @@ def translate(seq, frame=0):
 		else: pro.append('X')
 	return ''.join(pro)
 
+## File Readers ##
+
+def getfp(filename):
+	"""returns a file pointer for reading based on file name"""
+	if   filename.endswith('.gz'): return gzip.open(filename, 'rt')
+	elif filename == '-':          return sys.stdin
+	else:                          return open(filename)
+
 def readfasta(filename):
 	"""Simple fasta file iterator."""
-
 	name = None
 	seqs = []
-
-	fp = None
-	if   filename.endswith('.gz'): fp = gzip.open(filename, 'rt')
-	elif filename == '-':          fp = sys.stdin
-	else:                          fp = open(filename)
-
+	fp = getfp(filename)
 	while True:
 		line = fp.readline()
 		if line == '': break
@@ -129,6 +131,85 @@ def readfasta(filename):
 			seqs.append(line)
 	yield(name, ''.join(seqs))
 	fp.close()
+
+def readfastq(filename):
+	"""Simple fastq file iterator."""
+	fp = getfp(filename)
+	while True:
+		h = fp.readline()
+		if h == '': break
+		s = fp.readline()
+		p = fp.readline()
+		q = fp.readline()
+		yield h, s, p, q
+	fp.close()
+
+class SAMbitflag:
+	"""class for sam bitflags"""
+	def __init__(self, val):
+		i = int(val)
+		b = f'{i:012b}'
+		self.read_unmapped = True if b[-3] == '1' else False
+		self.read_reverse_strand = True if b[-5] == '1' else False
+		self.not_primary_alignment = True if b[-9] == '1' else False
+		self.supplementary_alignment = True if b[-12] == '1' else False
+		self.otherflags = []
+		for i in (1, 2, 4, 6, 7, 8, 10, 11):
+			if b[-i] == '1': self.otherflags.append(i)
+
+def cigar_to_exons(cigar, pos):
+	"""converts cigar strings to exon coorinates"""
+	exons = []
+	beg = 0
+	end = 0
+	for match in re.finditer(r'(\d+)([\D])', cigar):
+		n = int(match.group(1))
+		op = match.group(2)
+		if   op == 'M': end += n
+		elif op == '=': end += n
+		elif op == 'X': end += n
+		elif op == 'D': pass
+		elif op == 'I': end += n
+		elif op == 'S': pass
+		elif op == 'H': pass
+		elif op == 'N':
+			exons.append((pos+beg-1, pos+end-2))
+			beg = end + n
+			end = beg
+	exons.append((pos+beg-1, pos+end-2))
+	return exons
+
+def readsam(filename):
+	"""Simple sam file iterator, keeps 1-based coords."""
+	fp = getfp(filename)
+	for line in fp:
+		if line == '': break
+		if line.startswith('@'): continue
+		f = line.split('\t')
+		qname = f[0]
+		bf = SAMbitflag(f[1])
+		if bf.read_unmapped: continue
+		chrom = f[2]
+		pos   = int(f[3])
+		cigar = f[5]
+		st = '-' if bf.read_reverse_strand else '+'
+		exons = cigar_to_exons(cigar, pos)
+		yield {'chrom': chrom, 'qname': qname, 'flags': bf, 'cigar': cigar,
+			'exons': exons, 'beg': exons[0][0], 'end': exons[-1][1],
+			'strand': st, 'line': line}
+	fp.close()
+
+def readgff(filename):
+	"""Simple gff file iterator, keeps 1-based coords."""
+	fp = getfp(filename)
+	for line in fp:
+		if line.startswith('#'): continue
+		f = line.split('\t')
+		yield {'chrom': f[0], 'source': f[1], 'type': f[2],
+			'beg': int(f[3]), 'end': int(f[4]), 'line': line}
+		# chr, source, type, beg, end, score, strand, phase, attr
+	fp.close()
+
 
 ## Data Functions ##
 
