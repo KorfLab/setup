@@ -12,12 +12,12 @@ import re
 ## Math Functions ##
 
 def sumlog(v1, v2):
-	"""Returns the sum of two logspaced values in logspace."""
+	"""Returns the sum of two logspaced values in logspace"""
 	if v1 < v2: v1, v2 = v2, v1
 	return math.log(1 + math.exp(v2 - v1)) + v1
 
 def kmers(k, alph='ACGT', init=0):
-	"""Creates a dictionary of kmers."""
+	"""Creates a dictionary of kmers"""
 	table = {}
 	for t in itertools.product(alph, repeat=k):
 		table[''.join(t)] = init
@@ -26,7 +26,7 @@ def kmers(k, alph='ACGT', init=0):
 ## Sequence Functions ##
 
 def random_dna(length, a=0.25, c=0.25, g=0.25, t=0.25):
-	"""Generates random nucleotide sequence."""
+	"""Generates random nucleotide sequence"""
 
 	assert(math.isclose(a+c+g+t, 1.0))
 	seq = ''
@@ -39,7 +39,7 @@ def random_dna(length, a=0.25, c=0.25, g=0.25, t=0.25):
 	return seq
 
 def anti(seq):
-	"""Produces the reverse complement of a sequence."""
+	"""Produces the reverse complement of a sequence"""
 	comp = str.maketrans('ACGTRYMKWSBDHV', 'TGCAYRKMWSVHDB')
 	anti = seq.translate(comp)[::-1]
 	return anti
@@ -93,7 +93,7 @@ GCODE = {
 }
 
 def translate(seq, frame=0):
-	"""Translates a sequence using the standard genetic code."""
+	"""Translates a sequence using the standard genetic code"""
 
 	pro = []
 	for i in range(frame, len(seq), 3):
@@ -105,13 +105,13 @@ def translate(seq, frame=0):
 ## File Readers ##
 
 def getfp(filename):
-	"""returns a file pointer for reading based on file name"""
+	"""Returns a file pointer for reading based on file name"""
 	if   filename.endswith('.gz'): return gzip.open(filename, 'rt')
 	elif filename == '-':          return sys.stdin
 	else:                          return open(filename)
 
 def readfasta(filename):
-	"""Simple fasta file iterator."""
+	"""Simple fasta file iterator"""
 	name = None
 	seqs = []
 	fp = getfp(filename)
@@ -133,7 +133,7 @@ def readfasta(filename):
 	fp.close()
 
 def readfastq(filename):
-	"""Simple fastq file iterator."""
+	"""Simple fastq file iterator"""
 	fp = getfp(filename)
 	while True:
 		h = fp.readline()
@@ -145,7 +145,7 @@ def readfastq(filename):
 	fp.close()
 
 class SAMbitflag:
-	"""class for sam bitflags"""
+	"""Class for sam bitflags"""
 	def __init__(self, val):
 		i = int(val)
 		b = f'{i:012b}'
@@ -158,7 +158,7 @@ class SAMbitflag:
 			if b[-i] == '1': self.otherflags.append(i)
 
 def cigar_to_exons(cigar, pos):
-	"""converts cigar strings to exon coorinates"""
+	"""Converts cigar strings to exon coorinate tuples"""
 	exons = []
 	beg = 0
 	end = 0
@@ -180,7 +180,7 @@ def cigar_to_exons(cigar, pos):
 	return exons
 
 def readsam(filename):
-	"""Simple sam file iterator, keeps 1-based coords."""
+	"""Simple sam file iterator, keeps 1-based coords"""
 	fp = getfp(filename)
 	for line in fp:
 		if line == '': break
@@ -200,7 +200,7 @@ def readsam(filename):
 	fp.close()
 
 def readgff(filename):
-	"""Simple gff file iterator, keeps 1-based coords."""
+	"""Simple gff file iterator, keeps 1-based coords"""
 	fp = getfp(filename)
 	for line in fp:
 		if line.startswith('#'): continue
@@ -228,7 +228,7 @@ def descend_tree(node, prev):
 	return objects
 
 def read_xml(fp):
-	"""Reads an XML file into a Python data structure."""
+	"""Reads an XML file into a Python data structure"""
 	tree = ET.parse(fp)
 	root = tree.getroot()
 	data = {'tag': root.tag}
