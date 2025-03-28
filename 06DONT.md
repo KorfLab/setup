@@ -51,7 +51,7 @@ There are 5 resources for every job.
 
 If you don't have an accurate estimate of how much each resource your job will
 take, you don't have any buisness running the job. How do you estimate these?
-Using `top` or `/usr/bin/time`.
+Using `top` or `/usr/bin/time` with dev data (see Rule #1).
 
 ## Just ##
 
