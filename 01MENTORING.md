@@ -80,12 +80,14 @@ low inventive  | worker   | idle    |
 
 A scout is a high risk, high reward occupation. We need scouts to explore the
 unknown. Many will not succeeed, but the few who do are worth the expense.
-Scouts are not good at menial labor or routine tasks. They need novelty and
-ownership.
+Scouts are often not good at menial labor or routine tasks. They need novelty
+and ownership. That said, scouts have to survive training, which involves
+unexciting tasks.
 
-A worker is a low risk, low reward occupation. Someone has to stay at home and
-do the daily chores be they farming, cooking, raising the next generation, or
-defending against enemies. A worker takes pride in a job well done.
+A worker is a lower risk, lower reward occupation. Someone has to stay at home
+and do the daily chores be they farming, cooking, raising the next generation,
+or defending against enemies. A worker takes pride in a job well done. Workers
+also solve problems in inventive ways.
 
 The person who has lots of ideas and works to get them all done is insane. One
 cannot simultaneously be a scout and a worker, and the attempt will end in
@@ -110,7 +112,7 @@ or Educator. What kinds of properties do these positions typically have?
 - PI: Principle Investigator, Group Leader, Independent Investigator
 	- You take pride in: your ideas
 	- You are energized by: novelty, puzzles
-	- You are drained by: routine
+	- You are drained by: administrative tasks
 	- People are amazed by your: creativity, intelligence
 	- Some people call you: crazy
 	- You go to work because: it's play
