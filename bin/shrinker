@@ -1,0 +1,117 @@
+#!/usr/bin/env python3
+
+import argparse
+import gzip
+import random
+import re
+import sys
+import korflab
+
+def chromsizes(fasta):
+	table = {}
+	for defline, seq in korflab.readfasta(fasta):
+		f = defline.split()
+		uid = f[0]
+		table[uid] = len(seq)
+	return table
+
+parser = argparse.ArgumentParser(
+	description='genome data shrinker for making demo/dev sets')
+parser.add_argument('--name', required=True, metavar='<text>',
+	help='prefix of file to create (*.fa, *.gff, *.sam, *.fq)')
+parser.add_argument('--dfq', metavar='<fastq>', nargs='+',
+	help='downsample fastq file(s) requires: --percent')
+parser.add_argument('--xfa', metavar='<fasta>',
+	help='cut chromosomes, requires: --percent')
+parser.add_argument('--percent', type=float, metavar='<pct>',
+	help='set percent value for --xfa, --dfq')
+parser.add_argument('--xgff', metavar='<gff>',
+	help='cut gff to fasta requires: --fasta')
+parser.add_argument('--xsam', metavar='<sam>',
+	help='cut sam to fasta, requires: --fasta')
+parser.add_argument('--xfq', metavar='<fastq>', nargs='+',
+	help='cut fastq(s) to aligned, requires: --fasta, --sam')
+
+parser.add_argument('--fasta', metavar='<fasta>',
+	help='fasta file when required')
+parser.add_argument('--sam', metavar='<sam>',
+	help='sam file when required')
+arg = parser.parse_args()
+
+if arg.xfa and arg.percent:
+	with open(f'{arg.name}.fa', 'w') as fp:
+		for defline, seq in korflab.readfasta(arg.xfa):
+			size = int(len(seq) * arg.percent / 100)
+			seq = seq[:size]
+			print('>', defline, sep='', file=fp)
+			for i in range(0, len(seq), 50): print(seq[i:i+50], file=fp)
+elif arg.dfq and arg.percent:
+	if len(arg.dfq) == 1:
+		with open(f'{arg.name}.fq', 'w') as fp:
+			for h, s, p, q in korflab.readfastq(arg.dfq[0]):
+				if random.random() > arg.percent / 100: continue
+				print(h, s, p, q, sep='\n', file=fp)
+	elif len(arg.dfq) == 2:
+		fp1 = open(f'{arg.name}_1.fq', 'w')
+		fp2 = open(f'{arg.name}_2.fq', 'w')
+		for (h1, s1, p1, q1), (h2, s2, p2, q2) in zip(
+				korflab.readfastq(arg.dfq[0]),
+				korflab.readfastq(arg.dfq[1])):
+			if random.random() > arg.percent / 100: continue
+			print(h1, s1, p1, q1, sep='\n', file=fp1)
+			print(h2, s2, p2, q2, sep='\n', file=fp2)
+		fp1.close()
+		fp2.close()
+	else:
+		sys.exit('one or two fastq files only')
+elif arg.xgff and arg.fasta:
+	name2size = chromsizes(arg.fasta)
+	with open(f'{arg.name}.gff', 'w') as fp:
+		for gff in korflab.readgff(arg.xgff):
+			if gff.end >= name2size[gff.chrom]: continue
+			print(f'{gff}', file=fp)
+elif arg.xsam and arg.fasta:
+	name2size = chromsizes(arg.fasta)
+	skip = set()
+	with open(f'{arg.name}.sam', 'w') as fp:
+		for sam in korflab.readsam(arg.xsam):
+			if sam.qname in skip: continue
+			if sam.unmapped or sam.unmapped2:
+				skip.add(sam.qname)
+				continue
+			if sam.end >= name2size[sam.chrom]: continue
+			print(f'{sam}', file=fp)
+elif arg.xfq and arg.fasta and arg.sam:
+	name2size = chromsizes(arg.fasta)
+
+	keep = set()
+	skip = set()
+	for sam in korflab.readsam(arg.sam):
+		if sam.qname in skip: continue
+		if sam.unmapped or sam.unmapped2:
+			skip.add(sam.qname)
+			continue
+		if sam.end >= name2size[sam.chrom]: continue
+		keep.add(sam.qname)
+
+	if len(arg.xfq) == 1:
+		with open(f'{arg.name}.fq', 'w') as fp:
+			for h, s, p, q in korflab.readfastq(arg.xfq[0]):
+				if h not in keep: continue
+				print(f'@{h}', s, '+', q, sep='\n', file=fp)
+	elif len(arg.xfq) == 2:
+		fp1 = open(f'{arg.name}_1.fq', 'w')
+		fp2 = open(f'{arg.name}_2.fq', 'w')
+		for (h1, s1, p1, q1), (h2, s2, p2, q2) in zip(
+				korflab.readfastq(arg.xfq[0]),
+				korflab.readfastq(arg.xfq[1])):
+			if h1 not in keep: continue
+			print(f'@{h1}', s1, '+', q1, sep='\n', file=fp1)
+			print(f'@{h2}', s2, '+', q2, sep='\n', file=fp2)
+		fp1.close()
+		fp2.close()
+	else:
+		sys.exit('one or two fastq files only')
+else:
+	parser.print_help()
+	sys.exit(1)

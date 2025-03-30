@@ -8,6 +8,7 @@ import json
 import math
 import random
 import re
+import sys
 
 ## Math Functions ##
 
@@ -111,7 +112,7 @@ def getfp(filename):
 	else:                          return open(filename)
 
 def readfasta(filename):
-	"""Simple fasta file iterator"""
+	"""Simple fasta file iterator: yields defline, seq"""
 	name = None
 	seqs = []
 	fp = getfp(filename)
@@ -133,81 +134,91 @@ def readfasta(filename):
 	fp.close()
 
 def readfastq(filename):
-	"""Simple fastq file iterator"""
+	"""Simple fastq file iterator: yields 4 lines"""
 	fp = getfp(filename)
 	while True:
 		h = fp.readline()
 		if h == '': break
+		if not h.startswith('@'): sys.exit('fastq format error')
 		s = fp.readline()
 		p = fp.readline()
 		q = fp.readline()
-		yield h, s, p, q
+		yield h[1:-1], s[:-1], p[1:-1], q[:-1]
 	fp.close()
 
-class SAMbitflag:
-	"""Class for sam bitflags"""
-	def __init__(self, val):
-		i = int(val)
-		b = f'{i:012b}'
-		self.read_unmapped = True if b[-3] == '1' else False
-		self.read_reverse_strand = True if b[-5] == '1' else False
-		self.not_primary_alignment = True if b[-9] == '1' else False
-		self.supplementary_alignment = True if b[-12] == '1' else False
-		self.otherflags = []
-		for i in (1, 2, 4, 6, 7, 8, 10, 11):
-			if b[-i] == '1': self.otherflags.append(i)
+class SAM:
+	"""Simple class for SAM records, 1-based coordinates"""
+	def __init__(self, line):
+		f = line.split('\t')
 
-def cigar_to_exons(cigar, pos):
-	"""Converts cigar strings to exon coorinate tuples"""
-	exons = []
-	beg = 0
-	end = 0
-	for match in re.finditer(r'(\d+)([\D])', cigar):
-		n = int(match.group(1))
-		op = match.group(2)
-		if   op == 'M': end += n
-		elif op == '=': end += n
-		elif op == 'X': end += n
-		elif op == 'D': pass
-		elif op == 'I': end += n
-		elif op == 'S': pass
-		elif op == 'H': pass
-		elif op == 'N':
-			exons.append((pos+beg-1, pos+end-2))
-			beg = end + n
-			end = beg
-	exons.append((pos+beg-1, pos+end-2))
-	return exons
+		# standard sam properties
+		self.qname = f[0]
+		self.flag = int(f[1])
+		self.rname = f[2]
+		self.pos = int(f[3])
+		self.mapq = int(f[4])
+		self.cigar = f[5]
+		self.rnext = f[6]
+		self.pnext = f[7]
+		self.tlen = f[8]
+		self.seq = f[9]
+		self.qual = f[10]
+
+		# flag properties
+		self.multimap = self.flag & 1
+		self.proper = self.flag & 2
+		self.unmapped = self.flag & 4
+		self.unmapped2 = self.flag & 8
+		self.revcomp = self.flag & 16
+		self.revcomp2 = self.flag & 32
+		self.first = self.flag & 64
+		self.last = self.flag & 128
+		self.secondary = self.flag & 256
+		self.filtered = self.flag & 512
+		self.duplicate = self.flag & 1024
+		self.supplementary = self.flag & 2048
+
+		# aliases
+		self.line = line[:-1]
+		self.chrom = self.rname
+		self.beg = self.pos
+		self.end = self.beg
+		for length, op in re.findall(r'(\d+)([MIDNSHP=X])', self.cigar):
+			if op in "MDN=X": self.end += int(length)
+
+	def __str__(self): return self.line
 
 def readsam(filename):
-	"""Simple sam file iterator, keeps 1-based coords"""
+	"""Simple SAM file iterator, yields GFF objects"""
 	fp = getfp(filename)
 	for line in fp:
-		if line == '': break
 		if line.startswith('@'): continue
-		f = line.split('\t')
-		qname = f[0]
-		bf = SAMbitflag(f[1])
-		if bf.read_unmapped: continue
-		chrom = f[2]
-		pos   = int(f[3])
-		cigar = f[5]
-		st = '-' if bf.read_reverse_strand else '+'
-		exons = cigar_to_exons(cigar, pos)
-		yield {'chrom': chrom, 'qname': qname, 'flags': bf, 'cigar': cigar,
-			'exons': exons, 'beg': exons[0][0], 'end': exons[-1][1],
-			'strand': st, 'line': line}
+		yield SAM(line)
 	fp.close()
 
+class GFF:
+	"""Simple class for GFF records, 1-based coordinates"""
+	def __init__(self, line):
+		f = line.split('\t')
+		self.line = line[:-1]
+		self.chrom = f[0]
+		self.source = f[1]
+		self.type = f[2]
+		self.beg = int(f[3])
+		self.end = int(f[4])
+		self.score = None if f[5] == '.' else float(f[5])
+		self.strand = f[6]
+		self.phase = None if f[7] == '.' else int(f[7])
+		self.attr = f[8]
+
+	def __str__(self): return self.line
+
 def readgff(filename):
-	"""Simple gff file iterator, keeps 1-based coords"""
+	"""Simple GFF file iterator, yields GFF objects"""
 	fp = getfp(filename)
 	for line in fp:
 		if line.startswith('#'): continue
-		f = line.split('\t')
-		yield {'chrom': f[0], 'source': f[1], 'type': f[2],
-			'beg': int(f[3]), 'end': int(f[4]), 'line': line}
-		# chr, source, type, beg, end, score, strand, phase, attr
+		yield GFF(line)
 	fp.close()
 
 
