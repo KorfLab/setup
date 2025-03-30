@@ -31,21 +31,13 @@ parser.add_argument('--xsam', metavar='<sam>',
 	help='cut sam to fasta, requires: --fasta')
 parser.add_argument('--xfq', metavar='<fastq>', nargs='+',
 	help='cut fastq(s) to aligned, requires: --fasta, --sam')
-
 parser.add_argument('--fasta', metavar='<fasta>',
 	help='fasta file when required')
 parser.add_argument('--sam', metavar='<sam>',
 	help='sam file when required')
 arg = parser.parse_args()
 
-if arg.xfa and arg.percent:
-	with open(f'{arg.name}.fa', 'w') as fp:
-		for defline, seq in korflab.readfasta(arg.xfa):
-			size = int(len(seq) * arg.percent / 100)
-			seq = seq[:size]
-			print('>', defline, sep='', file=fp)
-			for i in range(0, len(seq), 50): print(seq[i:i+50], file=fp)
-elif arg.dfq and arg.percent:
+if arg.dfq and arg.percent:
 	if len(arg.dfq) == 1:
 		with open(f'{arg.name}.fq', 'w') as fp:
 			for h, s, p, q in korflab.readfastq(arg.dfq[0]):
@@ -64,6 +56,13 @@ elif arg.dfq and arg.percent:
 		fp2.close()
 	else:
 		sys.exit('one or two fastq files only')
+elif arg.xfa and arg.percent:
+	with open(f'{arg.name}.fa', 'w') as fp:
+		for defline, seq in korflab.readfasta(arg.xfa):
+			size = int(len(seq) * arg.percent / 100)
+			seq = seq[:size]
+			print('>', defline, sep='', file=fp)
+			for i in range(0, len(seq), 50): print(seq[i:i+50], file=fp)
 elif arg.xgff and arg.fasta:
 	name2size = chromsizes(arg.fasta)
 	with open(f'{arg.name}.gff', 'w') as fp:
@@ -83,7 +82,6 @@ elif arg.xsam and arg.fasta:
 			print(f'{sam}', file=fp)
 elif arg.xfq and arg.fasta and arg.sam:
 	name2size = chromsizes(arg.fasta)
-
 	keep = set()
 	skip = set()
 	for sam in korflab.readsam(arg.sam):
