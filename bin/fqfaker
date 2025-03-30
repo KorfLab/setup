@@ -4,19 +4,32 @@ import argparse
 import random
 import korflab
 
+def mutate_read(seq, arg):
+	if random.random() < arg.seqerr: return korflab.random_dna(arg.readlen)
+	read = list(seq)
+	for i in range(len(read)):
+		if random.random() < arg.nterr:
+			if   read[i] == 'A': read[i] = 'G'
+			elif read[i] == 'C': read[i] = 'T'
+			elif read[i] == 'G': read[i] = 'A'
+			else:                read[i] = 'C'
+	return ''.join(read)
+
 parser = argparse.ArgumentParser()
 parser.add_argument('fasta', help='genome fasta file')
-parser.add_argument('name', help='output name')
-parser.add_argument('--readlen', type=int, default=100,
+parser.add_argument('name', help='output prefix for fastq files')
+parser.add_argument('--readlen', type=int, default=100, metavar='<int>',
 	help='length of reads [%(default)i]')
-parser.add_argument('--paired', type=int, default=200,
-	help='distance between paired reads [%(default)i]')
-parser.add_argument('--coverage', type=float, default=1,
+parser.add_argument('--paired', type=int, nargs=2, default=(100, 200),
+	metavar='<int>', help='distance between paired reads [100 200]')
+parser.add_argument('--coverage', type=float, default=1, metavar='<float>',
 	help='x-coverage [%(default).2f]')
-parser.add_argument('--error', type=float, default=0.1,
-	help='read error [%(default).2f]')
-parser.add_argument('--seed', type=int, default=1,
-	help='random seed [%(default)i]')
+parser.add_argument('--nterr', type=float, default=0.01, metavar='<float>',
+	help='nucleotide-level error (i.e. SNP) [%(default).2f]')
+parser.add_argument('--seqerr', type=float, default=0.1, metavar='<float>',
+	help='sequence-level error (i.e. random seq) [%(default).2f]')
+parser.add_argument('--seed', type=int, default=1, metavar='<int>',
+	help='random seed [unset]')
 arg = parser.parse_args()
 
 if arg.seed: random.seed(arg.seed)
@@ -26,17 +39,13 @@ uid = 1
 for defline, seq in korflab.readfasta(arg.fasta):
 	n = int(0.5 * arg.coverage * len(seq) // arg.readlen)
 	for i in range(n):
-		b1 = random.randint(0, len(seq) - arg.readlen * 2 + arg.paired -1)
+		b1 = random.randint(0, len(seq) - arg.readlen * 2 - arg.paired[1] -1)
 		e1 = b1 + arg.readlen
-		b2 = e1 + arg.paired
+		b2 = e1 + random.randint(arg.paired[0], arg.paired[1])
 		e2 = b2 + arg.readlen
-		r1 = seq[b1:e1]
-		r2 = seq[b2:e2]
-		r2 = korflab.anti(r2)
+		r1 = mutate_read(seq[b1:e1], arg)
+		r2 = mutate_read(korflab.anti(seq[b2:e2]), arg)
 		q = 'B' * arg.readlen
-		if random.random() < arg.error: r1 = korflab.random_dna(arg.readlen)
-		if random.random() < arg.error: r2 = korflab.random_dna(arg.readlen)
-
 		print(f'@fake.{uid}', r1, '+', q, sep='\n', file=fp1)
 		print(f'@fake.{uid}', r2, '+', q, sep='\n', file=fp2)
 		uid += 1
