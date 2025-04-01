@@ -1,5 +1,5 @@
 """
-Miscellaneous functions for typical bioinformatics tasks.
+Miscellaneous functions for common bioinformatics tasks.
 """
 
 import gzip
@@ -134,7 +134,7 @@ def readfasta(filename):
 	fp.close()
 
 def readfastq(filename):
-	"""Simple fastq file iterator: yields 4 lines"""
+	"""Simple fastq file iterator: yields 4 lines, removing @, +"""
 	fp = getfp(filename)
 	while True:
 		h = fp.readline()
@@ -147,7 +147,7 @@ def readfastq(filename):
 	fp.close()
 
 class SAM:
-	"""Simple class for SAM records, 1-based coordinates"""
+	"""Simple class for SAM records, 1-based coordinates, read-only"""
 	def __init__(self, line):
 		f = line.split('\t')
 
@@ -186,7 +186,7 @@ class SAM:
 		for length, op in re.findall(r'(\d+)([MIDNSHP=X])', self.cigar):
 			if op in "MDN=X": self.end += int(length)
 
-	def __str__(self): return self.line
+	def __str__(self): return self.line # this is why read-only
 
 def readsam(filename):
 	"""Simple SAM file iterator, yields GFF objects"""
@@ -197,7 +197,7 @@ def readsam(filename):
 	fp.close()
 
 class GFF:
-	"""Simple class for GFF records, 1-based coordinates"""
+	"""Simple class for GFF records, 1-based coordinates, read-only"""
 	def __init__(self, line):
 		f = line.split('\t')
 		self.line = line[:-1]
@@ -211,7 +211,7 @@ class GFF:
 		self.phase = None if f[7] == '.' else int(f[7])
 		self.attr = f[8]
 
-	def __str__(self): return self.line
+	def __str__(self): return self.line # this is why read-only
 
 def readgff(filename):
 	"""Simple GFF file iterator, yields GFF objects"""
