@@ -3,8 +3,8 @@
 import argparse
 import gzip
 import random
-import re
 import sys
+
 import korflab
 
 def chromsizes(fasta):
@@ -15,35 +15,24 @@ def chromsizes(fasta):
 		table[uid] = len(seq)
 	return table
 
-parser = argparse.ArgumentParser(
-	description='genome data shrinker for making demo/dev sets')
-parser.add_argument('--name', required=True, metavar='<text>',
-	help='prefix of file to create (*.fa, *.gff, *.sam, *.fq)')
-parser.add_argument('--dfq', metavar='<fastq>', nargs='+',
-	help='downsample fastq file(s) requires: --percent')
-parser.add_argument('--xfa', metavar='<fasta>',
-	help='cut chromosomes, requires: --percent')
-parser.add_argument('--percent', type=float, metavar='<pct>',
-	help='set percent value for --xfa, --dfq')
-parser.add_argument('--xgff', metavar='<gff>',
-	help='cut gff to fasta requires: --fasta')
-parser.add_argument('--xsam', metavar='<sam>',
-	help='cut sam to fasta, requires: --fasta')
-parser.add_argument('--xfq', metavar='<fastq>', nargs='+',
-	help='cut fastq(s) to aligned, requires: --fasta, --sam')
-parser.add_argument('--fasta', metavar='<fasta>',
-	help='fasta file when required')
-parser.add_argument('--sam', metavar='<sam>',
-	help='sam file when required')
-arg = parser.parse_args()
+def cut_fasta(arg):
+	if arg.out: fp = open(arg.out, 'w')
+	else:       fp = sys.stdout
+	for defline, seq in korflab.readfasta(arg.fasta):
+		size = int(len(seq) * arg.percent / 100)
+		seq = seq[:size]
+		print('>', defline, sep='', file=fp)
+		for i in range(0, len(seq), 50): print(seq[i:i+50], file=fp)
+	fp.close()
 
-if arg.dfq and arg.percent:
-	if len(arg.dfq) == 1:
+def sample_fastq(arg):
+	if arg.seed: random.seed(arg.seed)
+	if len(arg.fastq) == 1:
 		with open(f'{arg.name}.fq', 'w') as fp:
-			for h, s, p, q in korflab.readfastq(arg.dfq[0]):
+			for h, s, p, q in korflab.readfastq(arg.fastq[0]):
 				if random.random() > arg.percent / 100: continue
 				print(h, s, p, q, sep='\n', file=fp)
-	elif len(arg.dfq) == 2:
+	elif len(arg.fastq) == 2:
 		fp1 = open(f'{arg.name}_1.fq', 'w')
 		fp2 = open(f'{arg.name}_2.fq', 'w')
 		for (h1, s1, p1, q1), (h2, s2, p2, q2) in zip(
@@ -56,31 +45,31 @@ if arg.dfq and arg.percent:
 		fp2.close()
 	else:
 		sys.exit('one or two fastq files only')
-elif arg.xfa and arg.percent:
-	with open(f'{arg.name}.fa', 'w') as fp:
-		for defline, seq in korflab.readfasta(arg.xfa):
-			size = int(len(seq) * arg.percent / 100)
-			seq = seq[:size]
-			print('>', defline, sep='', file=fp)
-			for i in range(0, len(seq), 50): print(seq[i:i+50], file=fp)
-elif arg.xgff and arg.fasta:
+
+def fit_gff(arg):
+	if arg.out: fp = open(arg.out, 'w')
+	else:       fp = sys.stdout
 	name2size = chromsizes(arg.fasta)
-	with open(f'{arg.name}.gff', 'w') as fp:
-		for gff in korflab.readgff(arg.xgff):
-			if gff.end >= name2size[gff.chrom]: continue
-			print(f'{gff}', file=fp)
-elif arg.xsam and arg.fasta:
+	for gff in korflab.readgff(arg.gff):
+		if gff.end >= name2size[gff.chrom]: continue
+		print(f'{gff}', file=fp)
+	fp.close()
+
+def fit_sam(arg):
+	if arg.out: fp = open(arg.out, 'w')
+	else:       fp = sys.stdout
 	name2size = chromsizes(arg.fasta)
 	skip = set()
-	with open(f'{arg.name}.sam', 'w') as fp:
-		for sam in korflab.readsam(arg.xsam):
-			if sam.qname in skip: continue
-			if sam.unmapped or sam.unmapped2:
-				skip.add(sam.qname)
-				continue
-			if sam.end >= name2size[sam.chrom]: continue
-			print(f'{sam}', file=fp)
-elif arg.xfq and arg.fasta and arg.sam:
+	for sam in korflab.readsam(arg.sam):
+		if sam.qname in skip: continue
+		if sam.unmapped or sam.unmapped2:
+			skip.add(sam.qname)
+			continue
+		if sam.end >= name2size[sam.chrom]: continue
+		print(f'{sam}', file=fp)
+	fp.close()
+
+def fit_fastq(arg):
 	name2size = chromsizes(arg.fasta)
 	keep = set()
 	skip = set()
@@ -110,6 +99,70 @@ elif arg.xfq and arg.fasta and arg.sam:
 		fp2.close()
 	else:
 		sys.exit('one or two fastq files only')
-else:
-	parser.print_help()
-	sys.exit(1)
+
+#########
+## CLI ##
+#########
+
+parser = argparse.ArgumentParser(
+	description='genomic data shrinker for making dev data')
+sub = parser.add_subparsers(required=True, help='sub-commands')
+
+## cut_fasta sub-command ##
+parse_xfa = sub.add_parser('cut-fasta',
+	help='truncate the ends of sequences in a FASTA file')
+parse_xfa.add_argument('--fasta', required=True, metavar='<fasta>')
+parse_xfa.add_argument('--percent', required=True, metavar='<float>',
+	type=float)
+parse_xfa.add_argument('--out', metavar='<path>',
+	help='output FASTA file name [default stdout]')
+parse_xfa.set_defaults(func=cut_fasta)
+
+## sample_fastq sub-command ##
+parse_dfq = sub.add_parser('sample-fastq',
+	help='randomly downsample a FASTQ file')
+parse_dfq.add_argument('--fastq', required=True, metavar='<fastq>',
+	nargs='+', help='one or two fastq files')
+parse_dfq.add_argument('--percent', required=True, metavar='<float>',
+	type=float)
+parse_dfq.add_argument('--name', required=True, metavar='<path>',
+	help='prefix for saving *.fq file(s)')
+parse_dfq.add_argument('--seed', type=int, metavar='<int>',
+	help='set random seed [default none]')
+parse_dfq.set_defaults(func=sample_fastq)
+
+## fit_gff sub-command ##
+parse_xgff = sub.add_parser('fit-gff',
+	help='reduce GFF records to those in a (truncated) FASTA file')
+parse_xgff.add_argument('--gff', required=True, metavar='<gff>',
+	help='GFF file')
+parse_xgff.add_argument('--fasta', required=True, metavar='<fasta>',
+	help='fasta file')
+parse_xgff.add_argument('--out', metavar='<path>',
+	help='output GFF file name [default stdout]')
+parse_xgff.set_defaults(func=fit_gff)
+
+## fit_sam sub-command ##
+parse_xsam = sub.add_parser('fit-sam',
+	help='reduce SAM records to those in a (truncated) FASTA file')
+parse_xsam.add_argument('--sam', required=True, metavar='<sam>',
+	help='SAM file')
+parse_xsam.add_argument('--fasta', required=True, metavar='<fasta>',
+	help='FASTA file')
+parse_xsam.add_argument('--out', metavar='<path>',
+	help='output SAM file name [default stdout]')
+parse_xsam.set_defaults(func=fit_sam)
+
+## fit_fastq sub-command ##
+parse_xfq = sub.add_parser('fit-fastq',
+	help='reduce FASTQ records to those in FASTA and SAM')
+parse_xfq.add_argument('--fastq', required=True, metavar='<fastq>')
+parse_xfq.add_argument('--fasta', required=True, metavar='<fasta>')
+parse_xfq.add_argument('--sam', required=True, metavar='<sam>')
+parse_xfq.add_argument('--name', required=True, metavar='<path>',
+	help='prefix for saving *.fq file(s)')
+parse_xfq.set_defaults(func=fit_fastq)
+
+## finish up ##
+arg = parser.parse_args()
+arg.func(arg)
