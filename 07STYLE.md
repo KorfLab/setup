@@ -7,9 +7,12 @@ In general, we follow the style guides of the languages we write in.
 
 These "rules" apply to all languages:
 
-+ Avoid language-specific constructs
-+ 80 column rule (lines should be less than 80 characters)
-+ Use tabs for left-side indentation and spaces everywhere else
++ Don't use language-specific constructs just because you can
++ Follow the 80 column rule (lines should be less than 80 characters)
++ Variables are nouns, functions are verbs
++ The larger the scope of a variable, the longer the name
++ The larger the scope of a function, the shorter the name
++ Use tabs for left-side indentation unless the language says NO
 + Never hard-code file or directory paths
 + Avoid nesting
 
@@ -25,7 +28,6 @@ if not c: contine
 do something
 ```
 
-
 ## Markdown ##
 
 Your Markdown files should look good as plain text files in any editor or
@@ -35,8 +37,9 @@ should follow the 80-column rule whenever possible.
 
 ## Python ##
 
-Follow the Python style guide as much as possible, but indent with tabs. In
-addition, follow these "rules".
+Follow the Python style guide as much as possible, but if you're working in the
+KorfLab codebase, indent with tabs, not spaces. In addition, follow these
+"rules".
 
 + Use `argparse` for CLI.
 + Documentation > annotations > comments
@@ -44,24 +47,28 @@ addition, follow these "rules".
 	- For testing code, but then why not actual unit tests?
 	- For multi-processing, but then why not a faster language?
 + Limit dunders and decorators to where they are necessary
-
-### Scripts and Programs ###
-
-Scripts and programs are generally synonymous. A script that is used very often
-might as well be called a program. In this case, drop the `.py` suffix, add an
-interpreter directive, give it executable permissions, and put it in your PATH.
-
-### Libraries ###
++ Limit vertical inheritence to 1 level
 
 Libraries from external sources are generally installed with `pip3` but
 libraries we develop aren't typically distributed that way (although they
 should). Instead, libraries are stored locally (e.g. a symlink in `~/Code/lib`)
 and found by python via `PYTHONPATH`.
 
-### Classes ###
+## R ##
 
-We don't tend to do a lot of OOP, and when we do it doesn't involve a lot of
-vertical inheritence.
+Use the latest tidyverse style guide with Google supplements.
+
++ Use snake_case for variables and MixedCase for functions
++ Use tibbles instead of data.frames
++ Don't use row names, but since you're using tibbles you can't, right?
++ Since you're using tibbles, use tidyverse for **everything**
++ Oh, you're using $ or ~? FFS, use tidyverse!
+
+### Scripts and Programs ###
+
+Scripts and programs are generally synonymous. A script that is used very often
+might as well be called a program. In this case, drop the suffix, add an
+interpreter directive, give it executable permissions, and put it in your PATH.
 
 ### Testing ###
 
