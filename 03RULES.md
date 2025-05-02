@@ -4,8 +4,8 @@ Rules
 These might be called "best practices" except they are too important for that.
 
 + Rule #1: Create Dev Data
-+ Rule #2: All Code in GitHub
-+ Rule #3: Everything is Portable
++ Rule #2: Everything is Portable
++ Rule #3: All Code in GitHub
 + Rule #4: Prioritize Beauty
 
 
@@ -51,8 +51,22 @@ in the long run. This part of our work is sort of like making reagents and
 calibrating instruments. It's a pain but must be done to speed up debugging
 time and improve reproducibility.
 
+Rule #2: Everything Is Portable
+-------------------------------
 
-Rule #2: All Code in GitHub
+Always develop your software and analysis pipelines so that they can be run on
+multiple computers. One way to ensure this is to work on several computers in
+parallel. This might be a laptop, desktop, cluster, cloud service, or a VM. If
+you're wondering how you can you run an analysis inside the minimal VM on your
+laptop when it lacks the 5 TB of free space needed... see Rule #1. If you are
+using only one computer, you are probably guaranteeing that whatever you're
+doing is not reproducible. As scientists, that's sort of unforgivable.
+Personally, I bounce between different operating systems on a daily basis.
+
+- Use Miniforge (conda) to manage your software environment (where possible)
+- Never, never, never hard-code paths
+
+Rule #3: All Code in GitHub
 ---------------------------
 
 All of the code you write should be managed in a GitHub repository. Generally,
@@ -71,23 +85,6 @@ places on whatever computer you're using.
 If you're a programmer of some kind, which you must be to be in the lab, your
 programming activity is part of your CV. Your GitHub profile and activity are
 therefore part of your CV.
-
-
-Rule #3: Everything Is Portable
--------------------------------
-
-Always develop your software and analysis pipelines so that they can be run on
-multiple computers. One way to ensure this is to work on several computers in
-parallel. This might be a laptop, desktop, cluster, cloud service, or a VM. If
-you're wondering how you can you run an analysis inside the minimal VM on your
-laptop when it lacks the 5 TB of free space needed... see Rule #1. If you are
-using only one computer, you are probably guaranteeing that whatever you're
-doing is not reproducible. As scientists, that's sort of unforgivable.
-Personally, I bounce between different operating systems on a daily basis.
-
-- Use Miniforge (conda) to manage your software environment (where possible)
-- Never hard-code paths
-
 
 Rule #4: Beautifully Simple
 ---------------------------
