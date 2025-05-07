@@ -221,10 +221,8 @@ def readgff(filename):
 		yield GFF(line)
 	fp.close()
 
-
-## Data Functions ##
-
 def readblosum(filename):
+	"""Reads blosum scoring matrix into 2D dictionary"""
 	alphabet = []
 	matrix = {}
 	with open(filename) as fp:
@@ -241,6 +239,8 @@ def readblosum(filename):
 					matrix[c1][c2] = v
 	return matrix
 
+
+## Data Functions ##
 
 import xml.etree.ElementTree as ET
 
