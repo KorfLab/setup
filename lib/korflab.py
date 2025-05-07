@@ -236,7 +236,7 @@ def readblosum(filename):
 				c1 = f[0]
 				if c1 not in matrix: matrix[c1] = {}
 				for c2, v in zip(alphabet, f[1:]):
-					matrix[c1][c2] = v
+					matrix[c1][c2] = int(v)
 	return matrix
 
 
