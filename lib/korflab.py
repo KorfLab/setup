@@ -224,6 +224,24 @@ def readgff(filename):
 
 ## Data Functions ##
 
+def readblosum(filename):
+	alphabet = []
+	matrix = {}
+	with open(filename) as fp:
+		for line in fp:
+			if line.startswith('#'): continue
+			if line.startswith(' '):
+				f = line.split()
+				for c in f: alphabet.append(c)
+			elif line:
+				f = line.split()
+				c1 = f[0]
+				if c1 not in matrix: matrix[c1] = {}
+				for c2, v in zip(alphabet, f[1:]):
+					matrix[c1][c2] = v
+	return matrix
+
+
 import xml.etree.ElementTree as ET
 
 def descend_tree(node, prev):
