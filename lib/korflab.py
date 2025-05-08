@@ -107,9 +107,12 @@ def translate(seq, frame=0):
 
 def getfp(filename):
 	"""Returns a file pointer for reading based on file name"""
-	if   filename.endswith('.gz'): return gzip.open(filename, 'rt')
-	elif filename == '-':          return sys.stdin
-	else:                          return open(filename)
+	if   filename.endswith('.gz'):
+        return gzip.open(filename, 'rt', encoding='ISO-8859-1')
+	elif filename == '-':
+        return sys.stdin
+	else:
+        return open(filename)
 
 def readfasta(filename):
 	"""Simple fasta file iterator: yields defline, seq"""
