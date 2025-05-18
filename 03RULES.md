@@ -54,14 +54,15 @@ time and improve reproducibility.
 Rule #2: Everything Is Portable
 -------------------------------
 
-Always develop your software and analysis pipelines so that they can be run on
-multiple computers. One way to ensure this is to work on several computers in
-parallel. This might be a laptop, desktop, cluster, cloud service, or a VM. If
-you're wondering how you can you run an analysis inside the minimal VM on your
-laptop when it lacks the 5 TB of free space needed... see Rule #1. If you are
-using only one computer, you are probably guaranteeing that whatever you're
-doing is not reproducible. As scientists, that's sort of unforgivable.
-Personally, I bounce between different operating systems on a daily basis.
+Two very important words in science are _rigor_ and _reproducibility_. Science
+should be repeatable. One way to ensure that your work can be replicated by
+others is to simultaneously develop your software on multiple computers. This
+might be a laptop, desktop, cluster, cloud service, or a VM. If you're
+wondering how you can you run an analysis inside the minimal VM on your laptop
+when it lacks the 5 TB of free space needed... see Rule #1. If you are using
+only one computer, you are probably guaranteeing that whatever you're doing is
+not reproducible. As scientists, that's sort of unforgivable. Personally, I
+bounce between different systems on a daily basis.
 
 - Use Miniforge (conda) to manage your software environment (where possible)
 - Never, never, never hard-code paths

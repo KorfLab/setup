@@ -74,7 +74,7 @@ strategies are less successful.
                 ----------|---------
 high inventive | madness  | scout   |
                |----------|---------|
-low inventive  | worker   | idle    |
+low inventive  | worker   | waiting |
                 ----------|---------
 ```
 
@@ -93,8 +93,8 @@ The person who has lots of ideas and works to get them all done is insane. One
 cannot simultaneously be a scout and a worker, and the attempt will end in
 madness.
 
-A person who doesn't have ideas and doesn't get anything done is idle. There
-are several flavors of idle.
+A person who doesn't have ideas and doesn't get anything done is waiting. There
+are several flavors of waiting.
 
 - Novice: insufficient skill to be useful, requires training
 - Recuperating: healing from injuries, requires time

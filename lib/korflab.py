@@ -126,14 +126,14 @@ def readfasta(filename):
 		if line.startswith('>'):
 			if len(seqs) > 0:
 				seq = ''.join(seqs)
-				yield(name, seq)
+				yield name, seq
 				name = line[1:]
 				seqs = []
 			else:
 				name = line[1:]
 		else:
 			seqs.append(line)
-	yield(name, ''.join(seqs))
+	yield name, ''.join(seqs)
 	fp.close()
 
 def readfastq(filename):

@@ -1,0 +1,161 @@
+#!/usr/bin/env python3
+
+import argparse
+import gzip
+import os
+import sys
+
+
+def read_one_record(fp):
+	"""assumes 1 sequence record - a bad idea"""
+	header = next(fp).rstrip()
+	seq = ''
+	for line in fp:
+		seq += line.rstrip() # offensive
+	return header, seq # what if there is more than one record?
+
+def read_as_two_lists(fp):
+	"""returns all headers and sequences - uses too much memory"""
+	headers = []
+	sequences = []
+	curr_seq = ''
+	for line in fp:
+		if line.startswith('>'):
+			headers.append(line.rstrip())
+			if curr_seq != '':
+				sequences.append(curr_seq)
+				curr_seq = ''
+		else:
+			curr_seq += line.rstrip() # offensive
+	sequences.append(curr_seq)
+	return headers, sequences # two, disconnected lists
+
+def read_as_list_of_tuples(fp):
+	"""still uses too much memory, but slightly better"""
+	records = [] # (header, seq) kept as tuple
+	header = None
+	seq = [] # better to store seq as list and join later
+	for line in fp:
+		if line.startswith('>'):
+			if seq: #                         here
+				records.append( (header, ''.join(seq)) )
+				seq = []
+			header = line.rstrip()
+		else:
+			seq.append(line.rstrip())
+	#                             here
+	records.append( (header, ''.join(seq)) )
+	return records
+
+def return_tuples(fp):
+	"""returns one record at a time, rewinds fp, stdin doesn't work"""
+	header = fp.readline()
+	seq = []
+	while True:
+		line = fp.readline()
+		if line.startswith('>'):
+			fp.seek(fp.tell() -len(line)) # stdin breaks this
+			return fp, header.rstrip(), ''.join(seq)
+		elif line == '':
+			return False, header.rstrip(), ''.join(seq)
+		else:
+			seq.append(line.rstrip())
+
+def yield_tuples(fp):
+	"""yields one record at a time"""
+	header = None
+	seqs = []
+	while True:
+		line = fp.readline()
+		if line == '': break
+		line = line.rstrip()
+		if line.startswith('>'):
+			if len(seqs) > 0:
+				seq = ''.join(seqs)
+				yield header, seq
+				header = line.rstrip()
+				seqs = []
+			else:
+				header = line
+		else:
+			seqs.append(line)
+	yield header, ''.join(seqs)
+
+class FastaRecord:
+	"""class representing a fasta record"""
+
+	def __init__(self, header, seq):
+		self.header = header
+		self.seq = seq
+
+	def length(self):
+		return len(self.seq)
+
+class FastaReader:
+	"""class for iterating through a FASTA file"""
+
+	def __init__(self, fp):
+		self._fp = fp
+		self._lastline = ''
+		self._done = False
+
+	def __iter__(self):
+		return self
+
+	def __next__(self):
+		if self._done: raise StopIteration()
+		header = None
+		if self._lastline.startswith('>'):
+			header = self._lastline
+		else:
+			header = self._fp.readline().rstrip()
+		seq = []
+
+		while True:
+			line = self._fp.readline().rstrip()
+			if line == '':
+				self._done = True
+				self._fp.close()
+				break
+			if line.startswith('>'):
+				self._lastline = line.rstrip()
+				break
+			seq.append(line.strip())
+
+		return FastaRecord(header, ''.join(seq))
+
+
+
+parser = argparse.ArgumentParser('fasta reader demo')
+parser.add_argument('file', help='fasta file')
+parser.add_argument('method', type=int)
+arg = parser.parse_args()
+
+if arg.file == '-':            fp = sys.stdin
+elif arg.file.endswith('.gz'): fp = gzip.open(arg.file, 'rt')
+else:                          fp = open(arg.file)
+
+match arg.method:
+	case 1:
+		header, seq = read_one_record(fp)
+		print(header, seq)
+	case 2:
+		headers, sequences = read_as_two_lists(fp)
+		for h, s in zip(headers, sequences):
+			print(h, s)
+	case 3:
+		for header, seq in read_as_list_of_tuples(fp):
+			print(header, seq)
+	case 4:
+		while fp:
+			fp, h, s = return_tuples(fp)
+			print(h, s)
+	case 5:
+		for header, seq in yield_tuples(fp):
+			print(header, seq)
+	case 6:
+		reader = FastaReader(fp)
+		for fasta in reader:
+			print(fasta.header, fasta.seq)
+
+fp.close()

@@ -57,24 +57,20 @@ prepare, and instrumments you can use with a couple hours of training. There
 are no such tasks in this lab. In order to be useful in this lab, you need to
 be at least an intermediate level programmer. If you joined the lab with little
 programming experience, your first priority is to become a decent programmer.
-Start with MCB185 (https://github.com/iankorf/MCB185). How do you know when your
-skills are good enough? Pass the exam (https://github.com/KorfLab/exam).
+Start with MCB185 (https://github.com/iankorf/MCB185). How do you know when
+your skills are good enough? Pass the exam (https://github.com/KorfLab/exam).
 
 MCB185 is a base level of skills and the exam is a base level assessment. Many
-projects require a more advanced level of programming. Here are some ideas to
-further your education.
+projects require a more advanced level of programming. If you want more
+training problems, try solving some classic bioinformatics programming problems
+(https://github.com/KorfLab/classics). In addition try programming in other
+languages.
 
-- Algorithm exercises
-	- Program Smith-Waterman from scratch
-	- Program Viterbi from scratch
-	- Program a depth-first search (e.g. YAML parser)
-	- Try the problems at rosalind.io
-- Learn more than Python
-	- Higher performance languages: C, Go, Rust, Zig
-	- SQL (e.g. sqlite3)
-	- Cluster computing: slurm, singularity
-	- Statistical languages: Python with dataframes, R, Matlab
-	- Hacking languages: Perl, awk, sed
+- Higher performance languages: C, Go, Rust, Zig
+- SQL (e.g. sqlite3)
+- Cluster computing: slurm, singularity
+- Statistical languages: Python with dataframes, R, Matlab
+- Hacking languages: Perl, awk, sed
 
 
 Work-Life Balance in Academic Science
