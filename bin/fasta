@@ -54,7 +54,7 @@ def return_tuples(fp):
 	while True:
 		line = fp.readline()
 		if line.startswith('>'):
-			fp.seek(fp.tell() -len(line)) # stdin breaks this
+			fp.seek(fp.tell() -len(line)) # stdin breaks, gzip fakes
 			return fp, header.rstrip(), ''.join(seq)
 		elif line == '':
 			return False, header.rstrip(), ''.join(seq)
