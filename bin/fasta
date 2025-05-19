@@ -48,7 +48,7 @@ def read_as_list_of_tuples(fp):
 	return records
 
 def return_tuples(fp):
-	"""returns one record at a time, rewinds fp, stdin doesn't work"""
+	"""returns one record at a time, rewinds fp, use for normal files only"""
 	header = fp.readline()
 	seq = []
 	while True:
@@ -91,7 +91,7 @@ class FastaRecord:
 	def length(self):
 		return len(self.seq)
 
-class FastaReader:
+class FastaIterator:
 	"""class for iterating through a FASTA file"""
 
 	def __init__(self, fp):
@@ -124,6 +124,33 @@ class FastaReader:
 
 		return FastaRecord(header, ''.join(seq))
 
+class FastaIndexer:
+	"""class for random access to FASTA records, use normal files only"""
+
+	def __init__(self, fp):
+		self._fp = fp
+		self._idx = {}
+		while True:
+			line = self._fp.readline()
+			if line == '': break
+			if line.startswith('>'):
+				f = line.split()
+				uid = f[0][1:]
+				off = fp.tell() - len(line)
+				self._idx[uid] = off
+
+	def names(self):
+		for key in self._idx.keys():
+			yield key
+
+	def get(self, name):
+		self._fp.seek(self._idx[name])
+		header = next(self._fp).rstrip()
+		seq = []
+		for line in self._fp:
+			if line.startswith('>'): break
+			seq.append(line.rstrip())
+		return FastaRecord(header, ''.join(seq))
 
 
 parser = argparse.ArgumentParser('fasta reader demo')
@@ -154,8 +181,13 @@ match arg.method:
 		for header, seq in yield_tuples(fp):
 			print(header, seq)
 	case 6:
-		reader = FastaReader(fp)
+		reader = FastaIterator(fp)
 		for fasta in reader:
 			print(fasta.header, fasta.seq)
+	case 7:
+		faidx = FastaIndexer(fp)
+		for name in faidx.names():
+			fa = faidx.get(name)
+			print(fa.header, fa.seq)
 
 fp.close()
