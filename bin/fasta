@@ -7,11 +7,10 @@ import sqlite3
 import sys
 
 def get_fp(file):
-	"""return file pointer for multiple file types"""
-	if   file == '-':          fp = sys.stdin
-	elif file.endswith('.gz'): fp = gzip.open(file, 'rt')
-	else:                      fp = open(file)
-	return fp
+	"""return file pointer to multiple file types"""
+	if   file == '-':          return sys.stdin
+	elif file.endswith('.gz'): return gzip.open(file, 'rt')
+	else:                      return open(file)
 
 def read_one_record(file):
 	"""returns header, seq"""
@@ -269,7 +268,7 @@ class FastaDatabase:
 parser = argparse.ArgumentParser('fasta reader demo')
 parser.add_argument('file', help='fasta file')
 parser.add_argument('method', type=int)
-parser.add_argument('--index', help='name of index file (methods >= 7)')
+parser.add_argument('--index', help='name of index file (methods > 7)')
 arg = parser.parse_args()
 
 
@@ -310,5 +309,5 @@ match arg.method:
 		FastaDatabase.create(arg.file, arg.index)
 		fadb = FastaDatabase(arg.index)
 		for name in fadb.names():
-			seq = fadb.get(name, offset=1, length=3)
+			seq = fadb.get(name, offset=1, length=3) # sqlite is 1-based
 			print(name, seq)
