@@ -202,13 +202,11 @@ class FastaPersistentIndexer:
 		self._idx = {}
 		self._fasta = fasta
 		if os.path.exists(index):
-			print(f'opening index {index}', file=sys.stderr, flush=True)
 			with open(index) as fp:
 				for line in fp:
 					name, offset = line.split()
 					self._idx[name] = int(offset)
 		else:
-			print(f'creating index {index}', file=sys.stderr, flush=True)
 			with open(fasta) as ifp, open(index, 'w') as ofp:
 				while True:
 					line = ifp.readline()
@@ -219,7 +217,6 @@ class FastaPersistentIndexer:
 						off = ifp.tell() - len(line)
 						self._idx[uid] = off
 						print(uid, off, sep='\t', file=ofp)
-		print(self._idx)
 
 	def names(self):
 		for key in self._idx.keys():
@@ -243,13 +240,7 @@ class FastaDatabase:
 	# does not require FASTA file once created
 
 	def create(fasta, db):
-		print(f'creating fasta database {db} from {fasta}',
-			file=sys.stderr, flush=True)
-
-		if os.path.exists(db):
-			print(f'database {db} already exists', file=sys.stderr, flush=True)
-			return
-
+		if os.path.exists(db): return
 		con = sqlite3.connect(db)
 		cur = con.cursor()
 		cur.execute('CREATE TABLE sequence(name, seq)')
@@ -260,7 +251,6 @@ class FastaDatabase:
 			con.commit()
 
 	def __init__(self, db):
-		print(f'loading fasta database {db}', file=sys.stderr, flush=True)
 		self._con = sqlite3.connect(db)
 		self._cur = self._con.cursor()
 
@@ -269,15 +259,7 @@ class FastaDatabase:
 		return [x[0] for x in res.fetchall()]
 
 	def get(self, uid, offset=None, length=None):
-
 		if offset is None: return self._cur.execute(f'SELECT seq FROM sequence WHERE name="{uid}"').fetchone()[0]
-
-		# subseq - needs bounds checking
-		# offset is 1-based in sqlite!!
-		# size probably needed
-		# this part is a little unfinished
-
-		size = self._cur.execute(f'SELECT LENGTH(seq) FROM sequence WHERE name="{uid}"').fetchone()[0]
 		return self._cur.execute(f'SELECT substr(seq, {offset}, {length}) FROM sequence WHERE name="{uid}"').fetchone()[0]
 
 #######
