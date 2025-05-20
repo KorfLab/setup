@@ -3,86 +3,114 @@
 import argparse
 import gzip
 import os
+import sqlite3
 import sys
 
+def get_fp(file):
+	"""return file pointer for multiple file types"""
+	if   file == '-':          fp = sys.stdin
+	elif file.endswith('.gz'): fp = gzip.open(file, 'rt')
+	else:                      fp = open(file)
+	return fp
 
-def read_one_record(fp):
-	"""assumes 1 sequence record - a bad idea"""
+def read_one_record(file):
+	"""returns header, seq"""
+	# the file pointer is opened, but not closed (use with... instead)
+	# the sequence is stored as a string and reallocated
+	# assumes only one header, but FASTA allows multiple records
+	fp = open(file)
 	header = next(fp).rstrip()
 	seq = ''
 	for line in fp:
-		seq += line.rstrip() # offensive
-	return header, seq # what if there is more than one record?
+		seq += line.rstrip()   # offensive
+	return header, seq
 
-def read_as_two_lists(fp):
-	"""returns all headers and sequences - uses too much memory"""
+def read_as_two_lists(file):
+	"""returns two lists: headers, sequences"""
+	# the headers and sequences are stored in separate lists - bad
+	# all of the sequences are read into memory - wasteful
+	# uses with... but assumes normal files only
 	headers = []
 	sequences = []
-	curr_seq = ''
-	for line in fp:
-		if line.startswith('>'):
-			headers.append(line.rstrip())
-			if curr_seq != '':
-				sequences.append(curr_seq)
-				curr_seq = ''
-		else:
-			curr_seq += line.rstrip() # offensive
-	sequences.append(curr_seq)
-	return headers, sequences # two, disconnected lists
+	with open(arg.file) as fp:
+		curr_seq = ''
+		for line in fp:
+			if line.startswith('>'):
+				headers.append(line.rstrip())
+				if curr_seq != '':
+					sequences.append(curr_seq)
+					curr_seq = ''
+			else:
+				curr_seq += line.rstrip() # still offensive
+		sequences.append(curr_seq)
+	return headers, sequences
 
-def read_as_list_of_tuples(fp):
-	"""still uses too much memory, but slightly better"""
-	records = [] # (header, seq) kept as tuple
-	header = None
-	seq = [] # better to store seq as list and join later
-	for line in fp:
-		if line.startswith('>'):
-			if seq: #                         here
-				records.append( (header, ''.join(seq)) )
-				seq = []
-			header = line.rstrip()
-		else:
-			seq.append(line.rstrip())
-	#                             here
-	records.append( (header, ''.join(seq)) )
+def read_as_list_of_tuples(file):
+	"""returns a list of (header, sequence) tuples"""
+	# uses the with... syntax and multiple file types - good
+	# keeps (header, sequence) together as tuple
+	# aggregates sequence lines as a list and then joins to make string
+	with get_fp(file) as fp:
+		records = []
+		header = None
+		seq = []
+		for line in fp:
+			if line.startswith('>'):
+				if seq:
+					records.append( (header, ''.join(seq)) )
+					seq = []
+				header = line.rstrip()
+			else:
+				seq.append(line.rstrip())
+		records.append( (header, ''.join(seq)) )
 	return records
 
 def return_tuples(fp):
-	"""returns one record at a time, rewinds fp, use for normal files only"""
+	"""returns one record per call"""
+	# the point of this code is to show how seek() and tell() work
+	# you cannot seek() or tell() on stdin - bad
+	# gzip fakes seek() and tell(), causing re-reading from the start - ugh
+	# don't rewind file pointers unless you have a very good reason!
+	# being too lazy to write a good parser is a bad reason
 	header = fp.readline()
 	seq = []
 	while True:
 		line = fp.readline()
 		if line.startswith('>'):
-			fp.seek(fp.tell() -len(line)) # stdin breaks, gzip fakes
+			fp.seek(fp.tell() -len(line))
 			return fp, header.rstrip(), ''.join(seq)
 		elif line == '':
 			return False, header.rstrip(), ''.join(seq)
 		else:
 			seq.append(line.rstrip())
 
-def yield_tuples(fp):
+def yield_tuples(file):
 	"""yields one record at a time"""
-	header = None
-	seqs = []
-	while True:
-		line = fp.readline()
-		if line == '': break
-		line = line.rstrip()
-		if line.startswith('>'):
-			if len(seqs) > 0:
-				seq = ''.join(seqs)
-				yield header, seq
-				header = line.rstrip()
-				seqs = []
+	# this is the standard way we read FASTA files
+	# multiple file types are supported
+	# minimal memory footprint
+	with get_fp(file) as fp:
+		header = None
+		seqs = []
+		while True:
+			line = fp.readline()
+			if line == '': break
+			line = line.rstrip()
+			if line.startswith('>'):
+				if len(seqs) > 0:
+					seq = ''.join(seqs)
+					yield header, seq
+					header = line.rstrip()
+					seqs = []
+				else:
+					header = line
 			else:
-				header = line
-		else:
-			seqs.append(line)
-	yield header, ''.join(seqs)
+				seqs.append(line)
+		yield header, ''.join(seqs)
 
 class FastaRecord:
 	"""class representing a fasta record"""
+	# the dot syntax is nice for user but requires more from developer
 
 	def __init__(self, header, seq):
 		self.header = header
@@ -93,9 +121,11 @@ class FastaRecord:
 
 class FastaIterator:
 	"""class for iterating through a FASTA file"""
+	# can't use the with... syntax because the open and close are far apart
+	# overall, this is a fine way to iterate through a FASTA file
 
-	def __init__(self, fp):
-		self._fp = fp
+	def __init__(self, file):
+		self._fp = get_fp(file)  # <--- open() here
 		self._lastline = ''
 		self._done = False
 
@@ -115,7 +145,7 @@ class FastaIterator:
 			line = self._fp.readline().rstrip()
 			if line == '':
 				self._done = True
-				self._fp.close()
+				self._fp.close()  # <--- close() here
 				break
 			if line.startswith('>'):
 				self._lastline = line.rstrip()
@@ -125,18 +155,23 @@ class FastaIterator:
 		return FastaRecord(header, ''.join(seq))
 
 class FastaIndexer:
-	"""class for random access to FASTA records, use normal files only"""
+	"""class for random access to FASTA records"""
+	# allows one to retrieve FASTA records by name
+	# requires normal files becuase it needs to seek()
+	# initialization reads header offsets into a dictionary
+	# get_record() looks up name and calls seek() to header offset
 
-	def __init__(self, fp):
-		self._fp = fp
+	def __init__(self, file):
+		self._file = file
 		self._idx = {}
-		while True:
-			line = self._fp.readline()
-			if line == '': break
-			if line.startswith('>'):
+		with open(file) as fp:
+			while True:
+				line = fp.readline()
+				if line == '': return
+				if not line.startswith('>'): continue
 				f = line.split()
 				uid = f[0][1:]
-				off = self._fp.tell() - len(line)
+				off = fp.tell() - len(line)
 				self._idx[uid] = off
 
 	def names(self):
@@ -144,39 +179,46 @@ class FastaIndexer:
 			yield key
 
 	def get(self, name):
-		self._fp.seek(self._idx[name])
-		header = next(self._fp).rstrip()
-		seq = []
-		for line in self._fp:
-			if line.startswith('>'): break
-			seq.append(line.rstrip())
-		return FastaRecord(header, ''.join(seq))
-
+		with open(self._file) as fp:
+			fp.seek(self._idx[name])
+			header = next(fp).rstrip()
+			seq = []
+			for line in fp:
+				if line.startswith('>'): break
+				seq.append(line.rstrip())
+			return FastaRecord(header, ''.join(seq))
 
 class FastaPersistentIndexer:
 	"""class for persistent random access to FASTA records"""
+	# the point here is to show how one can make a persistent index
+	# creates an index file if one does not exist
+	# reads an index file if one already exists
+	# the index file is a simple flat file - sort of inefficient
+	# has no way of checking if fasta and index correspond to each other
+	# requires normal files for seek()
+	# does not allow subsequence operations
 
-	def __init__(self, fp, file):
-		self._fp = fp
+	def __init__(self, fasta, index):
 		self._idx = {}
-		if os.path.exists(file):
-			print(f'opening index {file}', file=sys.stderr, flush=True)
-			with open(file) as fp:
+		self._fasta = fasta
+		if os.path.exists(index):
+			print(f'opening index {index}', file=sys.stderr, flush=True)
+			with open(index) as fp:
 				for line in fp:
 					name, offset = line.split()
 					self._idx[name] = int(offset)
 		else:
-			print(f'creating index {file}', file=sys.stderr, flush=True)
-			with open(file, 'w') as fp:
+			print(f'creating index {index}', file=sys.stderr, flush=True)
+			with open(fasta) as ifp, open(index, 'w') as ofp:
 				while True:
-					line = self._fp.readline()
+					line = ifp.readline()
 					if line == '': break
 					if line.startswith('>'):
 						f = line.split()
 						uid = f[0][1:]
-						off = self._fp.tell() - len(line)
+						off = ifp.tell() - len(line)
 						self._idx[uid] = off
-						print(uid, off, sep='\t', file=fp)
+						print(uid, off, sep='\t', file=ofp)
 		print(self._idx)
 
 	def names(self):
@@ -184,56 +226,107 @@ class FastaPersistentIndexer:
 			yield key
 
 	def get(self, name):
-		self._fp.seek(self._idx[name])
-		header = next(self._fp).rstrip()
-		seq = []
-		for line in self._fp:
-			if line.startswith('>'): break
-			seq.append(line.rstrip())
-		return FastaRecord(header, ''.join(seq))
+		with open(self._fasta) as fp:
+			fp.seek(self._idx[name])
+			header = next(fp).rstrip()
+			seq = []
+			for line in fp:
+				if line.startswith('>'): break
+				seq.append(line.rstrip())
+			return FastaRecord(header, ''.join(seq))
+
+class FastaDatabase:
+	"""class for random access to subsequences"""
+	# stores sequences in a SQLite database
+	# provides random access to records
+	# provides substring access within sequences
+	# does not require FASTA file once created
+
+	def create(fasta, db):
+		print(f'creating fasta database {db} from {fasta}',
+			file=sys.stderr, flush=True)
+
+		if os.path.exists(db):
+			print(f'database {db} already exists', file=sys.stderr, flush=True)
+			return
+
+		con = sqlite3.connect(db)
+		cur = con.cursor()
+		cur.execute('CREATE TABLE sequence(name, seq)')
+		con.commit()
+		for header, seq in yield_tuples(fasta):
+			uid = header.split()[0][1:]
+			cur.execute(f'INSERT INTO sequence VALUES ("{uid}", "{seq}")')
+			con.commit()
+
+	def __init__(self, db):
+		print(f'loading fasta database {db}', file=sys.stderr, flush=True)
+		self._con = sqlite3.connect(db)
+		self._cur = self._con.cursor()
+
+	def names(self):
+		res = self._cur.execute('SELECT name FROM sequence')
+		return [x[0] for x in res.fetchall()]
+
+	def get(self, uid, offset=None, length=None):
+
+		if offset is None: return self._cur.execute(f'SELECT seq FROM sequence WHERE name="{uid}"').fetchone()[0]
+
+		# subseq - needs bounds checking
+		# offset is 1-based in sqlite!!
+		# size probably needed
+		# this part is a little unfinished
+
+		size = self._cur.execute(f'SELECT LENGTH(seq) FROM sequence WHERE name="{uid}"').fetchone()[0]
+		return self._cur.execute(f'SELECT substr(seq, {offset}, {length}) FROM sequence WHERE name="{uid}"').fetchone()[0]
+
+#######
+# CLI #
+#######
 
 parser = argparse.ArgumentParser('fasta reader demo')
 parser.add_argument('file', help='fasta file')
 parser.add_argument('method', type=int)
-parser.add_argument('--index', help='name of index file')
+parser.add_argument('--index', help='name of index file (methods >= 7)')
 arg = parser.parse_args()
 
-if arg.file == '-':            fp = sys.stdin
-elif arg.file.endswith('.gz'): fp = gzip.open(arg.file, 'rt')
-else:                          fp = open(arg.file)
 
 match arg.method:
 	case 1:
-		header, seq = read_one_record(fp)
+		header, seq = read_one_record(arg.file)
 		print(header, seq)
 	case 2:
-		headers, sequences = read_as_two_lists(fp)
+		headers, sequences = read_as_two_lists(arg.file)
 		for h, s in zip(headers, sequences):
 			print(h, s)
 	case 3:
-		for header, seq in read_as_list_of_tuples(fp):
+		for header, seq in read_as_list_of_tuples(arg.file):
 			print(header, seq)
 	case 4:
-		while fp:
-			fp, h, s = return_tuples(fp)
-			print(h, s)
+		with open(arg.file) as fp:
+			while fp:
+				fp, h, s = return_tuples(fp)
+				print(h, s)
 	case 5:
-		for header, seq in yield_tuples(fp):
+		for header, seq in yield_tuples(arg.file):
 			print(header, seq)
 	case 6:
-		reader = FastaIterator(fp)
+		reader = FastaIterator(arg.file)
 		for fasta in reader:
 			print(fasta.header, fasta.seq)
 	case 7:
-		faidx = FastaIndexer(fp)
+		faidx = FastaIndexer(arg.file)
 		for name in faidx.names():
 			fa = faidx.get(name)
 			print(fa.header, fa.seq)
 	case 8:
-		faidx = FastaPersistentIndexer(fp, arg.index)
+		faidx = FastaPersistentIndexer(arg.file, arg.index)
 		for name in faidx.names():
 			fa = faidx.get(name)
 			print(fa.header, fa.seq)
-
-
-fp.close()
+	case 9:
+		FastaDatabase.create(arg.file, arg.index)
+		fadb = FastaDatabase(arg.index)
+		for name in fadb.names():
+			seq = fadb.get(name, offset=1, length=3)
+			print(name, seq)
