@@ -21,6 +21,6 @@ documents for the lab. Please read them in the following order:
 + `04ENVIRONMENT.md` set up your bioinformatics programming environment
 + `05MISC.md` random useful information
 + `06DONT.md` stuff you shouldn't do
-+ `profile` something to `source` from your login script
 + `bin` some useful scripts if not to use, to think about
++ `etc` some config files
 + `lib` some useful libraries

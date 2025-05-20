@@ -1,0 +1,7 @@
+name: ik
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - go

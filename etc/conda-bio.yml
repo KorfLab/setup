@@ -1,0 +1,9 @@
+name: bio
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - blast
+  - blast-legacy
+  - emboss
