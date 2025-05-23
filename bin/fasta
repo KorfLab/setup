@@ -14,9 +14,9 @@ def get_fp(file):
 
 def read_one_record(file):
 	"""returns header, seq"""
-	# the file pointer is opened, but not closed (use with... instead)
-	# the sequence is stored as a string and reallocated
-	# assumes only one header, but FASTA allows multiple records
+	# the file pointer is opened, but not closed - bad
+	# the sequence is stored as a string and reallocated with += - bad
+	# assumes only one header, but FASTA allows multiple records - bad
 	fp = open(file)
 	header = next(fp).rstrip()
 	seq = ''
@@ -28,7 +28,7 @@ def read_as_two_lists(file):
 	"""returns two lists: headers, sequences"""
 	# the headers and sequences are stored in separate lists - bad
 	# all of the sequences are read into memory - wasteful
-	# uses with... but assumes normal files only
+	# uses with... but assumes normal files only - short-sighted
 	headers = []
 	sequences = []
 	with open(arg.file) as fp:
@@ -47,8 +47,9 @@ def read_as_two_lists(file):
 def read_as_list_of_tuples(file):
 	"""returns a list of (header, sequence) tuples"""
 	# uses the with... syntax and multiple file types - good
-	# keeps (header, sequence) together as tuple
-	# aggregates sequence lines as a list and then joins to make string
+	# keeps (header, sequence) together as tuple - good
+	# aggregates sequence as a list and then joins to make string - good
+	# keeps all sequences in memory - wasteful
 	with get_fp(file) as fp:
 		records = []
 		header = None
@@ -86,8 +87,8 @@ def return_tuples(fp):
 def yield_tuples(file):
 	"""yields one record at a time"""
 	# this is the standard way we read FASTA files
-	# multiple file types are supported
-	# minimal memory footprint
+	# multiple file types are supported - good
+	# minimal memory footprint - good
 	with get_fp(file) as fp:
 		header = None
 		seqs = []
@@ -97,8 +98,7 @@ def yield_tuples(file):
 			line = line.rstrip()
 			if line.startswith('>'):
 				if len(seqs) > 0:
-					seq = ''.join(seqs)
-					yield header, seq
+					yield header, ''.join(seqs)
 					header = line.rstrip()
 					seqs = []
 				else:
@@ -106,6 +106,26 @@ def yield_tuples(file):
 			else:
 				seqs.append(line)
 		yield header, ''.join(seqs)
+
+def yield_objects(file):
+	# as above but yielding FastaRecord - nice
+	with get_fp(file) as fp:
+		header = None
+		seqs = []
+		while True:
+			line = fp.readline()
+			if line == '': break
+			line = line.rstrip()
+			if line.startswith('>'):
+				if len(seqs) > 0:
+					yield FastaRecord(header, ''.join(seqs))
+					header = line.rstrip()
+					seqs = []
+				else:
+					header = line
+			else:
+				seqs.append(line)
+		yield FastaRecord(header, ''.join(seqs))
 
 class FastaRecord:
 	"""class representing a fasta record"""
@@ -120,8 +140,9 @@ class FastaRecord:
 
 class FastaIterator:
 	"""class for iterating through a FASTA file"""
-	# can't use the with... syntax because the open and close are far apart
-	# overall, this is a fine way to iterate through a FASTA file
+	# can't use the with... syntax because the open and close are detached
+	# overall, this is an ok way to iterate through a FASTA file
+	# it would be better to yield FastaRecord objects
 
 	def __init__(self, file):
 		self._fp = get_fp(file)  # <--- open() here
@@ -155,8 +176,8 @@ class FastaIterator:
 
 class FastaIndexer:
 	"""class for random access to FASTA records"""
-	# allows one to retrieve FASTA records by name
-	# requires normal files becuase it needs to seek()
+	# allows one to retrieve FASTA records by name - nice
+	# requires normal files becuase it needs to seek() - not ideal
 	# initialization reads header offsets into a dictionary
 	# get_record() looks up name and calls seek() to header offset
 
@@ -195,7 +216,6 @@ class FastaPersistentIndexer:
 	# the index file is a simple flat file - sort of inefficient
 	# has no way of checking if fasta and index correspond to each other
 	# requires normal files for seek()
-	# does not allow subsequence operations
 
 	def __init__(self, fasta, index):
 		self._idx = {}
@@ -233,10 +253,10 @@ class FastaPersistentIndexer:
 
 class FastaDatabase:
 	"""class for random access to subsequences"""
-	# stores sequences in a SQLite database
-	# provides random access to records
-	# provides substring access within sequences
-	# does not require FASTA file once created
+	# stores ids and sequences in a SQLite database - good
+	# provides random access to records - good
+	# provides substring access within sequences - nice!
+	# does not require FASTA file once created - cool
 
 	def create(fasta, db):
 		if os.path.exists(db): return
@@ -292,20 +312,23 @@ match arg.method:
 		for header, seq in yield_tuples(arg.file):
 			print(header, seq)
 	case 6:
+		for fasta in yield_objects(arg.file):
+			print(fasta.header, fasta.seq)
+	case 7:
 		reader = FastaIterator(arg.file)
 		for fasta in reader:
 			print(fasta.header, fasta.seq)
-	case 7:
+	case 8:
 		faidx = FastaIndexer(arg.file)
 		for name in faidx.names():
 			fa = faidx.get(name)
 			print(fa.header, fa.seq)
-	case 8:
+	case 9:
 		faidx = FastaPersistentIndexer(arg.file, arg.index)
 		for name in faidx.names():
 			fa = faidx.get(name)
 			print(fa.header, fa.seq)
-	case 9:
+	case 10:
 		FastaDatabase.create(arg.file, arg.index)
 		fadb = FastaDatabase(arg.index)
 		for name in fadb.names():
