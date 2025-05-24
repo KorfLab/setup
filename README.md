@@ -21,6 +21,16 @@ documents for the lab. Please read them in the following order:
 + `04ENVIRONMENT.md` set up your bioinformatics programming environment
 + `05MISC.md` random useful information
 + `06DONT.md` stuff you shouldn't do
-+ `bin` some useful scripts if not to use, to think about
++ `07STYLE.md`
++ `bin` some useful scripts
+	- `benchmark` a python-based benchmark the lab designed
+	- `fasta` increasingly sophisticated ways to read FASTA files
+	- `fqfaker` sample fake reads from a sequence
+	- `redundancy_check` look for duplicate files
+	- `shrinker` genomic dataset minimizer
 + `etc` some config files
+	- `conda-bio` some standard bioconda things Ian likes
+	- `conda-ik` some standard conda things Ian likes
+	- `profile` shell login variables and aliases
 + `lib` some useful libraries
+	- `korflab.py` common bioinformatics python things

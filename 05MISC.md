@@ -291,7 +291,6 @@ Unix Quick Reference
 | `top`     | `top`         | display processes running on your system
 | `touch`   | `touch f`     | update file f modification time (create if needed)
 | `wc`      | `wc f`        | count the lines, words, and characters in file f
-| `screen`  | `screen -S ...`   | start a virtual terminal
 
 
 
@@ -301,11 +300,10 @@ Good Practices
 
 ### Login Customization
 
-You should modify your login script. See the `profile` for inspiration.
+You should modify your login script. See the `etc/profile` for inspiration.
 
 ### Jobs
 
-+ Use `nice` if you're using a lot of resources
 + Use `top` or `htop` to monitor resources
 + Use `/usr/bin/time` to examine resources after a job is done
 + Use ^C to kill a job in the foreground
@@ -406,21 +404,6 @@ do the same calculation. But not every language has this built in. Also, the
 numpy version is slightly slower than the pure python.
 
 
-### Some useful scripts
-
-The `bin` directory contains a couple of demonstration scripts for
-inspirtation.
-
-+ `benchmark` is a python-based benchmarking program
-+ `memcheck` looks through the `proc` filesystem to examine memory
-+ `parallelize` runs a file of command lines in parallel on multiple CPUs
-+ `redundancy_check` looks for identical files in the filesystem
-
-The `lib` directory contains libraries that may be generally useful.
-
-+ `korflab.py` has some sequence operations
-
-
 Programs vs. Pipelines vs. Notebooks
 ------------------------------------
 
@@ -486,3 +469,7 @@ Time is precious. Your time particularly. But the way to save time isn't to do
 something as quickly as possible. If the goal is to cut down a tree, you must
 first spend a lot of time sharpening the blade. The person who starts chopping
 right away because they "just want to get started" is wasting time in the end.
+
+### Slurm Commands
+
+Needs to be written...

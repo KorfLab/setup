@@ -41,7 +41,7 @@ Follow the Python style guide as much as possible, but if you're working in the
 KorfLab codebase, indent with tabs, not spaces. In addition, follow these
 "rules".
 
-+ Use `argparse` for CLI.
++ Use `argparse` for CLI
 + Documentation > annotations > comments
 + Limit `if __name__ == '__main__'` to specific use cases
 	- For testing code, but then why not actual unit tests?
@@ -52,7 +52,7 @@ KorfLab codebase, indent with tabs, not spaces. In addition, follow these
 Libraries from external sources are generally installed with `pip3` but
 libraries we develop aren't typically distributed that way (although they
 should). Instead, libraries are stored locally (e.g. a symlink in `~/Code/lib`)
-and found by python via `PYTHONPATH`.
+and found by python3 via `PYTHONPATH`.
 
 ## R ##
 
@@ -83,3 +83,13 @@ We prefer...
 + Indentation is "one true brace" (opening brace on the first line)
 + Constuctors return pointers to structs
 + Always use a Makefile
+
+## Other Languages ##
+
+- C++ don't
+- Go yes, please
+- Java never
+- Javascript no
+- Lua oh?
+- Rust maybe
+- SQL as long as it's followed by lite

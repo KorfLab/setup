@@ -2,10 +2,10 @@ Plase Don't
 ===========
 
 + Don't copy-paste code
++ Don't run a job on a cluster without estimating resources
 + Don't attach large files
 + Don't use pixel graphics
 + Don't take screenshots with your phone
-+ Don't run a job without estimating resources
 + Don't justify poor practices with "just"
 + Don't suffer in silence
 
@@ -14,6 +14,20 @@ Plase Don't
 If you want to improve your coding skills, write code. If you want to improve
 your copy-paste skills, copy-paste. Every time you copy-paste code instead of
 typing, brain cells die.
+
+## Resources ##
+
+There are 5 resources for every job.
+
++ CPUs
++ RAM
++ Storage
++ Network
++ Time
+
+If you don't have an accurate estimate of how much each resource your job will
+take, you don't have any buisness running the job. How do you estimate these?
+Using `top` or `/usr/bin/time` with dev data (see Rule #1).
 
 ## Attachments ##
 
@@ -38,20 +52,6 @@ copy-paste error messages, but not code). Screenshots use a lot more storage.
 If you take a picture with your phone, the file may be really large. Even
 though computers today have lots of storage, it's always a good idea to be
 mindful of how much space things take.
-
-## Resources ##
-
-There are 5 resources for every job.
-
-+ CPUs
-+ RAM
-+ Storage
-+ Network
-+ Time
-
-If you don't have an accurate estimate of how much each resource your job will
-take, you don't have any buisness running the job. How do you estimate these?
-Using `top` or `/usr/bin/time` with dev data (see Rule #1).
 
 ## Just ##
 
