@@ -85,7 +85,7 @@ def return_tuples(fp):
 			seq.append(line.rstrip())
 
 def yield_tuples(file):
-	"""yields one record at a time"""
+	"""yields one (header, seq) at a time"""
 	# this is the standard way we read FASTA files
 	# multiple file types are supported - good
 	# minimal memory footprint - good
@@ -107,8 +107,20 @@ def yield_tuples(file):
 				seqs.append(line)
 		yield header, ''.join(seqs)
 
+class FastaRecord:
+	"""class representing a fasta record"""
+	# the dot syntax is nice for user but requires more from developer
+
+	def __init__(self, header, seq):
+		self.header = header
+		self.seq = seq
+
+	def length(self):
+		return len(self.seq)
+
 def yield_objects(file):
-	# as above but yielding FastaRecord - nice
+	"""yields one fasta object at a time"""
+	# a slight improvement on yield_tuples()?
 	with get_fp(file) as fp:
 		header = None
 		seqs = []
@@ -126,17 +138,6 @@ def yield_objects(file):
 			else:
 				seqs.append(line)
 		yield FastaRecord(header, ''.join(seqs))
-
-class FastaRecord:
-	"""class representing a fasta record"""
-	# the dot syntax is nice for user but requires more from developer
-
-	def __init__(self, header, seq):
-		self.header = header
-		self.seq = seq
-
-	def length(self):
-		return len(self.seq)
 
 class FastaIterator:
 	"""class for iterating through a FASTA file"""
