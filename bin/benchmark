@@ -1,55 +1,53 @@
 #!/usr/bin/env python3
 
 import argparse
-import itertools
-import json
-import math
-import random
 import sys
 import time
 
-# we did this in lab meeting one day and it needs to be improved
+import korflab
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--size', type=float, default=1e6,
-	help='size of the benchmark [%(default)g]')
-parser.add_argument('--tmpfile', default='bench.tmp',
-	help='name of temp file [%(default)s]')
-parser.add_argument('--seed', type=int, default=1,
-	help='set random seed [%(default)i]')
+def edit_distance(s1, s2):
+	d = 0
+	for c1, c2 in zip(s1, s2): d += 1 if c1 != c2 else 0 
+
+def kmer_freq(s, k):
+	kdict = {}
+	k = 5
+	for i in range(len(s1) -k + 1):
+		kmer = s1[i:i+k]
+		if kmer not in kdict: kdict[kmer] = 0
+		kdict[kmer] += 1
+	for kmer in kdict:
+		kdict[kmer] /= (len(s) -k +1)
+
+parser = argparse.ArgumentParser(description='quick python-based cpu benchmark')
+parser.add_argument('--size', type=int, default=9999, metavar='<int>',
+	help='string size [%(default)i]')
+parser.add_argument('--k', type=int, default=5, metavar='<int>',
+	help='kmer size [%(default)i]')
+parser.add_argument('--limit', type=float, default=60.0, metavar='<float>',
+	help='seconds to run test [%(default).1f]')
 arg = parser.parse_args()
 
-random.seed(arg.seed)
-
-k = math.ceil(math.log(arg.size / 10) / math.log(4))
-
-# part 1: create a table of random data
 t0 = time.time()
-with open(arg.tmpfile, 'w') as fp:
-	for _ in range(int(arg.size)):
-		uid = ''.join(random.choices('ACGT', k=k))
-		val = random.random()
-		print(uid, val, sep='\t', file=fp)
-t1 = time.time()
-print(t1 - t0)
+n = 0
+seen = set()
+while True:
+	s1 = korflab.random_dna(arg.size)
+	s2 = korflab.random_dna(arg.size)
+	edit_distance(s1, s2)
+	kmer_freq(s1, arg.k)
+	kmer_freq(s2, arg.k)
+	
+	n += 1
+	t1 = time.time()
+	elapsed = t1 - t0
+	sec = elapsed // 1
+	if sec not in seen:
+		print('.', end='', file=sys.stderr, flush=True)
+		seen.add(sec)
+	if elapsed > arg.limit: break
 
-# part 2: read table of data into a dictionary of lists
-t0 = time.time()
-dol = {}
-with open(arg.tmpfile) as fp:
-	for line in fp:
-		kmer, val = line.split()
-		if kmer not in dol: dol[kmer] = []
-		dol[kmer].append(float(val))
-t1 = time.time()
-print(t1 - t0)
+print(file=sys.stderr)
+print(n / elapsed)
 
-# part 3: edit distance
-t0 = time.time()
-for k1 in dol:
-	for k2 in dol:
-		d = 0
-		for nt1, nt2 in zip(k1, k2):
-			if nt1 != nt2: d += 1
-t1 = time.time()
-print(t1 - t0)
