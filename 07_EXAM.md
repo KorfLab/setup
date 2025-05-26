@@ -19,7 +19,7 @@ yourself pulling answers from the Internet instead of your brain, you need more
 practice. Practice means repetition. Repetition means doing things over and
 over until they become automatic (like every other skill in life).
 
-After passing the exam, you will be listed in the `08HALL_OF_FAME.md` document
+After passing the exam, you will be listed in the `08_HALL_OF_FAME.md` document
 and receive an official "KorfLab Bioinformatics Developer Certificate".
 
 ## Assumptions ##

@@ -26,7 +26,7 @@ To install a local CLI environment, you can:
 - Install Cygwin on PC
 - Use the Linux environment in Windows
 
-Modify your login script (see `setup/etc/profile` for inspiration).
+Modify your login script (see `init/etc/profile` for inspiration).
 
 Use `top` or `htop` to monitor resources live. Use `/usr/bin/time -v` to
 examine resources after a job is done. The normal `time` command doesn't do
@@ -79,10 +79,14 @@ directory, since that is ignored by Git.
 ```
 Code/
 	bin/
-		benchmark@ -> ../setup/bin/benchmark
+		benchmark@ -> ../init/bin/benchmark
 	lib/
-		korflab.py@ -> ../setup/lib/korflab.py
-	setup/
+		korflab.py@ -> ../init/lib/korflab.py
+	init/
+		bin/
+			benchmark
+		lib/
+			korflab.py
 Desktop/
 Documents/
 Downloads/

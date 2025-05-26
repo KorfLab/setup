@@ -14,14 +14,14 @@ considered the onboarding documents for the lab. Please read them completely in
 the following order:
 
 - `README.md` this document
-- `01MENTORING.md` Ian's mentoring philosphy
-- `02EXPECTATIONS.md` what to expect when joining the lab
-- `03RULES.md` best practices that are important enough to be called rules
-- `04ENVIRONMENT.md` set up your bioinformatics environment
-- `05DONT.md` stuff you shouldn't do
-- `06CLASSICS.md` learn bioinformatics by studying classic examples
-- `07EXAM.md` the official KorfLab Bioinformatics Exam
-- `08HALL_OF_FAME.md` people who have passed the exam
+- `01_MENTORING.md` Ian's mentoring philosphy
+- `02_EXPECTATIONS.md` what to expect when joining the lab
+- `03_RULES.md` best practices that are important enough to be called rules
+- `04_ENVIRONMENT.md` set up your bioinformatics environment
+- `05_DONT.md` stuff you shouldn't do
+- `06_CLASSICS.md` learn bioinformatics by studying classic examples
+- `07_EXAM.md` the official KorfLab Bioinformatics Exam
+- `08_HALL_OF_FAME.md` people who have passed the exam
 
 There are also some directories with various files you may find useful.
 
