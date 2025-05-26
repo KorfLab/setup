@@ -3,14 +3,14 @@ Rules
 
 These might be called "best practices" except they are too important for that.
 
-+ Rule #1: Create Dev Data
-+ Rule #2: Everything is Portable
-+ Rule #3: All Code in GitHub
-+ Rule #4: Prioritize Beauty
+- Rule #1: Create Dev Data
+- Rule #2: Everything is Portable
+- Rule #3: All Code in GitHub
+- Rule #4: Beautifully Simple
+- RUle #5: Refactoring Happens
+- Rule #6: Don't be a Robot
 
-
-Rule #1: Create Dev Data
-------------------------
+## Rule #1: Create Dev Data ##
 
 Before you start on a project, the most important thing to do is to build a
 minimal dataset for development and testing. We call this our "dev data", "test
@@ -19,9 +19,9 @@ data that represents positive and negative controls. Dev data is sometimes
 created by hand, sometimes created synthetically, and sometimes sampled from
 real data. We use dev data for multiple purposes:
 
-+ Minimize debugging time
-+ Functional tests
-+ Tutorials
+- Minimize debugging time
+- Functional tests
+- Tutorials
 
 Software development takes much more time than you expect. The debugging stage
 can be very long. In order to reduce the downtime between debugging sessions,
@@ -51,8 +51,7 @@ in the long run. This part of our work is sort of like making reagents and
 calibrating instruments. It's a pain but must be done to speed up debugging
 time and improve reproducibility.
 
-Rule #2: Everything Is Portable
--------------------------------
+## Rule #2: Everything Is Portable ##
 
 Two very important words in science are _rigor_ and _reproducibility_. Science
 should be repeatable. One way to ensure that your work can be replicated by
@@ -67,8 +66,7 @@ bounce between different systems on a daily basis.
 - Use Miniforge (conda) to manage your software environment (where possible)
 - Never, never, never hard-code paths
 
-Rule #3: All Code in GitHub
----------------------------
+## Rule #3: All Code in GitHub ##
 
 All of the code you write should be managed in a GitHub repository. Generally,
 there is no need to make it private.
@@ -87,23 +85,22 @@ If you're a programmer of some kind, which you must be to be in the lab, your
 programming activity is part of your CV. Your GitHub profile and activity are
 therefore part of your CV.
 
-Rule #4: Beautifully Simple
----------------------------
+## Rule #4: Beautifully Simple ##
 
 A programming project has many facets.
 
-+ Beautiful - it is visually appealing
-+ Clear - it is easy to explain to others
-+ Clever - it is intellectually appealing
-+ Correct - it solves the problem as intended
-+ Documented - it has documents for developers
-+ Efficient - it doesn't use much memory
-+ Extensible - it can be used for other projects
-+ Fast - it doesn't take long to run
-+ Friendly - it has documents for users, including a tutorial
-+ Novel - it is the first of its kind
-+ Robust - it has unit, functional, and integration tests
-+ Simple - it is not complex
+- Beautiful - it is visually appealing
+- Clear - it is easy to explain to others
+- Clever - it is intellectually appealing
+- Correct - it solves the problem as intended
+- Documented - it has documents for developers
+- Efficient - it doesn't use much memory
+- Extensible - it can be used for other projects
+- Fast - it doesn't take long to run
+- Friendly - it has documents for users, including a tutorial
+- Novel - it is the first of its kind
+- Robust - it has unit, functional, and integration tests
+- Simple - it is not complex
 
 Biologists focus on their program being correct. They have a specific problem
 to solve and want a solution to that problem. Being so focused on their
@@ -114,6 +111,10 @@ Computer scientists focus their efforts on being clever, efficient, and novel.
 Their goal is to prove how smart they are. They might not care about users or
 other developers.
 
+Software engineers focus on building robust and extensible systems. They may
+spend so much effort engineering the perfect abstraction that they miss their
+target audience.
+
 Scientific programming exists in an environment with transient users and
 developers. Code must be developed in such a way that new users and new
 developers can deploy and extend the project. If you can describe your software
@@ -121,3 +122,31 @@ as "beautifully simple" then you will have solved most of the difficult
 problems. Beautifully simple code is easy to understand. This makes it easy to
 debug and extend. When making programming choices, don't program for yourself,
 but rather the less experienced person who comes after.
+
+## Rule #5: Refactoring Happens ##
+
+No code is correct the first time it is written. Oftentimes, we only know how
+to start a project after we have gotten to the end. For this reason, it's a
+good idea to push some small part of the project as far as possible before the
+refactoring begins. Don't spend too much time up front engineering the perfect
+solution. Odds are, you didn't understand the question perfectly and you're
+going to have to do a ground-zero rewrite. The more over-engineering you do at
+the start, the more painful it will be to tear it all down later.
+
+This doesn't mean you're encouraged to write shitty code. You should always
+strive to write code you are proud of. If you can't show your code to the PI
+and say "isn't this great?" then re-write it and make it great.
+
+## Rule #6: Don't be a Robot ##
+
+- Do you find yourself copy-pasting argparse from one program to another?
+- Have you forgotten how to write a simple windowing algorithm?
+- Do you have to look up the syntax of a `lambda` function every time?
+- Are you just the go-between from an LLM to your text editor?
+- Have you become a robot?
+
+Well stop doing it. Stop copy-pasting code. Stop looking up everthing on the
+Internet. Stop asking ChatGPT for answers. Stop using code completion. Use your
+brain. Write every character of every line yourself, and when you get stuck as
+a person for help. Yes, this will take longer. But you're here to learn, not to
+act like a robot.
