@@ -61,7 +61,7 @@ able to do:
 
 To gain these skills, you can take my course MCB185 either officially or on
 your own (https://github.com/iankorf/MCB185). To test yourself try taking the
-KorfLab Bioinformatics Exam (https://github.com/KorfLab/exam).
+KorfLab Bioinformatics Exam in `07EXAM.md`.
 
 In addition to programming, you need to be self-motivated. I'm not the kind of
 PI who checks in on you constantly. I make myself available to students for
@@ -72,8 +72,7 @@ help on, but you have to ask.
 MCB185 is a base level of skills and the exam is a base level assessment. Many
 projects require a more advanced level of programming. If you want more
 training problems, try solving some classic bioinformatics programming problems
-(https://github.com/KorfLab/classics). In addition try programming in other
-languages.
+in `06CLASSICS.md`.
 
 
 Work-Life Balance in Academic Science

@@ -51,6 +51,8 @@ in the long run. This part of our work is sort of like making reagents and
 calibrating instruments. It's a pain but must be done to speed up debugging
 time and improve reproducibility.
 
+Some examples of Rule #1 data are in the `init/data` directory.
+
 ## Rule #2: Everything Is Portable ##
 
 Two very important words in science are _rigor_ and _reproducibility_. Science

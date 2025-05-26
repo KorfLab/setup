@@ -20,6 +20,8 @@ the following order:
 - `04ENVIRONMENT.md` set up your bioinformatics environment
 - `05DONT.md` stuff you shouldn't do
 - `06CLASSICS.md` learn bioinformatics by studying classic examples
+- `07EXAM.md` the official KorfLab Bioinformatics Exam
+- `08HALL_OF_FAME.md` people who have passed the exam
 
 There are also some directories with various files you may find useful.
 
@@ -33,5 +35,4 @@ There are also some directories with various files you may find useful.
 	- `korflab.py`
 - `data` "Rule #1" data
 - `etc` config files
-- `exam` the official Korf Lab Bioinformatics Exam
 
