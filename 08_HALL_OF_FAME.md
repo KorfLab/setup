@@ -18,9 +18,10 @@ about it.
 
 | Speed | Name/Model     | CPU & Notes
 |------:|:---------------|:------------------------------------
-|   230 | lightning      | Ryzen 7 5800X, linux
-|   170 | spitfire       | EPYC 7763, linux
-|   147 | Dell 7280      | i7-7600U 2.8 GHz, Pop!_OS
-|   116 | 2018 Mac Mini  | i5-8500 3.0 GHz, MacOS
+|   355 | Lilith's PC    | Intel i9-13900K, linux
+|   230 | lightning      | AMD Ryzen 7 5800X, linux
+|   170 | spitfire       | AMD EPYC 7763, linux
+|   147 | Dell 7280      | Intel i7-7600U 2.8 GHz, Pop!_OS
+|   116 | 2018 Mac Mini  | Intel i5-8500 3.0 GHz, MacOS
 |   102 | hive ssh       | unknown, virtualized
-|       | Chromebook     | 
+|    55 | Chromebook     | MediaTek MTK8173C, Chrome OS
