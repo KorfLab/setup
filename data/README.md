@@ -1,7 +1,7 @@
 Data
 ====
 
-Data to play with for your bioinformatics training.
+Mostly "Rule #1" data
 
 ## 1 Percent Genomes ##
 
@@ -29,3 +29,7 @@ provided in several files.
 - `GCF_000005845.2_ASM584v2_genomic.gff.gz` GenBank-flavored GFF
 - `GCF_000005845.2_ASM584v2_protein.faa.gz` Proteins in FASTA format
 
+## IME ##
+
+Their is a strong relationship between IMEter score and gene expression. The
+experimentally-assayed introns are in `db_IME_Rose_WT_introns.fa.gz`.

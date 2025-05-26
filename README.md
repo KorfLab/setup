@@ -18,11 +18,12 @@ documents for the lab. Please read them completely in the following order:
 - `03RULES.md` best practices that are important enough to be called rules
 - `04ENVIRONMENT.md` set up your bioinformatics environment
 - `05DONT.md` stuff you shouldn't do
+- `06CLASSICS.md` learn bioinformatics by studying classic examples
 
 There are also some directories with various useful files.
 
-- `bin` some useful scripts
-	- `benchmark` a python-based benchmark the lab designed
+- `bin` some python-based program
+	- `benchmark` a simple benchmark for your hardware
 	- `fasta` increasingly sophisticated ways to read FASTA files
 	- `fqfaker` sample fake reads from a sequence
 	- `redundancy_check` look for duplicate files
@@ -32,5 +33,6 @@ There are also some directories with various useful files.
 	- `conda-bio` some standard bioconda things Ian likes
 	- `conda-ik` some standard conda things Ian likes
 	- `profile` shell login variables and aliases
-- `lib` some useful libraries
+- `exam` the official Korf Lab Bioinformatics Exam
+- `lib` some python libraries
 	- `korflab.py` common bioinformatics python things
