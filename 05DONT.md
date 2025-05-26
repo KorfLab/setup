@@ -34,8 +34,7 @@ Using `top` or `/usr/bin/time` with dev data (see Rule #1).
 Please don't send large attachments in email or team messaging. If you must
 send someone data files, always compress it first. The better way to share data
 is to send a URL to a file or directory in the cloud (Google Drive, Dropbox,
-Box, Mega, etc). A common source of large files is PowerPoint presentations
-with pixel graphics.
+Box, Mega, etc).
 
 ## Pixel Graphics ##
 
