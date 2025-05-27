@@ -9,6 +9,7 @@ Congrats to those who have passed the KorfLab Bioinformatics Exam!
 + Dellaraam Pourkeramati
 + Gong Chen
 
+
 ## Computer Benchmarks ##
 
 Who has the fastest computer? Who has the slowest computer still doing work?
@@ -17,8 +18,9 @@ It's a simple, single-threaded, python-based benchmark... don't get too excited
 about it.
 
 | Speed | Name/Model     | CPU & Notes
-|------:|:---------------|:------------------------------------
+|------:|:---------------|:--------------------------------------------
 |   355 | Lilith's PC    | Intel i9-13900K, linux
+|   281 | Ian's PC       | AMD Ryzen 5 7600, linux VM in Windows
 |   230 | lightning      | AMD Ryzen 7 5800X, linux
 |   170 | spitfire       | AMD EPYC 7763, linux
 |   147 | Dell 7280      | Intel i7-7600U 2.8 GHz, Pop!_OS
