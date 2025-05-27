@@ -19,8 +19,9 @@ yourself pulling answers from the Internet instead of your brain, you need more
 practice. Practice means repetition. Repetition means doing things over and
 over until they become automatic (like every other skill in life).
 
-After passing the exam, you will be listed in the `08_HALL_OF_FAME.md` document
-and receive an official "KorfLab Bioinformatics Developer Certificate".
+After passing the exam, you will be listed in the `08_HALL_OF_FAME.md` and
+receive an official "KorfLab Bioinformatics Developer Certificate"!
+
 
 ## Assumptions ##
 
@@ -36,10 +37,11 @@ Even though it's a good idea to collaborate with others any time you perform
 experiments or write code, this exam is meant to assess your personal skills
 and knowledge. Here are the rules of this game.
 
-- You may not get help from anyone
+- You may not get help from anyone (this includes AI)
 - You may not import any modules that require installation
 - You may look things up on the internet, but not copy-paste anything
 - You may download files, but not source code
+- If you indent with spaces, you fail
 
 
 ## Part 1: Setup ##
@@ -94,13 +96,13 @@ Write an entropy filter for DNA sequences.
 
 Requirements:
 
-+ Input is a FASTA file (e.g. E.coli genome)
-+ Output is a FASTA file with low-entropy regions masked with Ns
-+ Must support multi-FASTA files
-+ There must be options and default parameters for
-	+ window size (default 11)
-	+ entropy threshold (default 1.4 bits)
-+ There is an option for soft masking (lowercase instead of Ns)
+- Input is a FASTA file (e.g. E.coli genome)
+- Output is a FASTA file with low-entropy regions masked with Ns
+- Must support multi-FASTA files
+- There must be options and default parameters for
+	- window size (default 11)
+	- entropy threshold (default 1.4 bits)
+- There is an option for soft masking (lowercase instead of Ns)
 
 An example output for the E. coli genome is shown below.
 
@@ -124,9 +126,9 @@ This task is designed to test your ability to solve problems creatively.
 
 Write a program that reports the locations of k-mers in a FASTA file of DNA.
 
-+ Input is a FASTA file (just one sequence) and a value for k
-+ Output is a table of k-mers and their **positions** in the sequence
-+ There is an option to count both strands (use negative coordinates)
+- Input is a FASTA file (just one sequence) and a value for k
+- Output is a table of k-mers and their **positions** in the sequence
+- There is an option to count both strands (use negative coordinates)
 
 Given a FASTA file like this:
 
@@ -144,34 +146,49 @@ ACG 5
 CGT 6
 ```
 
-### Kozak Concensus
+### Kozak Consensus
 
 This task is designed to test your ability to parse complex text data into a
 tidy data structure.
 
-Write a program that creates a PWM of the Kozak concensus for the E. coli
+Write a program that creates a PWM of the Kozak consensus for the E. coli
 genome.
 
-+ The input file is `*.gbff` format
-+ The output file is JSON
+- The input file is `*.gbff` format
+- There is an option to skip non-canonical starts
+- The output file is JSON
 
+### Overlaps
+
+This task is designed to test your ability to write an "beautifully simple"
+solution to a relatively simple problem. How efficient can you make the code
+without making it too complex?
+
+Biological _features_ are generally described with 3 parts: a chromosome, a
+begin, and and end. This is sometimes of the form `chr1:100-200` and sometimes
+in a tab-delimited file. We frequently want to know which features in file1
+overlap which features in file2. Unlike the typical CS version of this problem,
+the features may overlap (e.g. alternative isoforms).
+
+Write a program that reports overlapping features. Make your own data.
 
 ### mRNAs
 
-This task is designed to test your ability to process typical bioinformatics
-files and retrieve inferred data.
+This task is designed to test your ability to understand how to construct
+complex biological entities from simple flat files.
 
 Write a program that reads the FASTA and GFF3 files of a genome and reports the
-coding sequence of the mRNAs (from start codon through stop codon).
+coding sequence of the mRNAs (from start codon through stop codon). You will
+find some genomes in the `data` directory.
 
 
 ## Part 5: Meet with Ian ##
 
 Schedule an appointment to meet with Ian to determine if you passed and what
 level of pass you achieved. You don't need to perform every task perfectly in
-order to pass the exam. You may take the exam more than once to turn a fail
-into a pass or to increase the level of pass.
+order to pass the exam. You may be asked to program live. You may take the exam
+more than once to turn a fail into a pass or to increase the level of pass.
 
-+ Bronze - you passed, but there are a few problems
-+ Silver - you passed, but there are some things that could be done better
-+ Gold - you passed, and everything is very good
+- Bronze - you passed, but there are a few problems
+- Silver - you passed, but there are some things that could be done better
+- Gold - you passed, and everything is very good
