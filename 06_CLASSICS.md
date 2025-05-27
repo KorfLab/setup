@@ -42,6 +42,7 @@ The programs should be completed in order as some depend on others.
 - `ga` - write a genetic algorithm to find optimal introns
 - `pwm` - create and evaulate a position weight matrix
 - `consensus` - make a consensus sequence with the IUPAC alphabet
+- `mlp` - make a multi-layer perceptron
 - `mm` - create and evaluate an nth order Markov model
 - `blosum` - read a scoring matrix and compute its lambda
 - `nw` - global alignment
@@ -192,6 +193,11 @@ Acceptor
 
 Given a bunch of related nucleotide sequences (e.g. splice donor sites), create
 a consensus sequence using the IUPAC letters.
+
+## mlp ##
+
+Make a multi-layer perceptron to recognize splice sites. Compare the
+performance to PWM.
 
 ## mm ##
 
