@@ -20,11 +20,22 @@ about it.
 | Speed | Name/Model     | CPU & Notes
 |------:|:---------------|:--------------------------------------------
 |   355 | Lilith's PC    | Intel i9-13900K, linux
+|   301 | Gong's Mini    | M4 Pro
 |   281 | Ian's PC       | AMD Ryzen 5 7600, linux VM in Windows
+|   267 | Iris' MBA      | M3
+|   246 | Henry's MBA    | M3
+|   240 | Dean's MBP     | M3
 |   230 | lightning      | AMD Ryzen 7 5800X, linux
 |   204 | Ian's MB Air   | M2, Mac OS 14.2.2 (118 on battery)
 |   170 | spitfire       | AMD EPYC 7763, linux
 |   147 | Dell 7280      | Intel i7-7600U 2.8 GHz, Pop!_OS
+|   138 | Henry's PC     | AMD Ryzen 7 5800X, Windows
+|   132 | Dell 7490      | 
 |   116 | 2018 Mac Mini  | Intel i5-8500 3.0 GHz, MacOS
+|   112 | Lilith's PC    | AMD Ryzen 7 2700
 |   102 | hive ssh       | unknown, virtualized
+|    81 | Russ' MBP      | Old 
 |    55 | Chromebook     | MediaTek MTK8173C, Chrome OS
+|    29 | Ismael's LG    | i7-8565U 1.8 GHz (battery)
+
+
