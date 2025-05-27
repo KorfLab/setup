@@ -25,7 +25,7 @@ parser.add_argument('--size', type=int, default=9999, metavar='<int>',
 	help='string size [%(default)i]')
 parser.add_argument('--k', type=int, default=5, metavar='<int>',
 	help='kmer size [%(default)i]')
-parser.add_argument('--limit', type=float, default=60.0, metavar='<float>',
+parser.add_argument('--limit', type=float, default=10.0, metavar='<float>',
 	help='seconds to run test [%(default).1f]')
 arg = parser.parse_args()
 

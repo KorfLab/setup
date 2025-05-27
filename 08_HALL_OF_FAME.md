@@ -22,6 +22,7 @@ about it.
 |   355 | Lilith's PC    | Intel i9-13900K, linux
 |   281 | Ian's PC       | AMD Ryzen 5 7600, linux VM in Windows
 |   230 | lightning      | AMD Ryzen 7 5800X, linux
+|   204 | Ian's MB Air   | M2, Mac OS 14.2.2 (118 on battery)
 |   170 | spitfire       | AMD EPYC 7763, linux
 |   147 | Dell 7280      | Intel i7-7600U 2.8 GHz, Pop!_OS
 |   116 | 2018 Mac Mini  | Intel i5-8500 3.0 GHz, MacOS
