@@ -160,7 +160,7 @@ genome.
 
 ### Overlaps
 
-This task is designed to test your ability to write an "beautifully simple"
+This task is designed to test your ability to write a "beautifully simple"
 solution to a relatively simple problem. How efficient can you make the code
 without making it too complex?
 

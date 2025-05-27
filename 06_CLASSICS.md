@@ -10,8 +10,9 @@ MCB185. These things should be familiar to you.
 
 - Importing and creating function libraries
 - Unix-standard CLI libraries in your favorite language
-- Building and navigating arbitrarily complex data structures
 - File I/O for normal and compressed files
+- Building and navigating arbitrarily complex list-dict data structures
+- JSON and YAML
 
 Historically, most bioinformatics software was written in C or Perl. Today,
 Python is a popular choice. Although less common, you may see some software
@@ -26,7 +27,7 @@ Good programmers know multiple languages.
 
 ## Contents ##
 
-The programs should be completed in order.
+The programs should be completed in order as some depend on others.
 
 - `randomseq` - generate random DNA and protein sequences
 - `readfasta` - function to read FASTA files
@@ -35,9 +36,6 @@ The programs should be completed in order.
 - `dust` - mask low-complexity sequences
 - `repeatblaster` - make a repeat masker using BLAST
 - `translate` - translate DNA to protein
-- `blosum` - read a scoring matrix and compute its lambda
-- `nw` - global alignment
-- `sw` - local alignment
 - `featureseq` - extract sequences from FASTA + GFF
 - `introns` - extract introns from FASTA + GFF
 - `imeter` - reimplement the IMEter
@@ -45,10 +43,15 @@ The programs should be completed in order.
 - `pwm` - create and evaulate a position weight matrix
 - `consensus` - make a consensus sequence with the IUPAC alphabet
 - `mm` - create and evaluate an nth order Markov model
+- `blosum` - read a scoring matrix and compute its lambda
+- `nw` - global alignment
+- `sw` - local alignment
 - `viterbi` - make an HMM and decode it
 - `fb` - forward-backward decoding
-- `vector` - make an infinitely growing array in C
-- `dictionary` - make a dictionary in C
+- `csw` - local alignemnt in C
+- `cvector` - make an infinitely growing array in C
+- `cdictionary` - make a dictionary in C
+- `ckmers` - make a kmer counter in C
 
 ## randomseq ##
 
@@ -62,13 +65,11 @@ values).
 
 For amino acids, the default frequencies should be some well-known proteome,
 such as E. coli, and there should be a way for the user to specify some other
-organism or clade. The output should be FASTA.
+frequencies (e.g. flat 5%). The output should be FASTA.
 
 The FASTA identifier should be unique for each sequence, and there should be
 some user-definable string on each identifier. Line lengths should be 80 by
 default but this can be overridden with an option.
-
-- https://en.wikipedia.org/wiki/FASTA_format
 
 The programming here is very easy. The point of this exercise is to write a
 simple yet thorough CLI.
@@ -86,14 +87,14 @@ Many FASTA files are stored compressed, so being able to read a compressed file
 is required, as is the ability to read from stdin.
 
 You can find a number of examples of FASTA parsers in `KorfLab/bin/fasta` but
-write your own from scratch.
+you must write your own from scratch.
 
 ## seqstats ##
 
 Write a program that reports various statistics about a FASTA file.
 
 - Total number of sequences and letters
-- Mean, median, and N50 of sequence lengths
+- Min, max, mean, median, and N50 of sequence lengths
 - Frequencies of each letter
 - An option to report codon usage (assuming the sequences are all coding)
 
@@ -101,8 +102,8 @@ Write a program that reports various statistics about a FASTA file.
 
 Write a program the computes windowed GC-skew (G+C/G-C) and GC composition
 along a genome sequence. The program should input FASTA and output BED. The
-program should have a variable window size, and the window should be computed
-efficiently (do not recompute each window).
+program should have a variable window size with some default value (e.g. 100).
+Ideally, the window is computed efficiently (not recomputed in each window).
 
 ## dust ##
 
@@ -114,38 +115,19 @@ output the low-complexity regions as GFF.
 
 ## repeatblaster ##
 
-Write a repeat masking program using BLAST.
+Write a repeat masking program using BLAST. The program takes as input a FASTA
+file of the sequence to be masked as well as a library of known repetitive
+elements. Each repetitive element should have its own specific thresholds (e.g.
+length, percent identity, score).
 
 ## translate ##
 
-Write a program that translates sequences. In `--rna` mode, it finds the
-longest protein in each sequence and reports this as the encoded protein. By
-default, the program should translate the top strand, but there should be a
-switch that allows proteins to exist on either strand. In `--orf` mode, the
-program reports all open reading frames greater than some threshold length.
-This is designed for use with prokaryotic genomes.
-
-## blosum ##
-
-Read a BLOSUM scoring matrix into a 2D structure. Compute lambda. Also compute
-the average percent identity and percent similarity.
-
-| Matrix   | Lambda | H      | Ident | Simil |
-|----------|--------|--------|-------|-------|
-| BLOSUM45 | 0.2248 | 0.2357 | 23.85 | 41.88 |
-| BLOSUM62 | 0.3174 | 0.3905 | 30.08 | 48.80 |
-| BLOSUM80 | 0.2268 | 0.6219 | 39.51 | 57.93 |
-
-## nw ##
-
-Write the classic Needleman-Wunsch algorithm for global alignment. There should
-be options for nucleotide match-mismatch scoring or protein scoring matrices
-(e.g. BLOSUM62).
-
-## sw ##
-
-Write the classic Smith-Waterman algorithm for local alignment. This is a minor
-variant of Needlman-Wunsch.
+Write a program that translates sequences. In `rna` mode, it finds the longest
+protein in each sequence and reports this as the encoded protein. In `dna` mode
+it finds all open reading frames longer than a threshold value (e.g. for use in
+prokaryotes). In `rna` mode, the program should default to translating the top
+strand, but there should be an option also including the bottom strand. In
+`dna` mode, the program should find long open reading frames on both strands.
 
 ## featureseq ##
 
@@ -216,6 +198,29 @@ a consensus sequence using the IUPAC letters.
 Make an nth order Markov model of exon and intron sequences and evaluate their
 performance with cross-validation.
 
+## blosum ##
+
+Read a BLOSUM scoring matrix into a 2D structure. Compute lambda. Also compute
+the average percent identity and percent similarity. The matrices are in the
+`data` directory.
+
+| Matrix   | Lambda | H      | Ident | Simil |
+|----------|--------|--------|-------|-------|
+| BLOSUM45 | 0.2248 | 0.2357 | 23.85 | 41.88 |
+| BLOSUM62 | 0.3174 | 0.3905 | 30.08 | 48.80 |
+| BLOSUM80 | 0.2268 | 0.6219 | 39.51 | 57.93 |
+
+## nw ##
+
+Write the classic Needleman-Wunsch algorithm for global alignment. There should
+be options for nucleotide match-mismatch scoring or protein scoring matrices
+depending on the sequence type (e.g. BLOSUM62).
+
+## sw ##
+
+Write the classic Smith-Waterman algorithm for local alignment. This is a minor
+variant of Needlman-Wunsch.
+
 ## viterbi ##
 
 Make an HMM and write a Viterbi decoder.
@@ -224,10 +229,31 @@ Make an HMM and write a Viterbi decoder.
 
 Make a forward-backward decoder for your HMM.
 
-## vector ##
+## cfasta ##
 
-Make a text vector in C (array of strings that grows dynamically).
+Write a function that reads FASTA files in C. If you have never programmed in C
+before, this is a good place to start. Your code must not have memory leaks.
+After this exercise, you will appreciate how convenient and how offensive the
+following code is in python.
 
-## dictionary ##
+```python
+for line in fp:
+	seq += line.rstrip()
+```
+
+## csw ##
+
+Write Smith-Waterman in C. The alignment must be in a function that you can
+call over and over, and the program must not have memory leaks.
+
+## cvector ##
+
+Make a text vector in C (array of strings that grows dynamically as needed).
+This will help you apprecaite the convenience of things like python lists.
+
+## cdictionary ##
 
 Make a dictionary in C. Use the text vector for the keys and an int for values.
+This will help you appreciate the trade-offs of hashing algorithms (which isn't
+something you get a chance to appreciate in python, for example). Use the
+dictionary to count kmers in a fasta file.
