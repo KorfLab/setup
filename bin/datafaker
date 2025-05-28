@@ -1,0 +1,155 @@
+#!/usr/bin/env python3
+
+import argparse
+import gzip
+import itertools
+import os
+import random
+import sys
+
+
+EXON = { # exons are GC-rich and favor GC and CG over CC and GG
+	'A': [0.20, 0.30, 0.30, 0.20],
+	'C': [0.20, 0.25, 0.35, 0.20],
+	'G': [0.20, 0.35, 0.25, 0.20],
+	'T': [0.20, 0.30, 0.30, 0.20],
+}
+
+INTRON = { # introns are AT-rich and like to make poly-A and poly-T
+	'A': [0.40, 0.15, 0.15, 0.30],
+	'C': [0.30, 0.20, 0.20, 0.30],
+	'G': [0.30, 0.20, 0.20, 0.30],
+	'T': [0.30, 0.15, 0.15, 0.40],
+}
+
+DON = { # donors are GTaag and favor gtaGA and gtaGG but disfavor gtaAA
+	'GTAAA':0.024760, 'GTAAC':0.049520, 'GTAAG':0.049520, 'GTAAT':0.346640, 
+	'GTACA':0.007074, 'GTACC':0.007074, 'GTACG':0.007074, 'GTACT':0.049520, 
+	'GTAGA':0.014149, 'GTAGC':0.007074, 'GTAGG':0.014149, 'GTAGT':0.049520, 
+	'GTATA':0.007074, 'GTATC':0.007074, 'GTATG':0.007074, 'GTATT':0.049520, 
+	'GTCAA':0.007074, 'GTCAC':0.007074, 'GTCAG':0.007074, 'GTCAT':0.049520, 
+	'GTCCA':0.001011, 'GTCCC':0.001011, 'GTCCG':0.001011, 'GTCCT':0.007074, 
+	'GTCGA':0.001011, 'GTCGC':0.001011, 'GTCGG':0.001011, 'GTCGT':0.007074, 
+	'GTCTA':0.001011, 'GTCTC':0.001011, 'GTCTG':0.001011, 'GTCTT':0.007074, 
+	'GTGAA':0.007074, 'GTGAC':0.007074, 'GTGAG':0.007074, 'GTGAT':0.049520, 
+	'GTGCA':0.001011, 'GTGCC':0.001011, 'GTGCG':0.001011, 'GTGCT':0.007074, 
+	'GTGGA':0.001011, 'GTGGC':0.001011, 'GTGGG':0.001011, 'GTGGT':0.007074, 
+	'GTGTA':0.001011, 'GTGTC':0.001011, 'GTGTG':0.001011, 'GTGTT':0.007074, 
+	'GTTAA':0.007074, 'GTTAC':0.007074, 'GTTAG':0.007074, 'GTTAT':0.049520, 
+	'GTTCA':0.001011, 'GTTCC':0.001011, 'GTTCG':0.001011, 'GTTCT':0.007074, 
+	'GTTGA':0.001011, 'GTTGC':0.001011, 'GTTGG':0.001011, 'GTTGT':0.007074, 
+	'GTTTA':0.001011, 'GTTTC':0.001011, 'GTTTG':0.001011, 'GTTTT':0.007074, 
+}
+
+ACC = { # acceptors are ttcAG
+	'AAAAG':0.000050, 'AACAG':0.002350, 'AAGAG':0.000050, 'AATAG':0.000050, 
+	'ACAAG':0.000050, 'ACCAG':0.002350, 'ACGAG':0.000050, 'ACTAG':0.000050, 
+	'AGAAG':0.000050, 'AGCAG':0.002350, 'AGGAG':0.000050, 'AGTAG':0.000050, 
+	'ATAAG':0.000850, 'ATCAG':0.039950, 'ATGAG':0.000850, 'ATTAG':0.000850, 
+	'CAAAG':0.000050, 'CACAG':0.002350, 'CAGAG':0.000050, 'CATAG':0.000050, 
+	'CCAAG':0.000050, 'CCCAG':0.002350, 'CCGAG':0.000050, 'CCTAG':0.000050, 
+	'CGAAG':0.000050, 'CGCAG':0.002350, 'CGGAG':0.000050, 'CGTAG':0.000050, 
+	'CTAAG':0.000850, 'CTCAG':0.039950, 'CTGAG':0.000850, 'CTTAG':0.000850, 
+	'GAAAG':0.000050, 'GACAG':0.002350, 'GAGAG':0.000050, 'GATAG':0.000050, 
+	'GCAAG':0.000050, 'GCCAG':0.002350, 'GCGAG':0.000050, 'GCTAG':0.000050, 
+	'GGAAG':0.000050, 'GGCAG':0.002350, 'GGGAG':0.000050, 'GGTAG':0.000050, 
+	'GTAAG':0.000850, 'GTCAG':0.039950, 'GTGAG':0.000850, 'GTTAG':0.000850, 
+	'TAAAG':0.000850, 'TACAG':0.039950, 'TAGAG':0.000850, 'TATAG':0.000850, 
+	'TCAAG':0.000850, 'TCCAG':0.039950, 'TCGAG':0.000850, 'TCTAG':0.000850, 
+	'TGAAG':0.000850, 'TGCAG':0.039950, 'TGGAG':0.000850, 'TGTAG':0.000850, 
+	'TTAAG':0.014450, 'TTCAG':0.679150, 'TTGAG':0.014450, 'TTTAG':0.014450,
+}
+
+def randomseq(size, model):
+	seq = []
+	seq.append(random.choice('ACGT'))
+	while len(seq) < size -1:
+		seq.append(random.choices('ACGT', weights=model[seq[-1]])[0])
+	return ''.join(seq)
+	
+def kmer_table(mode=None):
+	don = [
+		{'A':0.7, 'C':0.1, 'G':0.1, 'T':0.1},
+		{'A':0.7, 'C':0.1, 'G':0.1, 'T':0.1},
+		{'A':0.1, 'C':0.1, 'G':0.1, 'T':0.7},
+	]
+	acc = [
+		{'A':0.05, 'C':0.05, 'G':0.05, 'T':0.85},
+		{'A':0.05, 'C':0.05, 'G':0.05, 'T':0.85},
+		{'A':0.02, 'C':0.94, 'G':0.02, 'T':0.02},
+	]
+	pwm = don if mode == 'don' else acc
+
+	prob = {}
+	for t in itertools.product('ACGT', repeat=3):
+		p = 1.0
+		for i, nt in enumerate(t): p *= pwm[i][nt]
+		prob[''.join(t)] = p
+	
+	if mode == 'don':
+		prob['AAA'] /= 2
+		prob['AGA'] *= 2
+		prob['AGG'] *= 2
+		total = sum(prob.values())
+		for k, v in prob.items(): prob[k] = v / total
+	
+	print(mode)
+	vals = []
+	for i, (k, v) in enumerate(prob.items()):
+		print("'", end='')
+		if mode == 'don': print('GT', end='')
+		print(k, end='')
+		if mode == 'acc': print('AG', end='')
+		print("':", f'{v:.5f}', sep='', end='')
+		
+		print(", ", end='')
+		if (i+1) % 4 == 0: print()
+
+def dump_code():
+	kmer_table(mode='don')
+	kmer_table(mode='acc')
+	sys.exit()
+
+parser = argparse.ArgumentParser(
+	description='synthetic data for training sequence models')
+parser.add_argument('dir', help='output directory')
+parser.add_argument('--count', type=int, default=10, metavar='<int>',
+	help='number of sequences to generate [%(default)i]')
+parser.add_argument('--exon', type=int, default=50, metavar='<int>',
+	help='length of exons [%(default)i]')
+parser.add_argument('--intron', type=int, default=50, metavar='<int>',
+	help='length of introns [%(default)i]')
+parser.add_argument('--seed', type=int, default=1, metavar='<int>',
+	help='random seed [unset]')
+parser.add_argument('--code', action='store_true')
+arg = parser.parse_args()
+
+if arg.code: dump_code()
+
+os.system(f'mkdir -p {arg.dir}')
+with    gzip.open(f'{arg.dir}/exons.fa.gz', 'wt') as efp,\
+		gzip.open(f'{arg.dir}/introns.fa.gz', 'wt') as ifp,\
+		gzip.open(f'{arg.dir}/donors.fa.gz', 'wt') as dfp,\
+		gzip.open(f'{arg.dir}/acceptors.fa.gz', 'wt') as afp,\
+		gzip.open(f'{arg.dir}/exon-intron.fa.gz', 'wt') as eifp,\
+		gzip.open(f'{arg.dir}/intron-exon.fa.gz', 'wt') as iefp,\
+		gzip.open(f'{arg.dir}/gene.fa.gz', 'wt') as gfp:
+	
+	for i in range(arg.count):
+		exon1 = randomseq(arg.exon, EXON)
+		don = random.choices(list(DON.keys()), weights=DON.values(), k=1)[0]
+		intron = randomseq(arg.intron, INTRON)
+		acc = random.choices(list(ACC.keys()), weights=ACC.values(), k=1)[0]
+		exon2 = randomseq(arg.exon, EXON)
+		
+		exin = exon1  + don + intron
+		inex =                intron + acc + exon2
+		gene = exon1  + don + intron + acc + exon2
+		
+		print(f'>{i}', exon1, sep='\n', file=efp)
+		print(f'>{i}', intron, sep='\n', file=ifp)
+		print(f'>{i}', don, sep='\n', file=dfp)
+		print(f'>{i}', acc, sep='\n', file=afp)
+		print(f'>{i}', exin, sep='\n', file=eifp)
+		print(f'>{i}', inex, sep='\n', file=iefp)
+		print(f'>{i}', gene, sep='\n', file=gfp)
