@@ -243,7 +243,7 @@ def readblosum(filename):
 	return matrix
 
 
-## Data Functions ##
+## XML ##
 
 import xml.etree.ElementTree as ET
 
@@ -269,3 +269,29 @@ def read_xml(fp):
 	contents = descend_tree(root, [])
 	if contents: data['has'] = contents
 	return data
+
+## Machine Learning ##
+
+def ntencoder(file, label=None, binary=False):
+	"""One-hot/binary encodes a FASTA File, optionally with terminal label"""
+	encoding = {'A':'0001', 'C':'0010', 'G':'0100', 'T':'1000'}
+	if binary: encoding = {'A':'00', 'C':'01', 'G':'10', 'T':'11'}
+
+	data = []
+	for name, seq in readfasta(file):
+		s = [encoding[nt] for nt in seq]
+		s = ''.join(s)
+		if label: s += str(label)
+		data.append(s)
+	return data
+
+def cross_validation(seqs, x):
+	"""Generates cross-validation sets"""
+	for i in range(x):
+		train = []
+		test = []
+		for j in range(len(seqs)):
+			if j % x == i: test.append(seqs[j])
+			else:          train.append(seqs[j])
+		yield train, test
+
