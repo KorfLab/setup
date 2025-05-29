@@ -72,7 +72,8 @@ help on, but you have to ask.
 MCB185 is a base level of skills and the exam is a base level assessment. Many
 projects require a more advanced level of programming. If you want more
 training problems, try solving some classic bioinformatics programming problems
-in `0_6CLASSICS.md`.
+in `0_6CLASSICS.md`. Also, the files in `init/bin` and `init/lib` can serve as
+examples of typical KorfLab coding style.
 
 
 Work-Life Balance in Academic Science
