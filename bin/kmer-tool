@@ -2,19 +2,18 @@
 
 import argparse
 import itertools
-import math
-import random
-import statistics
+from math import log2
+import re
 import korflab
 
 def noncanonical(kmer):
 	return not re.match('^[ACGT]+$', kmer)
 
-def kmer_count(file, k, all=None, acgt=None):
+def kmer_count(file, k, pseudo, full, acgt):
 	raw = {}
-	if arg.all:
+	if full:
 		for t in itertools.product('ACGT', repeat=k):
-			raw[''.join(t)] = 0
+			raw[''.join(t)] = pseudo
 
 	total = 0
 	for name, seq in korflab.readfasta(file):
@@ -37,24 +36,27 @@ parser = argparse.ArgumentParser(
 	description='count and compare kmers')
 parser.add_argument('fasta', metavar='<fasta>',
 	help='count kmers in fasta file')
-parser.add_argument('k', metavar='<int>', help='size of k')
+parser.add_argument('k', type=int, metavar='<int>', help='size of k')
 parser.add_argument('--compare', metavar='<fasta>',
 	help='compare kmers to this file')
 parser.add_argument('--all', action='store_true',
 	help='use all possible kmers, not just those in the file')
 parser.add_argument('--acgt', action='store_true',
 	help='count only canonical letters')
+parser.add_argument('--pseudo', type=float, metavar='<float>', default=0,
+	help='add pseudocount [%(default).1f]')
 arg = parser.parse_args()
 
-c1, f1 = kmer_count(arg.fasta, arg.k, all=arg.all, acgt=arg.acgt)
+c1, f1 = kmer_count(arg.fasta, arg.k, arg.pseudo, arg.all, arg.acgt)
 
 if arg.compare:
-	c2, f2 = kmer_count(arg.compare, arg.k, all=arg.all, acgt=arg.acgt)
+	print('kmer', 'lod', 'freq1', 'freq2', sep='\t')
+	c2, f2 = kmer_count(arg.compare, arg.k, arg.pseudo, arg.all, arg.acgt)
 	for kmer in sorted(c1):
-		print(kmer, math.log2(f1[kmer]/f2[kmer], f1[kmer], f2[kmer], sep='\t')
+		p1 = f1[kmer]
+		p2 = f2[kmer]
+		print(f'{kmer}\t{log2(p1/p2):.4f}\t{p1:.5f}\t{p2:.5f}')
 else:
+	print('kmer', 'freq', 'n', sep='\t')
 	for kmer in sorted(c1):
-		print(kmer
-
-
-	unfinished
+		print(f'{kmer}\t{f1[kmer]:.5f}\t{c1[kmer]}')
