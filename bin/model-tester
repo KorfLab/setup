@@ -299,7 +299,8 @@ dependencies:
   - scikit-learn"""
 
 if os.environ.get('CONDA_DEFAULT_ENV') != 'mldemo':
-	sys.exit(f'ERROR: create and activate mldemo environment\n\n{ENV}')
+	print(ENV)
+	sys.exit(f'\nERROR: create and activate mldemo environment first!')
 
 #########
 ## CLI ##
