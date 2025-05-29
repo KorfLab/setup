@@ -33,6 +33,7 @@ There are also some directories with various files you may find useful.
 	- `fq-faker` sample fake reads from a sequence
 	- `kmer-tool` count and compare kmers
 	- `model-tester` creates and evaluates sequence models
+	- `mysbatch` mock sbatch for dev purposes (might need rewrite)
 	- `redundancy-check` look for duplicate files
 	- `seq-stats` report statistics about sequences in a FASTA file
 - `lib` some libraries
