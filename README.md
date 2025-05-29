@@ -25,14 +25,19 @@ the following order:
 
 There are also some directories with various files you may find useful.
 
-- `bin` python-based programs
-	- `benchmark` a simple benchmark for your hardware
-	- `fasta` increasingly sophisticated ways to read FASTA files
-	- `fqfaker` sample fake reads from a sequence
-	- `redundancy_check` look for duplicate files
-	- `shrinker` genomic dataset minimizer
-- `lib` python libraries
-	- `korflab.py`
+- `bin` Python-based programs
+	- `benchmark` a simple benchmark for your computer
+	- `data-faker` creates synthetic data for sequence models
+	- `data-shrinker` genomic dataset minimizer
+	- `fasta-demo` increasingly sophisticated ways to read FASTA files
+	- `fq-faker` sample fake reads from a sequence
+	- `kmer-tool` count and compare kmers
+	- `model-tester` creates and evaluates sequence models
+	- `redundancy-check` look for duplicate files
+	- `seq-stats` report statistics about sequences in a FASTA file
+- `lib` some libraries
+	- `korflab.py` common bioinformatics functions in Python
+	- `FAlite.pm` ancient FASTA iterator in Perl
 - `data` "Rule #1" data
 - `etc` config files
 

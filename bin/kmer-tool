@@ -1,0 +1,60 @@
+#!/usr/bin/env python3
+
+import argparse
+import itertools
+import math
+import random
+import statistics
+import korflab
+
+def noncanonical(kmer):
+	return not re.match('^[ACGT]+$', kmer)
+
+def kmer_count(file, k, all=None, acgt=None):
+	raw = {}
+	if arg.all:
+		for t in itertools.product('ACGT', repeat=k):
+			raw[''.join(t)] = 0
+
+	total = 0
+	for name, seq in korflab.readfasta(file):
+		for i in range(len(seq) -k + 1):
+			kmer = seq[i:i+k]
+			if arg.all and kmer not in raw: continue
+			if arg.acgt and noncanonical(kmer): continue
+			if not arg.all and kmer not in raw: raw[kmer] = 0
+			raw[kmer] += 1
+			total += 1
+
+	freq = {}
+	for kmer, n in raw.items():
+		freq[kmer] = n / total
+
+	return raw, freq
+
+
+parser = argparse.ArgumentParser(
+	description='count and compare kmers')
+parser.add_argument('fasta', metavar='<fasta>',
+	help='count kmers in fasta file')
+parser.add_argument('k', metavar='<int>', help='size of k')
+parser.add_argument('--compare', metavar='<fasta>',
+	help='compare kmers to this file')
+parser.add_argument('--all', action='store_true',
+	help='use all possible kmers, not just those in the file')
+parser.add_argument('--acgt', action='store_true',
+	help='count only canonical letters')
+arg = parser.parse_args()
+
+c1, f1 = kmer_count(arg.fasta, arg.k, all=arg.all, acgt=arg.acgt)
+
+if arg.compare:
+	c2, f2 = kmer_count(arg.compare, arg.k, all=arg.all, acgt=arg.acgt)
+	for kmer in sorted(c1):
+		print(kmer, math.log2(f1[kmer]/f2[kmer], f1[kmer], f2[kmer], sep='\t')
+else:
+	for kmer in sorted(c1):
+		print(kmer
+
+
+	unfinished

@@ -1,0 +1,77 @@
+#!/usr/bin/env python3
+
+import argparse
+import random
+import statistics
+import korflab
+
+parser = argparse.ArgumentParser(
+	description='provide some stats about a fasta file')
+parser.add_argument('fasta', help='fasta file')
+parser.add_argument('--pwm', action='store_true',
+	help='report as position weight matrix, assumes NT of equal length')
+parser.add_argument('--codons', action='store_true',
+	help='report as codon usage, assumes ATG..STOP')
+arg = parser.parse_args()
+
+lens = []
+letters = {}
+total_letters = 0
+codons = {}
+pwm = []
+
+for defline, seq in korflab.readfasta(arg.fasta):
+	for char in seq:
+		if char not in letters: letters[char] = 0
+		letters[char] += 1
+		total_letters += 1
+	lens.append(len(seq))
+	if arg.codons:
+		for i in range(0, len(seq), 3):
+			codon = seq[i:i+3]
+			assert(len(codon) == 3)
+			if codon not in codons: codons[codon] = 0
+			codons[codon] += 1
+	if arg.pwm:
+		if len(pwm) == 0:
+			for _ in range(len(seq)):
+				pwm.append({'A':0, 'C':0, 'G':0, 'T':0})
+		for i, char in enumerate(seq):
+			pwm[i][char] += 1
+
+mini = min(lens)
+maxi = max(lens)
+
+## Report ##
+
+print('File:', arg.fasta.split('/')[-1])
+print('\nSequences')
+print('Count:', len(lens))
+print('Min:', mini)
+print('Max:', maxi)
+print('Mean:', round(statistics.mean(lens), ndigits=1))
+print('Stdev:', round(statistics.stdev(lens), ndigits=1))
+print('Median:', statistics.median(lens))
+print('Letters:', total_letters)
+print('\nComposition')
+for char, n in sorted(letters.items()):
+	print(char, round(n/total_letters, ndigits=3), n, sep='\t')
+
+if arg.codons:
+	print('\nCodon Usage')
+	total = 0
+	for v in codons.values(): total += v
+	for codon, v in sorted(codons.items()):
+		print(f'{codon}\t{v/total:.4f}\t{v}')
+
+if arg.pwm:
+	print('\nPWM\tA\tC\tG\tT')
+	assert(mini == maxi)
+	n = len(lens)
+	for i, d in enumerate(pwm):
+		print(i+1, end='\t')
+		for v in d.values():
+			print(f'{v/n:.3f}\t', end='')
+		print()
+
+
