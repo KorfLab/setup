@@ -71,10 +71,10 @@ computers and your Hive account.
 To install Conda on your personal computer: https://conda-forge.org/miniforge
 
 Conda is already provided on Hive via `module load conda`. You should probably
-add this to your `.bash_profile`. Even the the `module` system has a lot of
+add this to your `.bash_profile`. Even the `module` system has a lot of
 bioinformatics software already installed, you should avoid using it if
 possible. Why? Because the module system isn't easily replicated by you or
-others on computers elsewhere.
+others on computers elsewhere. Recall Rule #2.
 
 ## Personal Computers ##
 
