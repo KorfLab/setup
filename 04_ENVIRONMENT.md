@@ -55,6 +55,14 @@ in the first place? By doing experiments on a smaller scale and observing what
 happens as the scale increases. To observe the resources used, prepend
 `/usr/bin/time -v` to your job (which may not be installed by default).
 
+For testing purposes, you may find `bin/mysbatch` useful for running mock slurm
+jobs on the cluster. There is an example slurm file in
+`data/sbatch-example.slurm`.
+
+Once you are running jobs on the cluster, `squeue --me` is how you see the
+status of your jobs (running, queued, etc). You can also view all the other
+jobs on the cluster and even get the data in json.
+
 ## Conda ##
 
 You should use Conda to install most CLI software both on your personal
