@@ -10,10 +10,7 @@ def noncanonical(kmer):
 	return not re.match('^[ACGT]+$', kmer)
 
 def kmer_count(file, k, pseudo, full, acgt):
-	raw = {}
-	if full:
-		for t in itertools.product('ACGT', repeat=k):
-			raw[''.join(t)] = pseudo
+	raw = korflab.kmers(k, init=pseudo) if full else {}
 
 	total = 0
 	for name, seq in korflab.readfasta(file):
