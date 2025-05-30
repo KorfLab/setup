@@ -10,60 +10,62 @@ import sys
 
 EXON = { # exons are GC-rich and favor GC and CG over CC and GG
 	'A': [0.20, 0.30, 0.30, 0.20],
-	'C': [0.20, 0.25, 0.35, 0.20],
-	'G': [0.20, 0.35, 0.25, 0.20],
+	'C': [0.20, 0.20, 0.40, 0.20],
+	'G': [0.20, 0.40, 0.20, 0.20],
 	'T': [0.20, 0.30, 0.30, 0.20],
 }
 
 INTRON = { # introns are AT-rich and like to make poly-A and poly-T
-	'A': [0.40, 0.15, 0.15, 0.30],
+	'A': [0.50, 0.15, 0.15, 0.20],
 	'C': [0.30, 0.20, 0.20, 0.30],
 	'G': [0.30, 0.20, 0.20, 0.30],
-	'T': [0.30, 0.15, 0.15, 0.40],
+	'T': [0.20, 0.15, 0.15, 0.50],
 }
 
-DON = { # donors are GTaag and favor gtaGA and gtaGG but disfavor gtaAA
-	'GTAAA':0.024760, 'GTAAC':0.049520, 'GTAAG':0.049520, 'GTAAT':0.346640, 
-	'GTACA':0.007074, 'GTACC':0.007074, 'GTACG':0.007074, 'GTACT':0.049520, 
-	'GTAGA':0.014149, 'GTAGC':0.007074, 'GTAGG':0.014149, 'GTAGT':0.049520, 
-	'GTATA':0.007074, 'GTATC':0.007074, 'GTATG':0.007074, 'GTATT':0.049520, 
-	'GTCAA':0.007074, 'GTCAC':0.007074, 'GTCAG':0.007074, 'GTCAT':0.049520, 
-	'GTCCA':0.001011, 'GTCCC':0.001011, 'GTCCG':0.001011, 'GTCCT':0.007074, 
-	'GTCGA':0.001011, 'GTCGC':0.001011, 'GTCGG':0.001011, 'GTCGT':0.007074, 
-	'GTCTA':0.001011, 'GTCTC':0.001011, 'GTCTG':0.001011, 'GTCTT':0.007074, 
-	'GTGAA':0.007074, 'GTGAC':0.007074, 'GTGAG':0.007074, 'GTGAT':0.049520, 
-	'GTGCA':0.001011, 'GTGCC':0.001011, 'GTGCG':0.001011, 'GTGCT':0.007074, 
-	'GTGGA':0.001011, 'GTGGC':0.001011, 'GTGGG':0.001011, 'GTGGT':0.007074, 
-	'GTGTA':0.001011, 'GTGTC':0.001011, 'GTGTG':0.001011, 'GTGTT':0.007074, 
-	'GTTAA':0.007074, 'GTTAC':0.007074, 'GTTAG':0.007074, 'GTTAT':0.049520, 
-	'GTTCA':0.001011, 'GTTCC':0.001011, 'GTTCG':0.001011, 'GTTCT':0.007074, 
-	'GTTGA':0.001011, 'GTTGC':0.001011, 'GTTGG':0.001011, 'GTTGT':0.007074, 
-	'GTTTA':0.001011, 'GTTTC':0.001011, 'GTTTG':0.001011, 'GTTTT':0.007074, 
+DON = { # donors are GTaag
+	'GTAAA':0.00001, 'GTAAC':0.05832, 'GTAAG':0.05832, 'GTAAT':0.40826, 
+	'GTACA':0.00833, 'GTACC':0.00001, 'GTACG':0.00833, 'GTACT':0.05832, 
+	'GTAGA':0.00833, 'GTAGC':0.00833, 'GTAGG':0.00001, 'GTAGT':0.05832, 
+	'GTATA':0.00833, 'GTATC':0.00833, 'GTATG':0.00833, 'GTATT':0.00001, 
+	'GTCAA':0.00001, 'GTCAC':0.00833, 'GTCAG':0.00833, 'GTCAT':0.05832, 
+	'GTCCA':0.00119, 'GTCCC':0.00001, 'GTCCG':0.00119, 'GTCCT':0.00833, 
+	'GTCGA':0.00119, 'GTCGC':0.00119, 'GTCGG':0.00001, 'GTCGT':0.00833, 
+	'GTCTA':0.00119, 'GTCTC':0.00119, 'GTCTG':0.00119, 'GTCTT':0.00001, 
+	'GTGAA':0.00001, 'GTGAC':0.00833, 'GTGAG':0.00833, 'GTGAT':0.05832, 
+	'GTGCA':0.00119, 'GTGCC':0.00001, 'GTGCG':0.00119, 'GTGCT':0.00833, 
+	'GTGGA':0.00119, 'GTGGC':0.00119, 'GTGGG':0.00001, 'GTGGT':0.00833, 
+	'GTGTA':0.00119, 'GTGTC':0.00119, 'GTGTG':0.00119, 'GTGTT':0.00001, 
+	'GTTAA':0.00001, 'GTTAC':0.00833, 'GTTAG':0.00833, 'GTTAT':0.05832, 
+	'GTTCA':0.00119, 'GTTCC':0.00001, 'GTTCG':0.00119, 'GTTCT':0.00833, 
+	'GTTGA':0.00119, 'GTTGC':0.00119, 'GTTGG':0.00001, 'GTTGT':0.00833, 
+	'GTTTA':0.00119, 'GTTTC':0.00119, 'GTTTG':0.00119, 'GTTTT':0.00001, 
 }
 
 ACC = { # acceptors are ttcAG
-	'AAAAG':0.000050, 'AACAG':0.002350, 'AAGAG':0.000050, 'AATAG':0.000050, 
-	'ACAAG':0.000050, 'ACCAG':0.002350, 'ACGAG':0.000050, 'ACTAG':0.000050, 
-	'AGAAG':0.000050, 'AGCAG':0.002350, 'AGGAG':0.000050, 'AGTAG':0.000050, 
-	'ATAAG':0.000850, 'ATCAG':0.039950, 'ATGAG':0.000850, 'ATTAG':0.000850, 
-	'CAAAG':0.000050, 'CACAG':0.002350, 'CAGAG':0.000050, 'CATAG':0.000050, 
-	'CCAAG':0.000050, 'CCCAG':0.002350, 'CCGAG':0.000050, 'CCTAG':0.000050, 
-	'CGAAG':0.000050, 'CGCAG':0.002350, 'CGGAG':0.000050, 'CGTAG':0.000050, 
-	'CTAAG':0.000850, 'CTCAG':0.039950, 'CTGAG':0.000850, 'CTTAG':0.000850, 
-	'GAAAG':0.000050, 'GACAG':0.002350, 'GAGAG':0.000050, 'GATAG':0.000050, 
-	'GCAAG':0.000050, 'GCCAG':0.002350, 'GCGAG':0.000050, 'GCTAG':0.000050, 
-	'GGAAG':0.000050, 'GGCAG':0.002350, 'GGGAG':0.000050, 'GGTAG':0.000050, 
-	'GTAAG':0.000850, 'GTCAG':0.039950, 'GTGAG':0.000850, 'GTTAG':0.000850, 
-	'TAAAG':0.000850, 'TACAG':0.039950, 'TAGAG':0.000850, 'TATAG':0.000850, 
-	'TCAAG':0.000850, 'TCCAG':0.039950, 'TCGAG':0.000850, 'TCTAG':0.000850, 
-	'TGAAG':0.000850, 'TGCAG':0.039950, 'TGGAG':0.000850, 'TGTAG':0.000850, 
-	'TTAAG':0.014450, 'TTCAG':0.679150, 'TTGAG':0.014450, 'TTTAG':0.014450,
+	'AAAAG':0.00005, 'AACAG':0.00235, 'AAGAG':0.00005, 'AATAG':0.00005, 
+	'ACAAG':0.00005, 'ACCAG':0.00235, 'ACGAG':0.00005, 'ACTAG':0.00005, 
+	'AGAAG':0.00005, 'AGCAG':0.00235, 'AGGAG':0.00005, 'AGTAG':0.00005, 
+	'ATAAG':0.00085, 'ATCAG':0.03995, 'ATGAG':0.00085, 'ATTAG':0.00085, 
+	'CAAAG':0.00005, 'CACAG':0.00235, 'CAGAG':0.00005, 'CATAG':0.00005, 
+	'CCAAG':0.00005, 'CCCAG':0.00235, 'CCGAG':0.00005, 'CCTAG':0.00005, 
+	'CGAAG':0.00005, 'CGCAG':0.00235, 'CGGAG':0.00005, 'CGTAG':0.00005, 
+	'CTAAG':0.00085, 'CTCAG':0.03995, 'CTGAG':0.00085, 'CTTAG':0.00085, 
+	'GAAAG':0.00005, 'GACAG':0.00235, 'GAGAG':0.00005, 'GATAG':0.00005, 
+	'GCAAG':0.00005, 'GCCAG':0.00235, 'GCGAG':0.00005, 'GCTAG':0.00005, 
+	'GGAAG':0.00005, 'GGCAG':0.00235, 'GGGAG':0.00005, 'GGTAG':0.00005, 
+	'GTAAG':0.00085, 'GTCAG':0.03995, 'GTGAG':0.00085, 'GTTAG':0.00085, 
+	'TAAAG':0.00085, 'TACAG':0.03995, 'TAGAG':0.00085, 'TATAG':0.00085, 
+	'TCAAG':0.00085, 'TCCAG':0.03995, 'TCGAG':0.00085, 'TCTAG':0.00085, 
+	'TGAAG':0.00085, 'TGCAG':0.03995, 'TGGAG':0.00085, 'TGTAG':0.00085, 
+	'TTAAG':0.01445, 'TTCAG':0.67915, 'TTGAG':0.01445, 'TTTAG':0.01445, 
 }
+
+def nullseq(size): return ''.join(random.choices('ACGT', k=size))
 
 def randomseq(size, model):
 	seq = []
 	seq.append(random.choice('ACGT'))
-	while len(seq) < size -1:
+	while len(seq) < size:
 		seq.append(random.choices('ACGT', weights=model[seq[-1]])[0])
 	return ''.join(seq)
 	
@@ -87,9 +89,9 @@ def kmer_table(mode=None):
 		prob[''.join(t)] = p
 	
 	if mode == 'don':
-		prob['AAA'] /= 2
-		prob['AGA'] *= 2
-		prob['AGG'] *= 2
+		for kmer in prob:
+			if kmer[0] != kmer[1] and kmer[1] != kmer[2]: prob[kmer] = 0.00001
+			
 		total = sum(prob.values())
 		for k, v in prob.items(): prob[k] = v / total
 	
@@ -133,7 +135,14 @@ with    gzip.open(f'{arg.dir}/exons.fa.gz', 'wt') as efp,\
 		gzip.open(f'{arg.dir}/acceptors.fa.gz', 'wt') as afp,\
 		gzip.open(f'{arg.dir}/exon-intron.fa.gz', 'wt') as eifp,\
 		gzip.open(f'{arg.dir}/intron-exon.fa.gz', 'wt') as iefp,\
-		gzip.open(f'{arg.dir}/gene.fa.gz', 'wt') as gfp:
+		gzip.open(f'{arg.dir}/genes.fa.gz', 'wt') as gfp,\
+		gzip.open(f'{arg.dir}/neg-exons.fa.gz', 'wt') as nefp,\
+		gzip.open(f'{arg.dir}/neg-introns.fa.gz', 'wt') as nifp,\
+		gzip.open(f'{arg.dir}/neg-donors.fa.gz', 'wt') as ndfp,\
+		gzip.open(f'{arg.dir}/neg-acceptors.fa.gz', 'wt') as nafp,\
+		gzip.open(f'{arg.dir}/neg-exon-intron.fa.gz', 'wt') as neifp,\
+		gzip.open(f'{arg.dir}/neg-intron-exon.fa.gz', 'wt') as niefp,\
+		gzip.open(f'{arg.dir}/neg-genes.fa.gz', 'wt') as ngfp:
 	
 	for i in range(arg.count):
 		exon1 = randomseq(arg.exon, EXON)
@@ -142,14 +151,33 @@ with    gzip.open(f'{arg.dir}/exons.fa.gz', 'wt') as efp,\
 		acc = random.choices(list(ACC.keys()), weights=ACC.values(), k=1)[0]
 		exon2 = randomseq(arg.exon, EXON)
 		
-		exin = exon1  + don + intron
-		inex =                intron + acc + exon2
+		exin = exon1[-20:]  + don + intron[:20]
+		inex = intron[-20:] + acc + exon2[:20]
 		gene = exon1  + don + intron + acc + exon2
 		
-		print(f'>{i}', exon1, sep='\n', file=efp)
+		print(f'>{i}', exon1,  sep='\n', file=efp)
 		print(f'>{i}', intron, sep='\n', file=ifp)
-		print(f'>{i}', don, sep='\n', file=dfp)
-		print(f'>{i}', acc, sep='\n', file=afp)
-		print(f'>{i}', exin, sep='\n', file=eifp)
-		print(f'>{i}', inex, sep='\n', file=iefp)
-		print(f'>{i}', gene, sep='\n', file=gfp)
+		print(f'>{i}', don,    sep='\n', file=dfp)
+		print(f'>{i}', acc,    sep='\n', file=afp)
+		print(f'>{i}', exin,   sep='\n', file=eifp)
+		print(f'>{i}', inex,   sep='\n', file=iefp)
+		print(f'>{i}', gene,   sep='\n', file=gfp)
+		
+		nexon1 = nullseq(arg.exon)
+		ndon = 'GT' + nullseq(3)
+		nintron = nullseq(arg.intron)
+		nacc = nullseq(3) + 'AG'
+		nexon2 = nullseq(arg.exon)
+		
+		nexin = nexon1[-20:] + ndon + nintron[:20]
+		ninex = nintron[-20:] + nacc + nexon2[:20]
+		ngene = nexon1  + ndon + nintron + nacc + nexon2
+
+		print(f'>{i}', nexon1,  sep='\n', file=nefp)
+		print(f'>{i}', nintron, sep='\n', file=nifp)
+		print(f'>{i}', ndon,    sep='\n', file=ndfp)
+		print(f'>{i}', nacc,    sep='\n', file=nafp)
+		print(f'>{i}', nexin,   sep='\n', file=neifp)
+		print(f'>{i}', ninex,   sep='\n', file=niefp)
+		print(f'>{i}', ngene,   sep='\n', file=ngfp)
+		

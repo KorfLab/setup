@@ -49,7 +49,7 @@ def classic_algorithms(arg, train_func, score_func):
 				else:               fp += 1
 		acc = (tp + tn) / (tp + tn + fp + fn)
 		accs.append(acc)
-		print(tp, tn, fp, fn, acc, file=sys.stderr)
+		print(tp, tn, fp, fn, acc, file=sys.stderr, flush=True)
 
 	return statistics.mean(accs)
 
@@ -274,7 +274,7 @@ def run_mlp(arg):
 		model = MLP(size, arg.layers)
 		train_model(train_dl, model, arg.rate, arg.momentum)
 		acc, f1 = evaluate_model(test_dl, model)
-		print(f'{acc:.3f}', file=sys.stderr)
+		print(f'{acc:.3f}', file=sys.stderr, flush=True)
 		accs.append(acc)
 
 	if arg.save != None: torch.save(model.state_dict(), arg.save)
