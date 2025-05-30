@@ -1,25 +1,96 @@
 Walkthrough
 ===========
 
-This is a very drafty, short tutorial on sequence-based bioinformatics.
+WARNING: document in progress
+
+This is a short tutorial on some sequence-based bioinformatics.
+
+- Environment Check - make sure your environment is ready to go
+	- benchmark
+	- /usr/bin/time
+- Sequences - always examine your sequence files
+	- zless
+	- seq-stats
+- Compositions - examine differences in higher-order compositions
+	- kmer-tool
+- BLAST - learn how to run BLAST on the command line
+	- blast-legacy
+	- blast
+- Sequence Models - train and test classic sequence models (and peceptron)
+	- training
+	- cross-validation
+	- pwm
+	- nmm
+	- wam
+	- mlp
 
 ## Environment Check ##
+
+Let's make sure everything is set up correctly. Presumably, you have followed
+the directions in `04_Environment.md` and have the following configured:
+
+- Unix/Linux CLI (with development tools installed on Mac)
+- Conda installed
+- Your directory structure organized
+- You have `git clone https://github.com/KorfLab/init`
+
+### benchmark
 
 Change directory to the `init` repo and try running the `benchmark` program in
 `init/bin`.
 
 ```
-cd init # might be ~/Code/init or ~init
+cd init
 bin/benchmark
 ```
 
 If this command doesn't work, your enviornment is not set up correctly. Ask for
 help if you can't solve it yourself.
 
-- `PYTHONPATH` needs to be set to the location of `~/lib` or `~/Code/lib`
+- `PYTHONPATH` needs to be set
 - `korflab.py` (or its alias) is where `PYTHONPATH` is looking
 
-## seq-stats ##
+Assuming the `benchmark` worked, it reports a value that describes how fast
+your computer is. The value depends on several things:
+
+- What else is running on your computer
+- The version of Python you have (default vs. conda)
+- The operating system
+- If you computer is running on battery vs. plugged in (laptop)
+- If you are working inside a VM
+
+It's not a very good benchmark! Here are some typical values.
+
+- 350 top of the line CPU circa 2025
+- 200-300 Apple Silicon circa 2025
+- 150-250 typical PC circa 2025
+- 100 pre-2020 computer
+- 50 Chromebook
+
+### /usr/bin/time
+
+When we write programs or run programs from others, we often want to know how
+much computer resources are being used. `top` works for live monitoring, but
+doesn't tell you aggregate figures. The shell keyword `time` tells you how much
+CPU your process used, but not how much memory. To get this information, you
+must use `/usr/bin/time`, which may not be installed on your system by default.
+The syntax on Mac and Linux is slightly different. The examples below show
+`/usr/bin/time` being used to monitor the `ls` command.
+
+```
+/usr/bin/time -lp ls  # mac
+/usr/bin/time -v ls  # linux
+```
+
+
+
+## Sequences ##
+
+### zless
+
+
+### seq-stats
+
 
 From the `init` repo, run the `bin/seq-stats` program on some of the FASTA
 files in the data directory.
@@ -36,20 +107,26 @@ ambiguity symbols. Also, the `GCF_000005845...` file is protein. Comparing the
 nucleotide frequencies of the genome files, Arabidopsis (at...) is similar to
 Caenorhabditis (ce...).
 
-## kmer-tool ##
+## Compositions ##
+
+The IMEter project is based in compositional differences. Gene prediction
+algorithms rely on differences between exons and introns. We can explore these
+differences by examining kmer frequencies.
 
 Try `kmer-tool` on the 1 percent genomes with a kmer size of 2. Using the
 `--acgt` option ensures that all kmers use canonical letters only.
 
 ```
 bin/kmer-tool data/at1pct.fa.gz 2
+bin/kmer-tool data/at1pct.fa.gz 2 --acgt
 bin/kmer-tool data/ce1pct.fa.gz 2
-bin/kmer-tool data/dm1pct.fa.gz 2 --acgt
+bin/kmer-tool data/dm1pct.fa.gz 2
 ```
 
-While Arabidopsis may look similar at the single nucleotide level, they become
-increasingly different with higher values of k. For some reason, Caenorhabditis
-likes poly-A/T sequences more than Arabidopsis.
+While Arabidopsis and Caenorhabditis may look similar at the single nucleotide
+level, they become increasingly different with higher values of k. For some
+reason, Caenorhabditis likes poly-A (or poly-T) sequences more than
+Arabidopsis.
 
 ```
 bin/kmer-tool data/at1pct.fa.gz 2 --acgt --compare data/ce1pct.fa.gz
@@ -57,7 +134,11 @@ bin/kmer-tool data/at1pct.fa.gz 3 --acgt --compare data/ce1pct.fa.gz | less
 bin/kmer-tool data/at1pct.fa.gz 4 --acgt --compare data/ce1pct.fa.gz | less
 ```
 
-## data-faker & model-tester ##
+## BLAST ##
+
+
+
+## Sequence Models ##
 
 The next demo involves 2 separate tasks.
 
