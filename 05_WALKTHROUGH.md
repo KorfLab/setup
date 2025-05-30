@@ -1,7 +1,7 @@
 Walkthrough
 ===========
 
-A short tutorial on sequence-based bioinformatics.
+This is a very drafty, short tutorial on sequence-based bioinformatics.
 
 ## Environment Check ##
 

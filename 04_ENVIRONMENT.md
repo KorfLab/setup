@@ -71,7 +71,7 @@ computers and your Hive account.
 To install Conda on your personal computer: https://conda-forge.org/miniforge
 
 Conda is already provided on Hive via `module load conda`. You should probably
-add this to your `.bash_profile`. Even the `module` system has a lot of
+add this to your `.bash_profile`. Even though the `module` system has a lot of
 bioinformatics software already installed, you should avoid using it if
 possible. Why? Because the module system isn't easily replicated by you or
 others on computers elsewhere. Recall Rule #2.
@@ -167,9 +167,8 @@ typing, brain cells die. You're here to learn, not be a copy-paste robot.
 
 I don't give a fuck if 4 space indent is preferred in Python, it's not
 preferred in this lab. Indent with tabs. If you can't tell the difference
-between the two lines below, please learn. If you're reading this on GitHub,
-they will look different because GitHub indents by 8. Read this file in your
-text editor.
+between the two lines below, please learn. If you are adamant about spaces for
+indentation, join another lab.
 
 ```
 while True
@@ -218,9 +217,11 @@ of formats, so don't be fooled into thinking that PDF is all vector.
 Screenshots are rarely necessary. If you're working in a terminal and get an
 error message, you can copy-paste the text of the error message (it's okay to
 copy-paste error messages, but not code). Screenshots use a lot more storage.
-If you take a picture with your phone, the file may be really large. Even
-though computers today have lots of storage, it's always a good idea to be
-mindful of how much space things take.
+If you take a picture with your phone, the file may be really large. A student
+once sent me a 14M image of an error message that was 14 characters long.
+That's a 1 million-fold increase in size. Even though computers today have lots
+of storage, it's always a good idea to be mindful of how much space things
+take.
 
 ## Don't justify poor practices with "just" ##
 

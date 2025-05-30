@@ -8,9 +8,11 @@ These might be called "best practices" except they are too important for that.
 - Rule #3: All Code in GitHub
 - Rule #4: Beautifully Simple
 - RUle #5: Refactoring Happens
-- Rule #6: Don't be a Robot
+- Rule #6: Be a Scientist, not a Robot
 
 ## Rule #1: Create Dev Data ##
+
+>Measure twice, cut once
 
 Before you start on a project, the most important thing to do is to build a
 minimal dataset for development and testing. We call this our "dev data", "test
@@ -54,6 +56,8 @@ time and improve reproducibility.
 Some examples of Rule #1 data are in the `init/data` directory.
 
 ## Rule #2: Everything Is Portable ##
+
+>Working in one setting ensures irreproducibility
 
 Two very important words in science are _rigor_ and _reproducibility_. Science
 should be repeatable. One way to ensure that your work can be replicated by
@@ -125,7 +129,17 @@ problems. Beautifully simple code is easy to understand. This makes it easy to
 debug and extend. When making programming choices, don't program for yourself,
 but rather the less experienced person who comes after.
 
+Beautifully simple also applies to writing papers and to scientific
+communication in general. When you have the choice between _fenestrated_ and
+"it looks like it has windows", choose the simpler language. Your goal in
+writing is to communicate to an audience that probably did not learn English as
+a first language. If you think scientific writing is supposed to demonstrate
+your _erudition_, you are wrong. Scientific writing is like code. It's not for
+you, but for a less educated audience.
+
 ## Rule #5: Refactoring Happens ##
+
+>Sometimes you don't know how to start until you get to the end
 
 No code is correct the first time it is written. Oftentimes, we only know how
 to start a project after we have gotten to the end. For this reason, it's a
@@ -139,16 +153,34 @@ This doesn't mean you're encouraged to write shitty code. You should always
 strive to write code you are proud of. If you can't show your code to the PI
 and say "isn't this great?" then re-write it and make it great.
 
-## Rule #6: Don't be a Robot ##
+## Rule #6: Be a Scientist not a Robot ##
 
-- Do you find yourself copy-pasting argparse from one program to another?
+>Copy-paste-modify is the enemy of expertise
+
+As a novice at anything, we often learn by copying others. Then by modifying
+what we have copied. But this practice eventually results in doing things "the
+easy way" instead of "the right way".
+
+- Do you find yourself copy-pasting code from one program to another?
 - Have you forgotten how to write a simple windowing algorithm?
 - Do you have to look up the syntax of a `lambda` function every time?
-- Are you just the go-between from an LLM to your text editor?
-- Have you become a robot?
+- Are you just the go-between from a web page to your text editor?
+- Have you become a copy-paste robot?
 
-Well stop doing it. Stop copy-pasting code. Stop looking up everthing on the
-Internet. Stop asking ChatGPT for answers. Stop using code completion. Use your
-brain. Write every character of every line yourself, and when you get stuck as
-a person for help. Yes, this will take longer. But you're here to learn, not to
-act like a robot.
+Well stop doing it. Stop the copy-paste-modify practice. Stop looking up
+everthing on the Internet. Stop asking ChatGPT for answers. Stop using code
+completion. Use your brain to. Write every character of every line yourself, and
+when you get stuck ask a _person_ for help. Yes, this will take longer. But
+you're here to learn, not to act like a robot.
+
+What makes a scientist a scientist? Two things:
+
+1. Asking questions
+2. Performing experiments
+
+As a member of my lab, I expect you to act like a scientist. This means
+constantly asking questions and performing experiments that address those
+questions. Imagine you need to run an RNA-Seq job on the cluster. You might ask
+yourself, "how many CPUs should I put in the SBATCH script and how much RAM
+should I specify?" Have you considered making those questions into an
+experiment that you perform?

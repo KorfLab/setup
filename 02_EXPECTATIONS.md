@@ -104,8 +104,8 @@ disciplined, flexible, reliable, accountable, personable: choose (all) eleven".
 
 It's unfair to be expected to be good at everything, and yet many scientists
 beat themselves up because they aren't. Give yourself the breathing room you
-would give to others. You don't have to be an A- or even A- in all of these.
-But try not to have an F in any of them.
+would give to others. You don't have to be an A+ or even A- in all of these.
+Sometimes ok is good enough. But try not to have an F in any of them.
 
 ## Work Ethic ##
 
