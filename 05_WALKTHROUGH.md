@@ -41,8 +41,8 @@ the directions in `04_Environment.md` and have the following configured:
 
 ### Conda Base Environment
 
-Your shell prompt should show `(base)` at the start. If this is not the case
-you try `conda activate`. If that doesn't work, you didn't install miniforge
+Your shell prompt should show `(base)` at the start. If this is not the case,
+try `conda activate`. If that doesn't work, you didn't install mini-forge
 (conda) correctly and you need to get help before proceeding.
 
 ### benchmark
@@ -107,6 +107,10 @@ different. The examples below show `/usr/bin/time` being used to monitor the
 
 ## Sequences ##
 
+This walkthrough shows you how to do various bioinformatics tasks with
+sequences, so we had better get some sequences. You can find these in the
+`init/data` directory.
+
 ### zless
 
 A good way to examine sequence file is with `zless`. Why `zless` instead of
@@ -119,7 +123,19 @@ Never open up a sequence file in your editor unless you plan to edit it. You
 would have to have a very good reason to edit a sequence file. Most data files
 should have read-only permissions to prevent accidental editing. Also, they
 should be compressed, so your editor wouldn't be the right choice for that
-anyway.
+anyway. To ensure that everything in the `data` directory has read-only
+permission, do the following:
+
+```
+chmod 444 data/*
+```
+
+Now examine some of the sequence files.
+
+```
+zless data/ce1pct.fa.gz
+zless data/GCF_000005845.2_ASM584v2_protein.faa.gz
+```
 
 In `zless`, the space bar and the `f` key advance foward a page at a time. The
 `b` key goes backwards. If you want to search for something, use the `/` key.
@@ -149,18 +165,18 @@ the nucleotide frequencies of the genome files, you will find that Arabidopsis
 Even when sequences have the similar compositions, it doesn't mean they are
 "speaking the same language". For example, English and French have very similar
 letter frequencies. And yet the words are very different. This is also true in
-DNA. The IMEter project is based in compositional differences. Gene prediction
-algorithms rely on differences between exons and introns. We can explore these
-differences by examining kmer frequencies.
+DNA. For example, gene prediction algorithms rely on differences between exons
+and introns. We can start to explore these differences by examining kmer
+frequencies.
 
-Try `kmer-tool` on the 1 percent genomes with a kmer size of 2. Using the
+Try `kmer-gizmo` on the 1 percent genomes with a kmer size of 2. Using the
 `--acgt` option ensures that all kmers use canonical letters only.
 
 ```
-bin/kmer-tool data/at1pct.fa.gz 2
-bin/kmer-tool data/at1pct.fa.gz 2 --acgt
-bin/kmer-tool data/ce1pct.fa.gz 2
-bin/kmer-tool data/dm1pct.fa.gz 2
+bin/kmer-gizmo data/at1pct.fa.gz 2
+bin/kmer-gizmo data/at1pct.fa.gz 2 --acgt
+bin/kmer-gizmo data/ce1pct.fa.gz 2
+bin/kmer-gizmo data/dm1pct.fa.gz 2
 ```
 
 While Arabidopsis and Caenorhabditis may look similar at the single nucleotide
@@ -169,9 +185,9 @@ reason, Caenorhabditis likes poly-A (or poly-T) sequences more than
 Arabidopsis.
 
 ```
-bin/kmer-tool data/at1pct.fa.gz 2 --acgt --compare data/ce1pct.fa.gz
-bin/kmer-tool data/at1pct.fa.gz 3 --acgt --compare data/ce1pct.fa.gz | less
-bin/kmer-tool data/at1pct.fa.gz 4 --acgt --compare data/ce1pct.fa.gz | less
+bin/kmer-gizmo data/at1pct.fa.gz 2 --acgt --compare data/ce1pct.fa.gz
+bin/kmer-gizmo data/at1pct.fa.gz 3 --acgt --compare data/ce1pct.fa.gz | less
+bin/kmer-gizmo data/at1pct.fa.gz 4 --acgt --compare data/ce1pct.fa.gz | less
 ```
 
 ## BLAST ##
