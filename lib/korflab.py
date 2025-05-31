@@ -10,7 +10,9 @@ import random
 import re
 import sys
 
+####################
 ## Math Functions ##
+####################
 
 def sumlog(v1, v2):
 	"""Returns the sum of two logspaced values in logspace"""
@@ -24,10 +26,70 @@ def kmers(k, alph='ACGT', init=0):
 		table[''.join(t)] = init
 	return table
 
+def prob2score(p):
+	"""Convert probability to nucleotide-ish log-odds score"""
+	if p == 0: return -100
+	return math.log2(p/0.25)
+
+def entropy(ps):
+	"""Compute Shannon entropy for probability distribution"""
+	assert(math.isclose(sum(ps), 1))
+	h = 0
+	for p in ps:
+		h -= p * math.log2(p)
+	return h
+
+def kullback_leibler(p, q):
+	"""Compute 1-sided Kullback-Leibler distance between 2 histograms"""
+	assert(math.isclose(sum(p), 1.0))
+	assert(math.isclose(sum(q), 1.0))
+	d = 0
+	for pi, qi in zip(p, q):
+		d += pi * math.log2(pi / qi)
+	return d
+
+def manhattan(p, q):
+	"""Compute Manhattan (taxi-cab) distance between 2 histograms"""
+	assert(math.isclose(sum(p), 1.0, abs_tol=1e-6))
+	assert(math.isclose(sum(q), 1.0, abs_tol=1e-6))
+	d = 0
+	for pi, qi in zip(p, q):
+		d += abs(pi - qi)
+	return d
+
+def cartesian(p, q):
+	"""Compute cartesian distance between 2 histograms"""
+	assert(math.isclose(sum(p), 1.0, abs_tol=1e-6))
+	assert(math.isclose(sum(q), 1.0, abs_tol=1e-6))
+	d = 0
+	for pi, qi in zip(p, q):
+		d += (pi - qi)**2
+	return d**0.5
+
+def chybyshev(p, q):
+	"""Compute Chybyshev distance between 2 histograms"""
+	assert(math.isclose(sum(p), 1.0, abs_tol=1e-6))
+	assert(math.isclose(sum(q), 1.0, abs_tol=1e-6))
+	d = 0
+	for pi, qi in zip(p, q):
+		if abs(pi - qi) > d: d = abs(pi - qi)
+	return d
+
+def intersection(p, q): # aka dtc / 2
+	"""Compute histogram intersection"""
+	assert(math.isclose(sum(p), 1.0, abs_tol=1e-6))
+	assert(math.isclose(sum(q), 1.0, abs_tol=1e-6))
+	d = 0
+	for pi, qi in zip(p, q):
+		d += min(pi, qi)
+	return 1 - d
+
+########################
 ## Sequence Functions ##
+########################
 
 def random_dna(length, a=0.25, c=0.25, g=0.25, t=0.25):
-	"""Generates random nucleotide sequence"""
+	"""Returns a random nucleotide sequence"""
 
 	assert(math.isclose(a+c+g+t, 1.0))
 	seq = ''
@@ -39,12 +101,12 @@ def random_dna(length, a=0.25, c=0.25, g=0.25, t=0.25):
 		else:           seq += 'T'
 	return seq
 
-def anti(seq):
-	"""Produces the reverse complement of a sequence"""
-	comp = str.maketrans('ACGTRYMKWSBDHV', 'TGCAYRKMWSVHDB')
-	anti = seq.translate(comp)[::-1]
-	return anti
+COMPLEMENT = str.maketrans('ACGTRYMKWSBDHV', 'TGCAYRKMWSVHDB')
 
+def anti(seq):
+	"""Returns the reverse complement of a sequence"""
+	anti = seq.translate(COMPLEMENT)[::-1]
+	return anti
 
 GCODE = {
 	'AAA' : 'K',	'AAC' : 'N',	'AAG' : 'K',	'AAT' : 'N',
@@ -103,7 +165,9 @@ def translate(seq, frame=0):
 		else: pro.append('X')
 	return ''.join(pro)
 
+##################
 ## File Readers ##
+##################
 
 def getfp(filename):
 	"""Returns a file pointer for reading based on file name"""
@@ -243,7 +307,153 @@ def readblosum(filename):
 	return matrix
 
 
+#################
+## PWM SECTION ##
+#################
+
+def create_pwm(seqs):
+	"""Creates a PWM from a list of sequences"""
+	count = []
+	for seq in seqs:
+		for i, nt in enumerate(seq):
+			if len(count) <= i:
+				count.append({'A':0, 'C': 0, 'G': 0, 'T': 0})
+			count[i][nt] += 1
+
+	pwm = [{} for i in range(len(count))]
+	for i in range(len(count)):
+		for nt in count[i]:
+			pwm[i][nt] = count[i][nt] / len(seqs)
+	return pwm
+
+def write_pwm(file, pwm):
+	"""Writes a PWM to a named file"""
+	with open(file, 'w') as fp:
+		fp.write(f'% PWM {file} {len(pwm)}\n')
+		for pos in pwm:
+			for nt in pos:
+				fp.write(f'{pos[nt]:.6f} ')
+			fp.write('\n')
+
+def read_pwm(file):
+	"""Reads a PWM from a named file"""
+	nts = ('A', 'C', 'G', 'T')
+	pwm = []
+
+	# read raw values
+	with open(file) as fp:
+		for line in fp:
+			if line.startswith('%'): continue
+			f = line.split()
+			d = {}
+			for nt, val in zip(nts, f):
+				d[nt] = float(val)
+			pwm.append(d)
+
+	# convert to log-odds
+	for i in range(len(pwm)):
+		for nt in nts:
+			pwm[i][nt] = prob2score(pwm[i][nt])
+
+	return pwm
+
+def score_pwm(pwm, seq):
+	"""Scores a sequence against a PWM"""
+	assert(len(pwm) == len(seq))
+	score = 0
+	for i in range(len(pwm)):
+		nt = seq[pos+i]
+		score += pwm[i][nt]
+	return score
+
+
+##########################
+## MARKOV MODEL SECTION ##
+##########################
+
+def create_markov(seqs, order, beg, end):
+	"""Creates an n-th order Markov model from a list of sequences"""
+	count = {}
+	for seq in seqs:
+		for i in range(beg+order, len(seq) - end):
+			ctx = seq[i-order:i]
+			nt = seq[i]
+			if ctx not in count: count[ctx] = {'A':0, 'C':0, 'G':0, 'T':0}
+			count[ctx][nt] += 1
+
+	# these need to be probabilities
+	mm = {}
+	for kmer in count:
+		mm[kmer] = {}
+		total = 0
+		for nt in count[kmer]: total += count[kmer][nt]
+		for nt in count[kmer]: mm[kmer][nt] = count[kmer][nt] / total
+
+	return mm
+
+def write_markov(file, mm):
+	"""Writes an n-th order Markov model to a named file"""
+	with open(file, 'w') as fp:
+		fp.write(f'% MM {file} {len(mm)*4}\n')
+		for kmer in sorted(mm):
+			for v in mm[kmer]:
+				fp.write(f'{kmer}{v} {mm[kmer][v]:.6f}\n')
+			fp.write('\n')
+
+def read_markov(file):
+	"""Reads an n-th order Markov model from a named file"""
+	mm = {}
+	k = None
+	with open(file) as fp:
+		for line in fp:
+			if line.startswith('%'): continue
+			f = line.split()
+			if len(f) == 2:
+				mm[f[0]] = prob2score(float(f[1]))
+				if k == None: k = len(f[0])
+	return {'k': k, 'mm': mm}
+
+def score_markov(model, seq):
+	"""Scores an n-th order Markov model against a sequence"""
+	score = 0
+	k = model['k']
+	mm = model['mm']
+	for i in range(0, len(seq) -k + 2):
+		kmer = seq[i:i+k]
+		score += mm[kmer]
+	return score
+
+######################
+## Machine Learning ##
+######################
+
+def ntencoder(file, label=None, binary=False):
+	"""One-hot/binary encodes a FASTA File, optionally with terminal label"""
+	encoding = {'A':'0001', 'C':'0010', 'G':'0100', 'T':'1000'}
+	if binary: encoding = {'A':'00', 'C':'01', 'G':'10', 'T':'11'}
+
+	data = []
+	for name, seq in readfasta(file):
+		s = [encoding[nt] for nt in seq]
+		s = ''.join(s)
+		if label: s += str(label)
+		data.append(s)
+	return data
+
+def cross_validation(seqs, x):
+	"""Generates cross-validation sets"""
+	for i in range(x):
+		train = []
+		test = []
+		for j in range(len(seqs)):
+			if j % x == i: test.append(seqs[j])
+			else:          train.append(seqs[j])
+		yield train, test
+
+
+#########
 ## XML ##
+#########
 
 import xml.etree.ElementTree as ET
 
@@ -269,29 +479,3 @@ def read_xml(fp):
 	contents = descend_tree(root, [])
 	if contents: data['has'] = contents
 	return data
-
-## Machine Learning ##
-
-def ntencoder(file, label=None, binary=False):
-	"""One-hot/binary encodes a FASTA File, optionally with terminal label"""
-	encoding = {'A':'0001', 'C':'0010', 'G':'0100', 'T':'1000'}
-	if binary: encoding = {'A':'00', 'C':'01', 'G':'10', 'T':'11'}
-
-	data = []
-	for name, seq in readfasta(file):
-		s = [encoding[nt] for nt in seq]
-		s = ''.join(s)
-		if label: s += str(label)
-		data.append(s)
-	return data
-
-def cross_validation(seqs, x):
-	"""Generates cross-validation sets"""
-	for i in range(x):
-		train = []
-		test = []
-		for j in range(len(seqs)):
-			if j % x == i: test.append(seqs[j])
-			else:          train.append(seqs[j])
-		yield train, test
-

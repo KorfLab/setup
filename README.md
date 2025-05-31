@@ -18,22 +18,22 @@ the following order:
 - `02_EXPECTATIONS.md` what to expect when joining the lab
 - `03_RULES.md` best practices that are important enough to be called rules
 - `04_ENVIRONMENT.md` set up your bioinformatics environment
-- `05_DONT.md` stuff you shouldn't do
+- `05_WALKTHROUGH.md` experience some bioinformatics stuff
 - `06_CLASSICS.md` learn bioinformatics by studying classic examples
-- `07_EXAM.md` the official KorfLab Bioinformatics Exam
-- `08_HALL_OF_FAME.md` people who have passed the exam
+- `07_EXAM.md` take the official KorfLab Bioinformatics Exam
+- `08_HALL_OF_FAME.md` honor roll of people who have passed the exam
 
 There are also some directories with various files you may find useful.
 
 - `bin` Python-based programs
-	- `benchmark` a simple benchmark for your computer
-	- `data-faker` creates synthetic data for sequence models
+	- `benchmark` a simple benchmark to measure performance of your computer
+	- `data-faker` creates synthetic exons and introns for testing
 	- `data-shrinker` genomic dataset minimizer
 	- `fasta-demo` increasingly sophisticated ways to read FASTA files
 	- `fq-faker` sample fake reads from a sequence
-	- `kmer-tool` count and compare kmers
+	- `kmer-tool` count and compare kmer frequencies in DNA
 	- `model-tester` creates and evaluates sequence models
-	- `mysbatch` mock sbatch for dev purposes (might need rewrite)
+	- `mysbatch` mock sbatch for dev purposes
 	- `redundancy-check` look for duplicate files
 	- `seq-stats` report statistics about sequences in a FASTA file
 - `lib` some libraries
@@ -41,4 +41,3 @@ There are also some directories with various files you may find useful.
 	- `FAlite.pm` ancient FASTA iterator in Perl
 - `data` "Rule #1" data
 - `etc` config files
-

@@ -33,6 +33,10 @@ the directions in `04_Environment.md` and have the following configured:
 - Conda installed
 - Your directory structure organized
 - You have `git clone https://github.com/KorfLab/init`
+- You are doing this on more than one computer (Rule #2)
+	- Your main computer
+	- Hive (or some other remote computer)
+	- Maybe a VM in your main computer or a spare computer
 
 ### benchmark
 
@@ -79,21 +83,39 @@ The syntax on Mac and Linux is slightly different. The examples below show
 
 ```
 /usr/bin/time -lp ls  # mac
-/usr/bin/time -v ls  # linux
+/usr/bin/time -v ls   # linux
 ```
 
+`/usr/bin/time` is so useful that you might consider adding it to all of your
+conda environments.
 
 
 ## Sequences ##
 
 ### zless
 
+A good way to examine sequence file is with `zless`. Why `zless` instead of
+regular `less`? Because most sequence files are stored compressed. Don't
+uncompress FASTA files unless you have a really good reason (e.g. there's a
+program you need to run that requires an uncompressed file because it uses
+`seek()` for random access).
+
+Never open up a sequence file in your editor unless you plan to edit it. You
+would have to have a very good reason to edit a sequence file. Most data files
+should have read-only permissions to prevent accidental editing. Also, they
+should be compressed, so your editor wouldn't be the right choice for that
+anyway.
+
+In `zless`, the space bar and the `f` key advance foward a page at a time. The
+`b` key goes backwards. If you want to search for something, use the `/` key.
+The `?` key does a reverse search.
 
 ### seq-stats
 
-
-From the `init` repo, run the `bin/seq-stats` program on some of the FASTA
-files in the data directory.
+Sequence files can be huge and browsing them with `zless` might not be very
+informative. So let's use a program to give us a summary of what's in a FASTA
+file. From the `init` repo, run the `bin/seq-stats` program on some of the
+FASTA files in the data directory.
 
 ```
 bin/seq-stats data/at1pct.fa.gz
@@ -103,13 +125,16 @@ bin/seq-stats data/GCF_000005845.2_ASM584v2_protein.faa.gz
 ```
 
 You should have noticed that the `at1pct.fa.gz` file has some nucleotide
-ambiguity symbols. Also, the `GCF_000005845...` file is protein. Comparing the
-nucleotide frequencies of the genome files, Arabidopsis (at...) is similar to
-Caenorhabditis (ce...).
+ambiguity symbols. Also, the `GCF_000005845...` file is protein. If you examine
+the nucleotide frequencies of the genome files, you will find that Arabidopsis
+(at...) is similar to Caenorhabditis (ce...). They are relatively both AT-rich.
 
 ## Compositions ##
 
-The IMEter project is based in compositional differences. Gene prediction
+Even when sequences have the similar compositions, it doesn't mean they are
+"speaking the same language". For example, English and French have very similar
+letter frequencies. And yet the words are very different. This is also true in
+DNA. The IMEter project is based in compositional differences. Gene prediction
 algorithms rely on differences between exons and introns. We can explore these
 differences by examining kmer frequencies.
 
@@ -161,7 +186,7 @@ zless build/genes.fa.gz
 This creates a bunch of files. Take a look at them. The overall scheme is as
 follows:
 
-- 50 nt exon1 
+- 50 nt exon1
 - 5 nt donor site GTAAG-ish
 - 50 nt intron
 - 5 nt acceptor site TTCAG-ish
@@ -186,4 +211,4 @@ bin/data-faker build --count 10000
 
 ### Part 2: model-tester
 
-Given 45 nt of sequence, can 
+Given 45 nt of sequence, can
