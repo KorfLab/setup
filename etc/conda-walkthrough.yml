@@ -1,4 +1,4 @@
-name: bio
+name: walkthrough
 channels:
   - conda-forge
   - bioconda

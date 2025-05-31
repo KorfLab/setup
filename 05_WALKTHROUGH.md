@@ -5,17 +5,18 @@ WARNING: document in progress
 
 This is a short tutorial on some sequence-based bioinformatics.
 
-- Environment Check - make sure your environment is ready to go
-	- benchmark
-	- /usr/bin/time
-- Sequences - always examine your sequence files
-	- zless
-	- seq-stats
-- Compositions - examine differences in higher-order compositions
-	- kmer-tool
-- BLAST - learn how to run BLAST on the command line
-	- blast-legacy
-	- blast
+- Environment Checks
+- Sequences
+- Compositions
+- BLAST
+- Sequencing read alignment
+
+- Motif-finding
+- Multiple alignment
+- Trees
+- RNA-Seq
+- ChIP-Seq
+
 - Sequence Models - train and test classic sequence models (and peceptron)
 	- training
 	- cross-validation
@@ -24,7 +25,7 @@ This is a short tutorial on some sequence-based bioinformatics.
 	- wam
 	- mlp
 
-## Environment Check ##
+## Environment Checks ##
 
 Let's make sure everything is set up correctly. Presumably, you have followed
 the directions in `04_Environment.md` and have the following configured:
@@ -37,6 +38,12 @@ the directions in `04_Environment.md` and have the following configured:
 	- Your main computer
 	- Hive (or some other remote computer)
 	- Maybe a VM in your main computer or a spare computer
+
+### Conda Base Environment
+
+Your shell prompt should show `(base)` at the start. If this is not the case
+you try `conda activate`. If that doesn't work, you didn't install miniforge
+(conda) correctly and you need to get help before proceeding.
 
 ### benchmark
 
@@ -55,7 +62,7 @@ help if you can't solve it yourself.
 - `korflab.py` (or its alias) is where `PYTHONPATH` is looking
 
 Assuming the `benchmark` worked, it reports a value that describes how fast
-your computer is. The value depends on several things:
+your computer runs Python. The value depends on several things:
 
 - What else is running on your computer
 - The version of Python you have (default vs. conda)
@@ -71,24 +78,32 @@ It's not a very good benchmark! Here are some typical values.
 - 100 pre-2020 computer
 - 50 Chromebook
 
+### Install walkthrough Conda Environment
+
+Install the _walkthrough_ conda environment from `init/etc`.
+
+```
+conda env create -f etc/conda-walkthrough.yml
+```
+
+If this fails for some reason, seek help. It must succeed to continue.
+
+
 ### /usr/bin/time
 
 When we write programs or run programs from others, we often want to know how
 much computer resources are being used. `top` works for live monitoring, but
 doesn't tell you aggregate figures. The shell keyword `time` tells you how much
 CPU your process used, but not how much memory. To get this information, you
-must use `/usr/bin/time`, which may not be installed on your system by default.
-The syntax on Mac and Linux is slightly different. The examples below show
-`/usr/bin/time` being used to monitor the `ls` command.
+must use `/usr/bin/time`, which may not be installed on your system by default
+(but you just installed it via conda). The syntax on Mac and Linux is slightly
+different. The examples below show `/usr/bin/time` being used to monitor the
+`ls` command.
 
 ```
 /usr/bin/time -lp ls  # mac
 /usr/bin/time -v ls   # linux
 ```
-
-`/usr/bin/time` is so useful that you might consider adding it to all of your
-conda environments.
-
 
 ## Sequences ##
 
