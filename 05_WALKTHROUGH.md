@@ -109,8 +109,8 @@ different. The examples below show `/usr/bin/time` being used to monitor the
 ## Sequences ##
 
 This walkthrough shows you how to do various bioinformatics tasks with
-sequences, so we had better find some sequences. You can find som in the
-`init/data` directory.
+sequences, so we had better find some sequences to play with. Conveniently, you
+can find some in the `init/data` directory.
 
 ### zless
 
@@ -145,7 +145,7 @@ The `?` key does a reverse search.
 ### seq-stats
 
 Sequence files can be huge and browsing them with `zless` might not be very
-informative. So let's use a program to give us a summary of what's in a FASTA
+efficient. So let's use a program to give us a summary of what's in a FASTA
 file. From the `init` repo, run the `bin/seq-stats` program on some of the
 FASTA files in the data directory.
 
