@@ -84,6 +84,7 @@ Install the _walkthrough_ conda environment from `init/etc`.
 
 ```
 conda env create -f etc/conda-walkthrough.yml
+conda activate walkthrough
 ```
 
 If this fails for some reason, seek help. It must succeed to continue.
@@ -108,7 +109,7 @@ different. The examples below show `/usr/bin/time` being used to monitor the
 ## Sequences ##
 
 This walkthrough shows you how to do various bioinformatics tasks with
-sequences, so we had better get some sequences. You can find these in the
+sequences, so we had better find some sequences. You can find som in the
 `init/data` directory.
 
 ### zless

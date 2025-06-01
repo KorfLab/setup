@@ -4,6 +4,5 @@ channels:
   - bioconda
   - defaults
 dependencies:
-  - python ==3.12.10
+  - python
   - blast
-  - blast-legacy
