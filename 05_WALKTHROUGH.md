@@ -1,14 +1,16 @@
 Walkthrough
 ===========
 
-WARNING: document in progress
+WARNING: document in progress and in a very drafty state!
 
-This is a short tutorial on some sequence-based bioinformatics.
+This is a short tutorial on some sequence-based bioinformatics. It's all CLI
+but no programming required.
 
 - Environment Checks
 - Sequences
 - Compositions
 - BLAST
+- Clustalw
 - Sequencing read alignment
 
 - Motif-finding
@@ -45,7 +47,34 @@ Your shell prompt should show `(base)` at the start. If this is not the case,
 try `conda activate`. If that doesn't work, you didn't install mini-forge
 (conda) correctly and you need to get help before proceeding.
 
-### benchmark
+### Install walkthrough Conda Environment
+
+Install the _walkthrough_ conda environment from `init/etc`.
+
+```
+conda env create -f etc/conda-walkthrough.yml
+conda activate walkthrough
+```
+
+If this fails for some reason, seek help. It must succeed to continue.
+
+### /usr/bin/time
+
+When we write programs or run programs from others, we often want to know how
+much computer resources are being used. `top` works for live monitoring, but
+doesn't tell you aggregate figures. The shell keyword `time` tells you how much
+CPU your process used, but not how much memory. To get this information, you
+must use `/usr/bin/time`, which may not be installed on your system by default
+(but you just installed it via conda). The syntax on Mac and Linux is slightly
+different. The examples below show `/usr/bin/time` being used to monitor the
+`ls` command.
+
+```
+/usr/bin/time -lp ls  # mac
+/usr/bin/time -v ls   # linux
+```
+
+### benchmarks
 
 Change directory to the `init` repo and try running the `benchmark` program in
 `init/bin`.
@@ -78,39 +107,15 @@ It's not a very good benchmark! Here are some typical values.
 - 100 pre-2020 computer
 - 50 Chromebook
 
-### Install walkthrough Conda Environment
-
-Install the _walkthrough_ conda environment from `init/etc`.
-
-```
-conda env create -f etc/conda-walkthrough.yml
-conda activate walkthrough
-```
-
-If this fails for some reason, seek help. It must succeed to continue.
-
-
-### /usr/bin/time
-
-When we write programs or run programs from others, we often want to know how
-much computer resources are being used. `top` works for live monitoring, but
-doesn't tell you aggregate figures. The shell keyword `time` tells you how much
-CPU your process used, but not how much memory. To get this information, you
-must use `/usr/bin/time`, which may not be installed on your system by default
-(but you just installed it via conda). The syntax on Mac and Linux is slightly
-different. The examples below show `/usr/bin/time` being used to monitor the
-`ls` command.
-
-```
-/usr/bin/time -lp ls  # mac
-/usr/bin/time -v ls   # linux
-```
-
 ## Sequences ##
 
 This walkthrough shows you how to do various bioinformatics tasks with
 sequences, so we had better find some sequences to play with. Conveniently, you
 can find some in the `init/data` directory.
+
+```
+cd data
+```
 
 ### zless
 
@@ -128,14 +133,14 @@ anyway. To ensure that everything in the `data` directory has read-only
 permission, do the following:
 
 ```
-chmod 444 data/*
+chmod 444 *.gz
 ```
 
 Now examine some of the sequence files.
 
 ```
-zless data/ce1pct.fa.gz
-zless data/GCF_000005845.2_ASM584v2_protein.faa.gz
+zless ce1pct.fa.gz
+zless GCF_000005845.2_ASM584v2_protein.faa.gz
 ```
 
 In `zless`, the space bar and the `f` key advance foward a page at a time. The
@@ -150,10 +155,10 @@ file. From the `init` repo, run the `bin/seq-stats` program on some of the
 FASTA files in the data directory.
 
 ```
-bin/seq-stats data/at1pct.fa.gz
-bin/seq-stats data/ce1pct.fa.gz
-bin/seq-stats data/dm1pct.fa.gz
-bin/seq-stats data/GCF_000005845.2_ASM584v2_protein.faa.gz
+../bin/seq-stats at1pct.fa.gz
+../bin/seq-stats ce1pct.fa.gz
+../bin/seq-stats dm1pct.fa.gz
+../bin/seq-stats GCF_000005845.2_ASM584v2_protein.faa.gz
 ```
 
 You should have noticed that the `at1pct.fa.gz` file has some nucleotide
@@ -161,7 +166,7 @@ ambiguity symbols. Also, the `GCF_000005845...` file is protein. If you examine
 the nucleotide frequencies of the genome files, you will find that Arabidopsis
 (at...) is similar to Caenorhabditis (ce...). They are relatively both AT-rich.
 
-## Compositions ##
+### kmer-gizmo
 
 Even when sequences have the similar compositions, it doesn't mean they are
 "speaking the same language". For example, English and French have very similar
@@ -174,10 +179,10 @@ Try `kmer-gizmo` on the 1 percent genomes with a kmer size of 2. Using the
 `--acgt` option ensures that all kmers use canonical letters only.
 
 ```
-bin/kmer-gizmo data/at1pct.fa.gz 2
-bin/kmer-gizmo data/at1pct.fa.gz 2 --acgt
-bin/kmer-gizmo data/ce1pct.fa.gz 2
-bin/kmer-gizmo data/dm1pct.fa.gz 2
+../bin/kmer-gizmo at1pct.fa.gz 2
+../bin/kmer-gizmo at1pct.fa.gz 2 --acgt
+../bin/kmer-gizmo ce1pct.fa.gz 2
+../bin/kmer-gizmo dm1pct.fa.gz 2
 ```
 
 While Arabidopsis and Caenorhabditis may look similar at the single nucleotide
@@ -186,13 +191,109 @@ reason, Caenorhabditis likes poly-A (or poly-T) sequences more than
 Arabidopsis.
 
 ```
-bin/kmer-gizmo data/at1pct.fa.gz 2 --acgt --compare data/ce1pct.fa.gz
-bin/kmer-gizmo data/at1pct.fa.gz 3 --acgt --compare data/ce1pct.fa.gz | less
-bin/kmer-gizmo data/at1pct.fa.gz 4 --acgt --compare data/ce1pct.fa.gz | less
+../bin/kmer-gizmo at1pct.fa.gz 2 --acgt --compare ce1pct.fa.gz
+../bin/kmer-gizmo at1pct.fa.gz 3 --acgt --compare ce1pct.fa.gz | less
+../bin/kmer-gizmo at1pct.fa.gz 4 --acgt --compare ce1pct.fa.gz | less
+```
+
+## build ##
+
+Create a `build` directory for your work. `git` ignores directories and files
+with specific names, and `build` is one of those. We'll do all of our work in
+the `build` directory so we don't pollute the repo with extra files.
+
+```
+mkdir build
 ```
 
 ## BLAST ##
 
+### makeblastdb
+
+To make a blast database, use the `makeblastdb` command. The program doesn't
+read compressed files, so you have to `gunzip -c` the FASTA file and then tell
+`makeblastdb` that the data is coming from stdin. This is what the `-` means.
+When using stdin, you also have to give the database a title and an output
+file name.
+
+```
+/usr/bin/time -v gunzip -c GCF_000005845.2_ASM584v2_protein.faa.gz\
+	| makeblastdb -in - -dbtype prot -out build/ecoli\
+	-title ecoli -parse_seqids
+```
+
+You could also do this another way:
+
+1. Uncompress the FASTA file into a new FAST file called `ecoli`
+2. Run `makeblastdb` on the FASTA file
+3. Remove the uncompressed file
+
+### blastdbcmd
+
+A BLAST database is more organized than a FASTA file. You can therefore
+retrieve specific sequences by name (this was what the `-parse_seqids` option
+allowed). Try the following command:
+
+```
+blastdbcmd -db build/ecoli -entry NP_414608.1
+``
+
+Now save it to a file:
+
+```
+/usr/bin/time -v  blastdbcmd -db build/ecoli -entry NP_414608.1\
+	> build/NP_414608.1.fa
+```
+
+### blastp
+
+Let's search the `NP_414608.1.fa` file against the `ecoli` database with
+`blastp`.
+
+```
+/usr/bin/time -v  blastp -db build/ecoli -query build/NP_414608.1.fa\
+	> build/blast.out
+```
+
+Use `less` to examine the output file. You'll see that the protein matches
+several other "ABC transporters" in E. coli. It must be a large-ish gene
+family. If you look at the end of the report (shift-G) you will see that some
+of the alignments at the end aren't very long or high scoring. They also have
+high E-values (expected by chance). Let's run `blastp` again and set the
+E-value lower (1e-5) so that we only see good matches.
+
+```
+/usr/bin/time -v  blastp -db build/ecoli -query build/NP_414608.1.fa\
+	-evalue 1e-5 > build/blast.out
+```
+
+Now let's get all of those sequence identifiers using `blastdbcmd`.
+
+```
+/usr/bin/time -v  grep "^>" build/blast.out | cut -f 1 -d " " |\
+	cut -f2 -d ">" > build/abc.txt
+```
+
+Examine `pids` with less and then run `blastcmd` to get all the sequences.
+
+```
+blastdbcmd -db ecoli -entry_batch abc.txt > abc.fa
+```
+
+## Clustalw ##
+
+Now that we have a bunch of related sequences, let's make a multiple alignment
+with `clustalw`.
+
+```
+clustalw -infile=abc.fa -outfile=abc.aln
+```
+
+Examine the file with `less`.
+
+
+
+-----------------------------------------------------------------------------
 
 
 ## Sequence Models ##
