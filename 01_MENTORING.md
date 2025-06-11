@@ -74,7 +74,7 @@ strategies are less successful.
                 ----------|---------
 high inventive | madness  | scout   |
                |----------|---------|
-low inventive  | worker   | waiting |
+low inventive  | worker   | bench   |
                 ----------|---------
 ```
 
@@ -87,16 +87,18 @@ unexciting tasks.
 A worker is a lower risk, lower reward occupation. Someone has to stay at home
 and do the daily chores be they farming, cooking, raising the next generation,
 or defending against enemies. A worker takes pride in a job well done. Workers
-also solve problems in inventive ways.
+also solve problems in inventive ways but they take more pride in doing a good
+job than in being inventive.
 
-The person who has lots of ideas and works to get them all done is insane. One
-cannot simultaneously be a scout and a worker, and the attempt will end in
-madness.
+The person who has lots of ideas and thinks they can get them all done is
+insane. One cannot simultaneously be a scout and a worker, and the attempt will
+end in madness (for example, the PI of this lab).
 
-A person who doesn't have ideas and doesn't get anything done is waiting. There
-are several flavors of waiting.
+A person who doesn't have ideas and doesn't get anything done is currently on
+the bench, not in the game. There are several reasons why a person might be on
+the bench.
 
-- Novice: insufficient skill to be useful, requires training
+- Novice: insufficient skill to be useful, requires more training
 - Recuperating: healing from injuries, requires time
 - Overwhelmed: too stressed by life to be useful, requires patience
 - Infirm: unable to work, requires assistance

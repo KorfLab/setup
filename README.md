@@ -18,8 +18,8 @@ the following order:
 - `02_EXPECTATIONS.md` what to expect when joining the lab
 - `03_RULES.md` best practices that are important enough to be called rules
 - `04_ENVIRONMENT.md` set up your bioinformatics environment
-- `05_WALKTHROUGH.md` experience some bioinformatics stuff
-- `06_CLASSICS.md` learn bioinformatics by studying classic examples
+- `05_WALKTHROUGH.md` experience some bioinformatics applications
+- `06_CLASSICS.md` learn bioinformatics programming by studying the classics
 - `07_EXAM.md` take the official KorfLab Bioinformatics Exam
 - `08_HALL_OF_FAME.md` honor roll of people who have passed the exam
 
@@ -40,4 +40,4 @@ There are also some directories with various files you may find useful.
 	- `korflab.py` common bioinformatics functions in Python
 	- `FAlite.pm` ancient FASTA iterator in Perl
 - `data` "Rule #1" data
-- `etc` config files
+- `etc` config files (shell customizations and conda environments)
