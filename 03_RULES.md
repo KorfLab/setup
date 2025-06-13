@@ -7,7 +7,7 @@ These might be called "best practices" except they are too important for that.
 - Rule #2: Everything is Portable
 - Rule #3: All Code in GitHub
 - Rule #4: Beautifully Simple
-- RUle #5: Refactoring Happens
+- Rule #5: Refactoring Happens
 - Rule #6: Be a Scientist, not a Robot
 
 ## Rule #1: Create Dev Data ##
@@ -166,11 +166,12 @@ easy way" instead of "the right way".
 - Do you have to look up the syntax of a `lambda` function every time?
 - Are you just the go-between from a web page to your text editor?
 - Have you become a copy-paste robot?
+- Have you become a slave to AI?
 
 Well stop doing it. Stop the copy-paste-modify practice. Stop looking up
 everthing on the Internet. Stop asking ChatGPT for answers. Stop using code
-completion. Use your brain to. Write every character of every line yourself, and
-when you get stuck ask a _person_ for help. Yes, this will take longer. But
+completion. Use your brain to. Write every character of every line yourself,
+and when you get stuck ask a _person_ for help. Yes, this will take longer. But
 you're here to learn, not to act like a robot.
 
 What makes a scientist a scientist? Two things:
