@@ -1,0 +1,124 @@
+#!/usr/bin/env python3
+
+import argparse
+import gzip
+import json
+import os
+import sqlite3
+import sys
+
+import korflab
+
+
+def create_database(arg):
+	if os.path.exists(arg.db): return
+	
+	con = sqlite3.connect(arg.db)
+	cur = con.cursor()
+	
+	# sequences
+	cur.execute('CREATE TABLE sequence(sid TEXT, seq TEXT)')
+	con.commit()
+	for header, seq in korflab.readfasta(arg.fasta):
+		sid = header.split()[0][1:]
+		cur.execute(f'INSERT INTO sequence VALUES ("{sid}", "{seq}")')
+		con.commit()
+
+	# features
+	cur.execute('CREATE TABLE feature(sid TEXT, beg INTEGER, end INTEGER, type TEXT, strand TEXT, score NUMERIC, uid TEXT, pid TEXT, source TEXT, name TEXT, alias Text, note TEXT)')
+	con.commit()
+	
+	optional = 'ID', 'Parent', 'Name', 'Alias', 'Note'
+	
+	for gff in korflab.readgff(arg.gff3):
+		# populate the optional info that goes with all records
+		info = {k:'' for k in optional}
+		for tv in gff.attr.rstrip(';').split(';'):
+			tag, value = tv.split('=')
+			info[tag] = value
+			
+		# create multiple records if there are multiple parents	
+		parent = []
+		if 'Parent' in info:
+			for p in info['Parent'].rstrip(',').split(','): parent.append(p)
+		else: parent.append('')
+		
+		# write data
+		if gff.score is None: gff.score = 0 # sqlite doesn't want None
+		uid = info['ID']
+		name = info['Name']
+		alias = info['Alias']
+		note = info['Note']
+		for pid in parent:
+			cur.execute(f'INSERT INTO feature VALUES("{gff.chrom}", {gff.beg}, {gff.end}, "{gff.type}", "{gff.strand}", {gff.score}, "{uid}", "{pid}", "{gff.source}", "{name}", "{alias}", "{note}")')
+			con.commit()
+
+def subseq(arg):
+	con = sqlite3.connect(arg.db)
+	cur = con.cursor()
+	length = arg.end - arg.beg + 1
+	seq = cur.execute(f'SELECT substr(seq, {arg.beg}, {length}) FROM sequence WHERE sid="{arg.seqid}"').fetchone()[0]
+	if arg.anti: seq = korflab.anti(seq)
+	print(f'>{arg.seqid}', seq, sep='\n')
+
+def features(arg):
+	pass
+
+def genes(arg):
+	pass
+
+
+
+## top level
+
+parser = argparse.ArgumentParser('fasta and gff database')
+parser.add_argument('--db', metavar='<file.db>', default='genome.db',
+	help='genome database file [%(default)s]')
+sub = parser.add_subparsers(required=True, help='sub-commands')
+
+## create genome database
+s1 = sub.add_parser('create',
+	help='create a genome database from fasta and gff3 files')
+s1.add_argument('fasta', metavar='<file.fa>',
+	help='genome fasta file, compressed ok')
+s1.add_argument('gff3', metavar='<file.gff3>',
+	help='genome gff3 file, compressed ok')
+s1.add_argument('--config', metavar='<file.json>',
+	help='genome-specific config file, see configs directory')
+s1.add_argument('--build', metavar='<dir>', default='build',
+	help='local scratch space [%(default)s]')
+s1.set_defaults(func=create_database)
+
+## get subsequences using coordinates
+s2 = sub.add_parser('subseq', help='retrieve subsequences as FASTA')
+s2.add_argument('--seqid', required=True, metavar='<name>',
+	help='chromosome name')
+s2.add_argument('--beg', type=int, required=True, metavar='<int>',
+	help='starting coordinate of sequence')
+s2.add_argument('--end', type=int, required=True, metavar='<int>',
+	help='starting coordinate of sequence')
+s2.add_argument('--anti', action='store_true',
+	help='reverse complement the sequence after retrieval')
+s2.set_defaults(func=subseq)
+
+## get simple features and their sequences
+s3 = sub.add_parser('features', help='get features and/or their sequences')
+s3.add_argument('--chrom', help='limit to specific chromosome(s)')
+s3.add_argument('--source', help='limit to specific source(s)')
+s3.add_argument('--type', help='limit to specific type(s)')
+s3.add_argument('--fasta', help='output FASTA file')
+s3.add_argument('--gff3', help='output GFF3 file')
+s3.add_argument('--plus', action='store_true', help='convert to + strand')
+s3.set_defaults(func=features)
+
+## get genes and transcripts
+s4 = sub.add_parser('genes', help='get genes')
+s4.add_argument('--source')
+s4.add_argument('--seq', action='store_true', help='report sequence')
+s4.add_argument('--tx', help='send transcripts to named file')
+s4.add_argument('--cds', help='send CDS to named file')
+s4.set_defaults(func=genes)
+
+## execute sub-command
+arg = parser.parse_args()
+arg.func(arg)
